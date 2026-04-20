@@ -17,10 +17,10 @@ export function DashboardNav() {
 
   return (
     <aside
-      className="w-56 shrink-0 min-h-screen flex flex-col py-8 px-4 border-r"
+      className="w-56 shrink-0 min-h-screen flex flex-col py-8 px-4"
       style={{
-        background: "var(--color-cream-100)",
-        borderColor: "var(--color-cream-300)",
+        background: "var(--color-surface)",
+        borderRight: "1px solid rgba(197, 200, 190, 0.4)",
       }}
     >
       <Link
@@ -41,9 +41,9 @@ export function DashboardNav() {
             <Link
               key={link.href}
               href={link.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300"
               style={{
-                background: active ? "var(--color-sage-100)" : "transparent",
+                background: active ? "rgba(74, 93, 78, 0.1)" : "transparent",
                 color: active
                   ? "var(--color-sage-700)"
                   : "var(--color-text-secondary)",
@@ -57,11 +57,11 @@ export function DashboardNav() {
       </nav>
 
       <div
-        className="mt-auto pt-6 border-t"
-        style={{ borderColor: "var(--color-cream-300)" }}
+        className="mt-auto pt-6"
+        style={{ borderTop: "1px solid rgba(197, 200, 190, 0.4)" }}
       >
         <button
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium w-full transition-colors duration-150 hover:bg-[var(--color-cream-200)]"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium w-full transition-all duration-300 hover:bg-[var(--color-surface-low)]"
           style={{ color: "var(--color-text-tertiary)" }}
         >
           <span>⇤</span> Sign out

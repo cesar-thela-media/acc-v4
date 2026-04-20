@@ -16,10 +16,10 @@ export function AdminNav() {
 
   return (
     <aside
-      className="w-56 shrink-0 min-h-screen flex flex-col py-8 px-4 border-r"
+      className="w-56 shrink-0 min-h-screen flex flex-col py-8 px-4"
       style={{
         background: "var(--color-sage-900)",
-        borderColor: "rgba(255,255,255,0.08)",
+        borderRight: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       <div className="px-3 mb-8">
@@ -47,7 +47,7 @@ export function AdminNav() {
             <Link
               key={link.href}
               href={link.href}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300"
               style={{
                 background: active ? "rgba(255,255,255,0.1)" : "transparent",
                 color: active ? "#fff" : "rgba(255,255,255,0.6)",
@@ -61,12 +61,12 @@ export function AdminNav() {
       </nav>
 
       <div
-        className="mt-auto pt-6 border-t"
-        style={{ borderColor: "rgba(255,255,255,0.08)" }}
+        className="mt-auto pt-6"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
       >
         <Link
           href="/"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300"
           style={{ color: "rgba(255,255,255,0.4)" }}
         >
           <span>⇤</span> Back to site

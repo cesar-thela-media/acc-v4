@@ -1,4 +1,296 @@
-# Austin Clinician Circle — Design System
+# Austin Clinician Circle — Unified Design System
+
+> **Version:** 2.0
+> **Date:** April 2026
+> **Philosophy:** The Breathable Interface — calm, botanical, editorial. A digital sanctuary for licensed therapists.
+> **References:** restoredfamily.com (brand family), Zenith wellness app (UI language), DESIGN.md (token spec)
+
+---
+
+## 1. Design Philosophy
+
+### The "Breathable Interface"
+
+ACC is not a productivity app. It is a professional sanctuary. The UI should feel like:
+
+- **Calm + botanical** — sage-tinted surfaces, not warm beige. Nature, not decoration.
+- **Editorial, not dashboard-y** — generous whitespace, asymmetric breathing, no crowding.
+- **Warm precision** — trusted colleague energy. Professional but never corporate.
+- **Ambient depth** — elevation through tonal layering (color shifts), not hard borders.
+
+### The "No-Line" Rule
+Sections and regions are **separated by background color shifts**, not 1px borders.
+Cards may use ghost borders (≤50% opacity). Hard 1px borders on sections are prohibited.
+
+### The "Glass & Gradient" Rule
+Floating nav, overlays, and elevated elements use **glassmorphism**: backdrop-blur + semi-transparent surface color. Never solid opaque backgrounds on floating elements.
+
+### Animation Principle
+Transitions are **slow and breath-like**. Use 300–400ms ease-in-out. Nothing should snap or pop. Motion mimics a slow exhale.
+
+---
+
+## 2. Color Tokens
+
+All colors are CSS custom properties defined in `globals.css → @theme inline`.
+
+### Sage Palette (primary brand)
+
+| Token | Value | Usage |
+|---|---|---|
+| `--color-sage-900` | `#2F3E33` | Hero backgrounds, footer, dark CTA sections |
+| `--color-sage-800` | `#3B4D3F` | Dark section variants, hover on dark |
+| `--color-sage-700` | `#4A5D4E` | **Primary brand** — buttons, links, icons, headlines in light sections |
+| `--color-sage-600` | `#5A7060` | Eyebrow labels, secondary accents, active states |
+| `--color-sage-500` | `#6B8572` | Lighter icons, decorative accents |
+| `--color-sage-100` | `#E4EBE6` | Light sage tint — avatar backgrounds, soft highlights |
+| `--color-sage-50` | `#F3F6F4` | Barely-there sage wash |
+
+### Surface Palette (sage-tinted, not warm-beige)
+
+| Token | Value | Semantic Alias | Usage |
+|---|---|---|---|
+| `--color-cream-100` | `#F8FAF3` | `--color-surface` | Page base background |
+| `--color-cream-200` | `#ECEFE8` | `--color-surface-low` | Section nest, alternating containers |
+| `--color-cream-300` | `#DFE3DA` | Ghost borders / dividers | Use at ≤60% opacity for borders |
+| `--color-cream-400` | `#C5C8BE` | Outline-variant | Disabled states, subtle dividers |
+| — | `#FFFFFF` | `--color-surface-card` | Interactive cards, floating modules |
+
+> **Note:** These surfaces have a botanical sage tint — slightly green-grey, not warm yellow-cream. This matches the Zenith reference palette.
+
+### Accent Colors
+
+| Token | Value | Usage |
+|---|---|---|
+| `--color-gold` | `#C9A96E` | Premium highlights, serif display accents, stats |
+| `--color-terracotta` | `#C07A5A` | Warm CTA accents, stress indicators, callout borders |
+| `--color-blush` | `#FED7D2` | **Achievement / reward callouts** — milestones, streak banners, warm announcements |
+| `--color-blush-dark` | `#F4B4AE` | Blush icon tint, deeper blush accents |
+
+### Text Colors
+
+| Token | Value | Usage |
+|---|---|---|
+| `--color-text-primary` | `#191C18` | Headings, body text on light backgrounds |
+| `--color-text-secondary` | `#444841` | Subtext, captions, meta info |
+| `--color-text-tertiary` | `#75796E` | Placeholders, labels, fine print |
+| `--color-text-inverse` | `#FFFFFF` | Text on dark/sage backgrounds |
+| `--color-text-inverse-muted` | `rgba(255,255,255,0.65)` | Subtext on dark backgrounds |
+
+### Functional
+
+| Token | Value | Usage |
+|---|---|---|
+| `--color-success` | `#4A7C59` | Success states, "accepting clients" badges |
+| `--color-warning` | `#C4932A` | Warnings, pending states |
+| `--color-error` | `#B54B4B` | Errors, destructive actions |
+| `--color-info` | `#4A6F8C` | Info badges, informational states |
+
+---
+
+## 3. Typography
+
+### Font Stack
+
+| Role | Font | CSS Var | Fallback |
+|---|---|---|---|
+| **Display / Headings** | Cormorant Garamond | `var(--font-serif)` | Georgia, Times, serif |
+| **Body / UI** | Plus Jakarta Sans | `var(--font-sans)` | Inter, Helvetica, sans-serif |
+
+Both fonts are loaded via `next/font/google` in the root layout.
+
+### Type Scale
+
+| Level | Size | Weight | Line Height | Usage |
+|---|---|---|---|---|
+| `display-lg` | `clamp(3rem, 8vw, 6rem)` | 400 | 1.05 | Hero headline |
+| `display-sm` | `clamp(2rem, 5vw, 3.5rem)` | 400 | 1.1 | Section hero headings |
+| `heading-2` | `clamp(1.75rem, 3.5vw, 2.5rem)` | 400 | 1.2 | Section titles |
+| `title-md` | `1.25rem / 1rem` | 600 | 1.3 | Card titles, sub-sections |
+| `body-lg` | `1.125rem` | 400 | 1.6 | Lead paragraphs |
+| `body` | `1rem` | 400 | 1.6 | Default body text |
+| `body-sm` | `0.875rem` | 400 | 1.5 | Captions, meta |
+| `label` | `0.75rem` | 500 | 1.4 | Overlines, badges — UPPERCASE + tracked |
+
+### Typography Rules
+- **All headings**: `var(--font-serif)`, sentence case (never ALL CAPS)
+- **Headings in light sections**: use `var(--color-sage-800)` or `var(--color-sage-900)` for maximum legibility
+- **Headings in dark sections**: use `#FFFFFF` or `var(--color-gold)` for accent
+- **Overlines / section labels**: `0.75rem`, uppercase, `tracking-widest`, `var(--color-sage-600)`
+- **Max body width**: `680px` for readability
+- **No pure black** anywhere — use `--color-text-primary` (`#191C18`)
+
+---
+
+## 4. Surface Architecture & Layering
+
+Think of the UI as a stack of physical materials:
+
+```
+Layer 0 (Base):    --color-surface (#F8FAF3)         → page background
+Layer 1 (Nest):    --color-surface-low (#ECEFE8)      → section containers
+Layer 2 (Cards):   --color-surface-card (#FFFFFF)     → interactive cards
+Layer 3 (Dark):    --color-sage-900 (#2F3E33)         → hero, footer, CTA sections
+```
+
+**Separation between layers is achieved by background shift only — not borders.**
+Cards may have a ghost border: `1px solid rgba(197, 200, 190, 0.5)`.
+
+---
+
+## 5. Spacing
+
+`4px` base unit.
+
+| Value | Tailwind | Usage |
+|---|---|---|
+| `4px` | `p-1` | Tight gaps, icon padding |
+| `8px` | `p-2` | Small gaps, badge padding |
+| `12px` | `p-3` | Input padding, inline spacing |
+| `16px` | `p-4` | Card internal padding (min) |
+| `24px` | `p-6` | Card padding standard |
+| `32px` | `p-8` | Card padding generous |
+| `40px` | `p-10` | Section mobile padding |
+| `56px` | `py-14` | Section padding medium |
+| `80px` | `py-20` | Section padding large |
+| `112px` | `py-28` | Section padding full |
+
+---
+
+## 6. Shape & Borders
+
+| Token | Value | Usage |
+|---|---|---|
+| `--radius-sm` | `6px` | Tags, badges |
+| `--radius-md` | `10px` | Inputs, small elements |
+| `--radius-lg` | `16px` | Standard cards |
+| `--radius-xl` | `24px` | **Main content cards**, large containers |
+| `--radius-full` | `9999px` | Buttons, pills, avatars |
+
+**Card border standard**: `1px solid rgba(197, 200, 190, 0.5)` — ghost, not solid.
+**Focus ring**: `2px solid var(--color-sage-700)` with `2px` offset.
+
+---
+
+## 7. Shadows (Sage-Tinted Ambient)
+
+All shadows use a sage-green tint (`rgba(74, 93, 78, ...)`) — never cold black.
+
+| Token | Value | Usage |
+|---|---|---|
+| `--shadow-xs` | `0 1px 3px rgba(74,93,78,0.06)` | Barely-lifted inputs |
+| `--shadow-sm` | `0 2px 8px rgba(74,93,78,0.07)` | Subtle cards |
+| `--shadow-md` | `0 4px 20px rgba(74,93,78,0.09)` | Standard cards (default) |
+| `--shadow-lg` | `0 8px 36px rgba(74,93,78,0.11)` | Elevated / hover state |
+| `--shadow-xl` | `0 16px 56px rgba(74,93,78,0.13)` | Modals, hero cards |
+
+**Floating elements** (nav, badges): Use glassmorphism — `backdrop-blur(20px)` + translucent background, never solid.
+
+---
+
+## 8. Components
+
+### Buttons
+
+| Variant | Background | Text | Hover |
+|---|---|---|---|
+| **Primary** | `--color-sage-700` | white | `--color-sage-800` |
+| **Secondary** | transparent | `--color-sage-700` | border + bg tint |
+| **Ghost** | transparent | `--color-text-primary` | `--color-surface-low` |
+| **Inverse** | white | `--color-sage-700` | `--color-surface` |
+| **Destructive** | `--color-error` | white | opacity 90% |
+
+Radius: `--radius-full` (9999px) for all buttons.
+Transition: 300ms `ease-in-out`.
+
+### Cards
+
+```
+Background:     white (#FFFFFF)
+Border:         1px solid rgba(197, 200, 190, 0.5)  ← ghost border
+Border-radius:  24px (radius-xl)
+Padding:        24px (space-6)
+Shadow:         0 2px 16px rgba(74, 93, 78, 0.07)
+Hover shadow:   0 8px 36px rgba(74, 93, 78, 0.12)
+Hover lift:     translateY(-2px) over 300ms
+```
+
+### Badges
+
+| Variant | Background | Text |
+|---|---|---|
+| `default` | `rgba(228, 235, 230, 0.7)` | `--color-sage-700` |
+| `success` | `#EAF5EE` | `--color-success` |
+| `warning` | `#FDF3E3` | `#C4932A` |
+| `error` | `#FAEAEA` | `--color-error` |
+| `gold` | `rgba(201,169,110,0.12)` | `--color-gold` |
+| `blush` | `--color-blush` | `#755754` |
+
+### Floating Navigation (Public)
+
+```
+Base state:      background: transparent
+Scrolled state:  background: rgba(248, 250, 243, 0.85)
+                 backdrop-filter: blur(20px)
+                 border-bottom: 1px solid rgba(223, 227, 218, 0.6)
+Transition:      300ms ease-in-out
+```
+
+### Inputs
+
+```
+Background:     --color-surface-low (#ECEFE8)
+Border:         1px solid rgba(197, 200, 190, 0.6)
+Border-radius:  --radius-xl (24px) for standalone fields
+                --radius-md (10px) for compact fields
+Focus:          background shifts to primary-fixed (#D9E7CD), soft border
+No harsh outlines — use soft glow or bg shift only
+```
+
+---
+
+## 9. Motion
+
+All interactive transitions: **300–400ms** `cubic-bezier(0.4, 0, 0.2, 1)`.
+
+- Navigation: 300ms
+- Button hover: 300ms
+- Card hover: 400ms (breath-like float)
+- Scroll-reveal animations: 700ms with `cubic-bezier(0.16, 1, 0.3, 1)` (spring)
+- Floating elements: `animation: float 4s ease-in-out infinite`
+- Persistent loops (badges, indicators): `pulseDot 2.2s ease-in-out infinite`
+
+**No pop. No snap. Everything exhales.**
+
+---
+
+## 10. Blush Usage (Warm Reward Callouts)
+
+`--color-blush` (`#FED7D2`) is used for:
+- Milestone banners ("founding member", "streak achieved")
+- Achievement section backgrounds
+- Warm welcome / announcement banners
+- "Limited spots" callout sections
+
+Pair with `--color-blush-dark` (`#F4B4AE`) for icons and text emphasis.
+Never use blush for error states — it reads as soft/positive.
+
+---
+
+## 11. Do's and Don'ts
+
+| Do | Don't |
+|---|---|
+| Use color shifts for section separation | Use 1px solid borders between sections |
+| Glassmorphism for floating elements | Solid opaque backgrounds on floating UI |
+| Sage-tinted shadows | Cold black shadows |
+| 300–400ms transitions | Instant snaps (`duration-0`, `duration-100`) |
+| `--color-text-primary` (#191C18) | Pure black (#000000) |
+| XL radius (24px) on cards | Sharp corners on cards |
+| Generous whitespace | Crowded layouts |
+| Sentence case headings | ALL CAPS headings |
+| Blush for warm achievement moments | Blush for error or warning states |
+
 
 > **Version:** 1.0 (Draft)
 > **Date:** April 20, 2026

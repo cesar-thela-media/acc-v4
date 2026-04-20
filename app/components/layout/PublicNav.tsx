@@ -24,10 +24,16 @@ export function PublicNav() {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-200"
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? "var(--color-cream-100)" : "transparent",
-          boxShadow: scrolled ? "0 1px 0 var(--color-cream-300)" : "none",
+          background: scrolled
+            ? "rgba(248, 250, 243, 0.85)"
+            : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: scrolled
+            ? "1px solid rgba(223, 227, 218, 0.6)"
+            : "none",
         }}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">

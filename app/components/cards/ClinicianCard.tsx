@@ -21,10 +21,18 @@ export function ClinicianCard({
 }: ClinicianCardProps) {
   return (
     <div
-      className="bg-white rounded-2xl border p-5 flex flex-col gap-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+      className="bg-white rounded-2xl p-5 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1"
       style={{
-        borderColor: "var(--color-cream-300)",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+        border: "1px solid rgba(197, 200, 190, 0.5)",
+        boxShadow: "0 2px 16px rgba(74, 93, 78, 0.07)",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow =
+          "0 8px 32px rgba(74, 93, 78, 0.12)";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow =
+          "0 2px 16px rgba(74, 93, 78, 0.07)";
       }}
     >
       <div className="flex items-start gap-4">

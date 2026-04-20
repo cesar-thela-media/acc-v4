@@ -15,10 +15,10 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 }
 
 const baseStyles =
-  "w-full bg-white border rounded-lg px-4 py-3 text-sm outline-none transition-colors duration-150 placeholder:text-[var(--color-text-tertiary)]";
+  "w-full bg-white border rounded-xl px-4 py-3 text-sm outline-none transition-all duration-300 placeholder:text-[var(--color-text-tertiary)]";
 
 const normalBorder =
-  "border-[var(--color-cream-400)] focus:border-[var(--color-sage-700)]";
+  "border-[rgba(197,200,190,0.6)] focus:border-[var(--color-sage-600)] focus:bg-[#F3F7EE]";
 const errorBorder =
   "border-[var(--color-error)] focus:border-[var(--color-error)]";
 

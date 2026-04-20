@@ -357,6 +357,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── FOUNDING MEMBER BLUSH BANNER ─────────────────────────────────── */}
+      <div
+        className="relative overflow-hidden"
+        style={{ background: "var(--color-blush)" }}
+      >
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between flex-wrap gap-3">
+          <div className="flex items-center gap-3">
+            <span
+              className="w-2 h-2 rounded-full animate-pulse-dot"
+              style={{ background: "#755754" }}
+            />
+            <p className="text-sm font-medium" style={{ color: "#755754" }}>
+              Now accepting founding members —{" "}
+              <strong>24 of 40 spots filled.</strong> Applications reviewed weekly.
+            </p>
+          </div>
+          <Link
+            href="/join"
+            className="text-xs font-semibold underline shrink-0"
+            style={{ color: "#755754", textUnderlineOffset: "3px" }}
+          >
+            Apply now →
+          </Link>
+        </div>
+      </div>
+
       {/* ── PROBLEM / PROMISE ─────────────────────────────────────────────── */}
       <section className="py-28" style={{ background: "var(--color-cream-200)" }}>
         <div className="max-w-4xl mx-auto px-6 text-center">

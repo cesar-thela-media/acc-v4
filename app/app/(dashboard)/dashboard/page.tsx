@@ -102,7 +102,7 @@ export default function DashboardPage() {
               <div
                 key={ev.title}
                 className="flex items-start justify-between gap-4 pb-4 border-b last:border-0 last:pb-0"
-                style={{ borderColor: "var(--color-cream-300)" }}
+                style={{ borderColor: "rgba(197,200,190,0.5)" }}
               >
                 <div>
                   <p
@@ -150,7 +150,7 @@ export default function DashboardPage() {
               <div
                 key={r.title}
                 className="flex items-center justify-between gap-4 pb-4 border-b last:border-0 last:pb-0"
-                style={{ borderColor: "var(--color-cream-300)" }}
+                style={{ borderColor: "rgba(197,200,190,0.5)" }}
               >
                 <p
                   className="text-sm"
@@ -165,10 +165,44 @@ export default function DashboardPage() {
         </Card>
       </div>
 
+      {/* Weekly milestone — blush callout */}
+      <div
+        className="rounded-2xl p-6 flex items-center justify-between gap-6"
+        style={{ background: "var(--color-blush)" }}
+      >
+        <div className="flex flex-col gap-1">
+          <p
+            className="text-xs font-medium uppercase tracking-widest"
+            style={{ color: "#755754" }}
+          >
+            Weekly ritual
+          </p>
+          <p
+            className="text-base font-semibold"
+            style={{
+              fontFamily: "var(--font-serif), Georgia, serif",
+              color: "#4a2020",
+              fontSize: "1.25rem",
+            }}
+          >
+            You&apos;ve attended 4 consultation groups in a row.
+          </p>
+          <p className="text-sm mt-0.5" style={{ color: "#755754" }}>
+            Consistency is the foundation of great clinical work.
+          </p>
+        </div>
+        <div
+          className="w-14 h-14 rounded-full flex items-center justify-center text-2xl shrink-0"
+          style={{ background: "var(--color-blush-dark)" }}
+        >
+          ◈
+        </div>
+      </div>
+
       {/* Membership status */}
       <Card
         className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-        style={{ borderColor: "var(--color-sage-100)", background: "var(--color-sage-50)" }}
+        style={{ border: "1px solid rgba(74,93,78,0.15)", background: "rgba(228,235,230,0.5)" }}
       >
         <div>
           <p
