@@ -21,10 +21,10 @@ const variantStyles: Record<BadgeVariant, { background: string; color: string }>
   success: { background: "rgba(74,124,89,0.12)", color: "var(--color-success)" },
   warning: { background: "rgba(var(--color-accent-highlight-rgb), 0.22)", color: "var(--color-text-primary)" },
   error:   { background: "rgba(181,75,75,0.12)", color: "var(--color-error)" },
-  accent: { background: "rgba(var(--color-accent-secondary-rgb), 0.12)", color: "var(--color-text-primary)" },
+  accent: { background: "rgba(var(--color-accent-highlight-rgb), 0.18)", color: "var(--color-text-primary)" },
   highlight: { background: "rgba(var(--color-accent-highlight-rgb), 0.18)", color: "var(--color-text-primary)" },
   gold:    { background: "rgba(var(--color-accent-highlight-rgb), 0.18)", color: "var(--color-text-primary)" },
-  blush:   { background: "rgba(var(--color-accent-secondary-rgb), 0.12)", color: "var(--color-text-primary)" },
+  blush:   { background: "rgba(var(--color-accent-highlight-rgb), 0.18)", color: "var(--color-text-primary)" },
 };
 
 export function Badge({

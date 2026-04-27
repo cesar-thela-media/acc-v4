@@ -113,7 +113,7 @@ export default function ComingSoonPage() {
           {/* ── Left: copy ── */}
           <div>
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full" style={{ background: "var(--color-accent-secondary)", border: "1px solid rgba(27,27,27,0.08)" }}>
+            <div className="inline-flex items-center gap-2 mb-6 px-3.5 py-1.5 rounded-full" style={{ background: "var(--color-accent-highlight)", border: "1px solid rgba(27,27,27,0.08)" }}>
               <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-text-primary)" }} />
               <span className="text-xs font-semibold uppercase tracking-widest" style={{ color: "var(--color-text-primary)" }}>
                 Free guide for Austin therapists
@@ -219,7 +219,7 @@ export default function ComingSoonPage() {
                         border: "1px solid rgba(255,255,255,0.12)",
                         color: "#fff",
                       }}
-                      onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(var(--color-accent-secondary-rgb), 0.5)")}
+                      onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(var(--color-accent-highlight-rgb), 0.5)")}
                       onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
                     />
                   </div>
@@ -240,7 +240,7 @@ export default function ComingSoonPage() {
                         border: "1px solid rgba(255,255,255,0.12)",
                         color: "#fff",
                       }}
-                      onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(var(--color-accent-secondary-rgb), 0.5)")}
+                      onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(var(--color-accent-highlight-rgb), 0.5)")}
                       onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
                     />
                   </div>

@@ -15,7 +15,7 @@ const benefits = [
     icon: "◫",
     title: "Curated resource library",
     body: "48+ clinical tools, handouts, worksheets, and business guides — organized, downloadable, and built for active private practice.",
-    accent: "var(--color-accent-secondary)",
+    accent: "var(--color-accent-highlight)",
   },
   {
     icon: "◎",
@@ -33,7 +33,7 @@ const benefits = [
     icon: "◷",
     title: "Public directory listing",
     body: "A professionally crafted listing in our public clinician directory — searchable by specialty, format, and availability. Clients find you here.",
-    accent: "var(--color-accent-secondary)",
+    accent: "var(--color-accent-highlight)",
   },
   {
     icon: "◇",
@@ -422,7 +422,7 @@ export default function HomePage() {
             {/* Floating quote badge */}
             <div
               className="relative md:absolute md:-bottom-5 md:-right-5 mt-4 md:mt-0 ml-auto md:ml-0 px-5 py-4 rounded-xl max-w-[260px]"
-              style={{ background: "var(--color-accent-secondary)" }}
+              style={{ background: "var(--color-accent-highlight)" }}
             >
               <p
                 className="text-sm font-medium leading-snug"
@@ -545,7 +545,7 @@ export default function HomePage() {
                 data-delay={String((i + 1) * 150)}
                 style={{
                   background: "#fff",
-                  borderLeft: "3px solid var(--color-accent-secondary)",
+                  borderLeft: "3px solid var(--color-accent-highlight)",
                   boxShadow: "0 4px 20px rgba(27,27,27,0.06)",
                 }}
               >
@@ -905,7 +905,7 @@ export default function HomePage() {
           >
             <span
               className="w-2 h-2 rounded-full animate-pulse-dot"
-              style={{ background: "var(--color-accent-secondary)" }}
+              style={{ background: "var(--color-accent-highlight)" }}
             />
             <span
               className="text-xs font-medium"

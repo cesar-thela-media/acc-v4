@@ -182,9 +182,9 @@ export default function WhatWeOfferPage() {
         className="py-16 md:py-24"
         style={{ background: "var(--color-cream-200)" }}
       >
-        <div className="max-w-6xl mx-auto px-5 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div className="text-center md:text-left">
+        <div className="max-w-5xl mx-auto px-5 md:px-6">
+          <div className="flex flex-col items-center gap-10 md:gap-12 text-center">
+            <div className="max-w-2xl">
               <p
                 className="text-xs font-medium uppercase tracking-widest mb-5"
                 style={{ color: "var(--color-sage-600)" }}

@@ -28,7 +28,7 @@ export function AdminNav() {
       <div
         className="md:hidden fixed top-0 left-0 right-0 z-40 h-16 px-4 flex items-center justify-between"
         style={{
-          background: "rgba(var(--color-admin-sidebar-rgb), 0.96)",
+          background: "rgba(var(--color-accent-highlight-rgb), 0.96)",
           borderBottom: "1px solid rgba(27,27,27,0.12)",
           backdropFilter: "blur(16px)",
         }}
@@ -56,7 +56,7 @@ export function AdminNav() {
       <aside
         className="hidden md:flex w-56 shrink-0 h-screen overflow-hidden flex-col py-6 px-4"
         style={{
-          background: "var(--color-admin-sidebar)",
+          background: "var(--color-accent-highlight)",
           borderRight: "1px solid rgba(27,27,27,0.12)",
         }}
       >
@@ -115,7 +115,7 @@ export function AdminNav() {
       <MobileSidePanel
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        background="rgba(var(--color-admin-sidebar-rgb), 0.98)"
+        background="rgba(var(--color-accent-highlight-rgb), 0.98)"
         borderColor="rgba(27,27,27,0.12)"
         closeColor="rgba(27,27,27,0.72)"
         title={
