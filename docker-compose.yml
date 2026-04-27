@@ -30,7 +30,7 @@ services:
   # ── Next.js App ─────────────────────────────────────────────────────────────
   app:
     build:
-      context: ./app
+      context: .
       dockerfile: Dockerfile.dev
     restart: unless-stopped
     ports:
@@ -54,7 +54,7 @@ services:
       R2_BUCKET_NAME: ${R2_BUCKET_NAME:-acc-resources}
       NEXT_PUBLIC_CALENDLY_URL: ${NEXT_PUBLIC_CALENDLY_URL:-}
     volumes:
-      - ./app:/app
+      - .:/app
       - /app/node_modules      # keep container's node_modules isolated
       - /app/.next             # keep container's build cache isolated
     depends_on:
