@@ -112,3 +112,4 @@
 - Fixed the remaining public-facing brand references in `app/(public)/page.tsx`, `app/(public)/who-we-are/page.tsx`, `app/(public)/coming-soon/layout.tsx`, `app/(public)/coming-soon/page.tsx`, `components/layout/PublicNav.tsx`, and `components/layout/Footer.tsx`.
 - Re-ran the public copy audit: no remaining `Austin Clinician Circle` or standalone `ACC` matches remain in the public route files or shared public layout components that were part of this marketing pass.
 - Final post-audit verification is clean: edited-file diagnostics show no errors and `bun run build` passes successfully from `c:\Users\idder\tmg\ACC`.
+- Pushed the audited ACC client-update work to `origin/cesar` at commit `6467b50` (`feat: apply ACC client content updates`).
