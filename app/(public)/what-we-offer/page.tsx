@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PricingCard } from "@/components/cards/PricingCard";
 
@@ -89,6 +90,12 @@ const pricingFeatures = [
   "Professional Will designation",
   "Private online community for real-time support",
 ];
+
+export const metadata: Metadata = {
+  title: "What We Offer — The Circle",
+  description:
+    "Membership gives you full access to clinical support, professional development, and community. Monthly case consultation, CEU trainings, resource library, and more.",
+};
 
 export default function WhatWeOfferPage() {
   return (
@@ -214,9 +221,19 @@ export default function WhatWeOfferPage() {
                 A simple membership with full access to consultation,
                 professional development, and community.
               </p>
+              <Link
+                href="/join"
+                className="inline-flex w-full sm:w-auto items-center justify-center px-8 py-3.5 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+                style={{
+                  background: "var(--color-sage-700)",
+                  color: "#fff",
+                }}
+              >
+                Apply for membership
+              </Link>
             </div>
             <div className="max-w-sm w-full mx-auto">
-              <PricingCard price="$79" features={pricingFeatures} featured ctaLabel="Start your application" />
+              <PricingCard price="$79" features={pricingFeatures} featured />
             </div>
           </div>
         </div>

@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { AdminNav } from "@/components/layout/AdminNav";
+
+export const metadata: Metadata = {
+  title: "Admin — The Circle",
+  description:
+    "Admin dashboard for managing members, applications, events, and resources.",
+};
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (

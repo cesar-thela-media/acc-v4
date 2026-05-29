@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { DashboardNav } from "@/components/layout/DashboardNav";
+
+export const metadata: Metadata = {
+  title: "Dashboard — The Circle",
+  description:
+    "Your member dashboard. Access resources, events, your referral network, billing, and profile settings.",
+};
 
 export default function DashboardLayout({
   children,

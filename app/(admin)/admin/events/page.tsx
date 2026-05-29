@@ -7,6 +7,17 @@ import { Input, Textarea } from "@/components/ui/Input";
 
 const CATEGORIES = ["Consultation", "Workshop", "CEU", "Self-Care"];
 
+type SortKey = "title" | "date" | "category" | "rsvps";
+type SortDir = "asc" | "desc";
+
+function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
+  return (
+    <span className="inline-block ml-1 text-xs" style={{ opacity: active ? 1 : 0.25 }}>
+      {dir === "asc" ? "▲" : "▼"}
+    </span>
+  );
+}
+
 type EventEntry = {
   id: number;
   title: string;
@@ -42,6 +53,25 @@ export default function AdminEventsPage() {
   const [editId, setEditId] = useState<number | null>(null);
   const [form, setForm] = useState(BLANK_FORM);
   const [formCategory, setFormCategory] = useState("Consultation");
+  const [sortKey, setSortKey] = useState<SortKey>("date");
+  const [sortDir, setSortDir] = useState<SortDir>("asc");
+
+  function toggleSort(key: SortKey) {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir(key === "date" ? "asc" : "desc");
+    }
+  }
+
+  const sortedEvents = [...events].sort((a, b) => {
+    const mul = sortDir === "asc" ? 1 : -1;
+    if (sortKey === "title") return mul * a.title.localeCompare(b.title);
+    if (sortKey === "category") return mul * a.category.localeCompare(b.category);
+    if (sortKey === "rsvps") return mul * (a.rsvpCount - b.rsvpCount);
+    return mul * a.date.localeCompare(b.date);
+  });
 
   function openCreate() {
     setEditId(null);
@@ -108,6 +138,11 @@ export default function AdminEventsPage() {
     setShowForm(false);
     setEditId(null);
     setForm(BLANK_FORM);
+  }
+
+  function handleSort(key: SortKey, dir: SortDir) {
+    setSortKey(key);
+    setSortDir(dir);
   }
 
   return (
@@ -224,7 +259,7 @@ export default function AdminEventsPage() {
       {/* Event list */}
       {events.length > 0 && (
         <div className="md:hidden flex flex-col gap-3">
-          {events.map((ev) => (
+          {sortedEvents.map((ev) => (
             <div
               key={ev.id}
               className="rounded-2xl border bg-white p-4 flex flex-col gap-3"
@@ -273,16 +308,44 @@ export default function AdminEventsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--color-cream-300)", background: "var(--color-cream-100)" }}>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Event</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Date & time</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Category</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>RSVPs</th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("title")}
+                >
+                  Event
+                  <SortIcon active={sortKey === "title"} dir={sortDir} />
+                </th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("date")}
+                >
+                  Date & time
+                  <SortIcon active={sortKey === "date"} dir={sortDir} />
+                </th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("category")}
+                >
+                  Category
+                  <SortIcon active={sortKey === "category"} dir={sortDir} />
+                </th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("rsvps")}
+                >
+                  RSVPs
+                  <SortIcon active={sortKey === "rsvps"} dir={sortDir} />
+                </th>
                 <th className="px-5 py-3" />
               </tr>
             </thead>
             <tbody>
-              {events.map((ev, i) => (
-                <tr key={ev.id} style={{ borderBottom: i < events.length - 1 ? "1px solid var(--color-cream-200)" : "none" }}>
+              {sortedEvents.map((ev, i) => (
+                <tr key={ev.id} className="transition-colors duration-150 hover:bg-[var(--color-sage-50)]" style={{ borderBottom: i < events.length - 1 ? "1px solid var(--color-cream-200)" : "none" }}>
                   <td className="px-5 py-3.5">
                     <p className="font-medium" style={{ color: "var(--color-text-primary)" }}>{ev.title}</p>
                     <p className="text-xs mt-0.5" style={{ color: "var(--color-text-tertiary)" }}>{ev.format}</p>

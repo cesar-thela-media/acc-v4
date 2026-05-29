@@ -4,18 +4,20 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/Badge";
 
 type Status = "active" | "inactive" | "suspended";
+type SortKey = "name" | "joined" | "status";
+type SortDir = "asc" | "desc";
 
 const ALL_MEMBERS = [
-  { id: 1, name: "Dr. Maya Okonkwo", credentials: "LCSW", email: "maya@example.com", joined: "Jan 12, 2026", status: "active" as Status, accepting: true },
-  { id: 2, name: "James Whitfield", credentials: "LPC", email: "james@example.com", joined: "Jan 28, 2026", status: "active" as Status, accepting: false },
-  { id: 3, name: "Sofia Reyes", credentials: "LMFT", email: "sofia@example.com", joined: "Feb 5, 2026", status: "active" as Status, accepting: true },
-  { id: 4, name: "Dr. Claire Hutchinson", credentials: "PhD", email: "claire@example.com", joined: "Feb 14, 2026", status: "active" as Status, accepting: true },
-  { id: 5, name: "Marcus Lee", credentials: "LPC", email: "marcus@example.com", joined: "Apr 15, 2026", status: "active" as Status, accepting: true },
-  { id: 6, name: "Priya Nair", credentials: "LCSW", email: "priya@example.com", joined: "Apr 10, 2026", status: "active" as Status, accepting: false },
-  { id: 7, name: "Thomas Garza", credentials: "LMFT", email: "thomas@example.com", joined: "Apr 3, 2026", status: "active" as Status, accepting: true },
-  { id: 8, name: "Rachel Bloom", credentials: "LPC", email: "rachel@example.com", joined: "Mar 20, 2026", status: "active" as Status, accepting: true },
-  { id: 9, name: "Dr. Ade Kolade", credentials: "PsyD", email: "ade@example.com", joined: "Mar 8, 2026", status: "inactive" as Status, accepting: false },
-  { id: 10, name: "Christine Walsh", credentials: "LPC-S", email: "christine@example.com", joined: "Feb 22, 2026", status: "suspended" as Status, accepting: false },
+  { id: 1, name: "Dr. Maya Okonkwo", credentials: "LCSW", email: "maya@example.com", joined: "Jan 12, 2026", joinedSort: "2026-01-12", status: "active" as Status, accepting: true },
+  { id: 2, name: "James Whitfield", credentials: "LPC", email: "james@example.com", joined: "Jan 28, 2026", joinedSort: "2026-01-28", status: "active" as Status, accepting: false },
+  { id: 3, name: "Sofia Reyes", credentials: "LMFT", email: "sofia@example.com", joined: "Feb 5, 2026", joinedSort: "2026-02-05", status: "active" as Status, accepting: true },
+  { id: 4, name: "Dr. Claire Hutchinson", credentials: "PhD", email: "claire@example.com", joined: "Feb 14, 2026", joinedSort: "2026-02-14", status: "active" as Status, accepting: true },
+  { id: 5, name: "Marcus Lee", credentials: "LPC", email: "marcus@example.com", joined: "Apr 15, 2026", joinedSort: "2026-04-15", status: "active" as Status, accepting: true },
+  { id: 6, name: "Priya Nair", credentials: "LCSW", email: "priya@example.com", joined: "Apr 10, 2026", joinedSort: "2026-04-10", status: "active" as Status, accepting: false },
+  { id: 7, name: "Thomas Garza", credentials: "LMFT", email: "thomas@example.com", joined: "Apr 3, 2026", joinedSort: "2026-04-03", status: "active" as Status, accepting: true },
+  { id: 8, name: "Rachel Bloom", credentials: "LPC", email: "rachel@example.com", joined: "Mar 20, 2026", joinedSort: "2026-03-20", status: "active" as Status, accepting: true },
+  { id: 9, name: "Dr. Ade Kolade", credentials: "PsyD", email: "ade@example.com", joined: "Mar 8, 2026", joinedSort: "2026-03-08", status: "inactive" as Status, accepting: false },
+  { id: 10, name: "Christine Walsh", credentials: "LPC-S", email: "christine@example.com", joined: "Feb 22, 2026", joinedSort: "2026-02-22", status: "suspended" as Status, accepting: false },
 ];
 
 const STATUS_LABELS: Record<Status, string> = { active: "Active", inactive: "Inactive", suspended: "Suspended" };
@@ -25,14 +27,38 @@ const STATUS_VARIANTS: Record<Status, "success" | "default" | "error"> = {
   suspended: "error",
 };
 
+function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
+  return (
+    <span className="inline-block ml-1 text-xs" style={{ opacity: active ? 1 : 0.25 }}>
+      {dir === "asc" ? "▲" : "▼"}
+    </span>
+  );
+}
+
 export default function AdminMembersPage() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | Status>("all");
+  const [sortKey, setSortKey] = useState<SortKey>("joined");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
+
+  function toggleSort(key: SortKey) {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir(key === "name" ? "asc" : "desc");
+    }
+  }
 
   const filtered = ALL_MEMBERS.filter((m) => {
     if (statusFilter !== "all" && m.status !== statusFilter) return false;
     if (search && !m.name.toLowerCase().includes(search.toLowerCase()) && !m.email.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
+  }).sort((a, b) => {
+    const mul = sortDir === "asc" ? 1 : -1;
+    if (sortKey === "name") return mul * a.name.localeCompare(b.name);
+    if (sortKey === "status") return mul * a.status.localeCompare(b.status);
+    return mul * a.joinedSort.localeCompare(b.joinedSort);
   });
 
   return (
@@ -144,10 +170,31 @@ export default function AdminMembersPage() {
           <table className="w-full text-sm">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--color-cream-300)", background: "var(--color-cream-100)" }}>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Name</th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("name")}
+                >
+                  Name
+                  <SortIcon active={sortKey === "name"} dir={sortDir} />
+                </th>
                 <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Email</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Joined</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Status</th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("joined")}
+                >
+                  Joined
+                  <SortIcon active={sortKey === "joined"} dir={sortDir} />
+                </th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("status")}
+                >
+                  Status
+                  <SortIcon active={sortKey === "status"} dir={sortDir} />
+                </th>
                 <th className="px-5 py-3" />
               </tr>
             </thead>
@@ -155,6 +202,7 @@ export default function AdminMembersPage() {
               {filtered.map((m, i) => (
                 <tr
                   key={m.id}
+                  className="transition-colors duration-150 hover:bg-[var(--color-sage-50)]"
                   style={{ borderBottom: i < filtered.length - 1 ? "1px solid var(--color-cream-200)" : "none" }}
                 >
                   <td className="px-5 py-3.5">
@@ -166,7 +214,12 @@ export default function AdminMembersPage() {
                         {m.name.charAt(0)}
                       </div>
                       <div>
-                        <p className="font-medium" style={{ color: "var(--color-text-primary)" }}>{m.name}</p>
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium text-sm" style={{ color: "var(--color-text-primary)" }}>{m.name}</p>
+                          {m.accepting && (
+                            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--color-success)" }} />
+                          )}
+                        </div>
                         <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>{m.credentials}</p>
                       </div>
                     </div>
@@ -210,8 +263,16 @@ export default function AdminMembersPage() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="py-16 text-center" style={{ color: "var(--color-text-tertiary)" }}>
+        <div className="py-20 text-center flex flex-col items-center gap-3" style={{ color: "var(--color-text-tertiary)" }}>
+          <span className="text-3xl" style={{ opacity: 0.3 }}>◎</span>
           <p className="text-sm">No members match your filters.</p>
+          <button
+            onClick={() => { setSearch(""); setStatusFilter("all"); }}
+            className="text-xs font-medium underline"
+            style={{ color: "var(--color-sage-700)", textUnderlineOffset: "3px" }}
+          >
+            Reset all filters
+          </button>
         </div>
       )}
     </div>

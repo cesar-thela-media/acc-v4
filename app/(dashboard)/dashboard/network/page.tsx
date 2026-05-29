@@ -344,12 +344,28 @@ export default function NetworkPage() {
             ) : (
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 {filteredMembers.map((member) => (
-                  <Card key={member.name} hover className="flex flex-col gap-4">
+                  <Card
+                    key={member.name}
+                    hover
+                    className="flex flex-col gap-4 relative"
+                    style={{
+                      borderLeft: member.accepting
+                        ? "4px solid var(--color-success)"
+                        : "4px solid var(--color-cream-300)",
+                    }}
+                  >
                     <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                       <div className="flex items-start gap-4">
                         <div
                           className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-medium shrink-0"
-                          style={{ background: "var(--color-sage-100)", color: "var(--color-sage-600)" }}
+                          style={{
+                            background: member.accepting
+                              ? "var(--color-sage-100)"
+                              : "var(--color-cream-200)",
+                            color: member.accepting
+                              ? "var(--color-sage-600)"
+                              : "var(--color-text-tertiary)",
+                          }}
                         >
                           {member.name.charAt(0)}
                         </div>
@@ -360,9 +376,30 @@ export default function NetworkPage() {
                           <p className="text-xs mt-1" style={{ color: "var(--color-text-tertiary)" }}>
                             {member.city} · {member.format}
                           </p>
+                          {member.accepting && (
+                            <span
+                              className="inline-flex items-center gap-1.5 mt-2 text-xs font-medium"
+                              style={{ color: "var(--color-success)" }}
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-success)" }} />
+                              Accepting new clients
+                            </span>
+                          )}
+                          {!member.accepting && (
+                            <span
+                              className="inline-flex items-center gap-1.5 mt-2 text-xs"
+                              style={{ color: "var(--color-text-tertiary)" }}
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-cream-400)" }} />
+                              At capacity
+                            </span>
+                          )}
                         </div>
                       </div>
-                      <Badge variant={member.accepting ? "success" : "accent"}>
+                      <Badge
+                        variant={member.accepting ? "success" : "accent"}
+                        className={member.accepting ? "px-3 py-1 text-xs" : "px-3 py-1 text-xs"}
+                      >
                         {member.accepting ? "Accepting clients" : "At capacity"}
                       </Badge>
                     </div>

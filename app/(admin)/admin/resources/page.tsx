@@ -8,15 +8,26 @@ import { Input, Textarea } from "@/components/ui/Input";
 const CATEGORIES = ["All", "Clinical Tools", "Handouts", "Business", "Self-Care"];
 const RESOURCE_TYPES = ["PDF", "Guide", "Worksheet", "Video"];
 
+type SortKey = "title" | "category" | "type" | "published" | "downloads";
+type SortDir = "asc" | "desc";
+
+function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
+  return (
+    <span className="inline-block ml-1 text-xs" style={{ opacity: active ? 1 : 0.25 }}>
+      {dir === "asc" ? "▲" : "▼"}
+    </span>
+  );
+}
+
 const RESOURCES = [
-  { id: 1, title: "CBT Session Planning Template", category: "Clinical Tools", type: "PDF", published: "Apr 18, 2026", downloads: 14 },
-  { id: 2, title: "Psychoeducation: Anxiety Handout", category: "Handouts", type: "PDF", published: "Apr 15, 2026", downloads: 22 },
-  { id: 3, title: "Fee Setting for Private Practice", category: "Business", type: "Guide", published: "Apr 10, 2026", downloads: 19 },
-  { id: 4, title: "Attachment Styles Explainer", category: "Handouts", type: "PDF", published: "Apr 8, 2026", downloads: 31 },
-  { id: 5, title: "EMDR Phase Protocol Checklist", category: "Clinical Tools", type: "PDF", published: "Apr 3, 2026", downloads: 17 },
-  { id: 6, title: "Marketing for Therapists: Getting Started", category: "Business", type: "Guide", published: "Mar 28, 2026", downloads: 25 },
-  { id: 7, title: "Burnout Self-Assessment", category: "Self-Care", type: "Worksheet", published: "Mar 22, 2026", downloads: 38 },
-  { id: 8, title: "Trauma-Informed Care Intro", category: "Clinical Tools", type: "Video", published: "Feb 28, 2026", downloads: 42 },
+  { id: 1, title: "CBT Session Planning Template", category: "Clinical Tools", type: "PDF", published: "Apr 18, 2026", publishedSort: "2026-04-18", downloads: 14 },
+  { id: 2, title: "Psychoeducation: Anxiety Handout", category: "Handouts", type: "PDF", published: "Apr 15, 2026", publishedSort: "2026-04-15", downloads: 22 },
+  { id: 3, title: "Fee Setting for Private Practice", category: "Business", type: "Guide", published: "Apr 10, 2026", publishedSort: "2026-04-10", downloads: 19 },
+  { id: 4, title: "Attachment Styles Explainer", category: "Handouts", type: "PDF", published: "Apr 8, 2026", publishedSort: "2026-04-08", downloads: 31 },
+  { id: 5, title: "EMDR Phase Protocol Checklist", category: "Clinical Tools", type: "PDF", published: "Apr 3, 2026", publishedSort: "2026-04-03", downloads: 17 },
+  { id: 6, title: "Marketing for Therapists: Getting Started", category: "Business", type: "Guide", published: "Mar 28, 2026", publishedSort: "2026-03-28", downloads: 25 },
+  { id: 7, title: "Burnout Self-Assessment", category: "Self-Care", type: "Worksheet", published: "Mar 22, 2026", publishedSort: "2026-03-22", downloads: 38 },
+  { id: 8, title: "Trauma-Informed Care Intro", category: "Clinical Tools", type: "Video", published: "Feb 28, 2026", publishedSort: "2026-02-28", downloads: 42 },
 ];
 
 export default function AdminResourcesPage() {
@@ -25,8 +36,27 @@ export default function AdminResourcesPage() {
   const [formCategory, setFormCategory] = useState("Clinical Tools");
   const [formType, setFormType] = useState("PDF");
   const [submitted, setSubmitted] = useState(false);
+  const [sortKey, setSortKey] = useState<SortKey>("published");
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
+
+  function toggleSort(key: SortKey) {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir(key === "title" ? "asc" : "desc");
+    }
+  }
 
   const filtered = RESOURCES.filter((r) => category === "All" || r.category === category);
+  const sorted = [...filtered].sort((a, b) => {
+    const mul = sortDir === "asc" ? 1 : -1;
+    if (sortKey === "title") return mul * a.title.localeCompare(b.title);
+    if (sortKey === "category") return mul * a.category.localeCompare(b.category);
+    if (sortKey === "type") return mul * a.type.localeCompare(b.type);
+    if (sortKey === "downloads") return mul * (a.downloads - b.downloads);
+    return mul * a.publishedSort.localeCompare(b.publishedSort);
+  });
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -144,7 +174,7 @@ export default function AdminResourcesPage() {
 
       {/* Resource table */}
       <div className="md:hidden flex flex-col gap-3">
-        {filtered.map((r) => (
+        {sorted.map((r) => (
           <div
             key={r.id}
             className="rounded-2xl border bg-white p-4 flex flex-col gap-3"
@@ -171,8 +201,16 @@ export default function AdminResourcesPage() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="py-16 text-center" style={{ color: "var(--color-text-tertiary)" }}>
+        <div className="py-20 text-center flex flex-col items-center gap-3" style={{ color: "var(--color-text-tertiary)" }}>
+          <span className="text-3xl" style={{ opacity: 0.3 }}>◫</span>
           <p className="text-sm">No resources match this category yet.</p>
+          <button
+            onClick={() => setCategory("All")}
+            className="text-xs font-medium underline"
+            style={{ color: "var(--color-sage-700)", textUnderlineOffset: "3px" }}
+          >
+            View all categories
+          </button>
         </div>
       )}
 
@@ -181,17 +219,52 @@ export default function AdminResourcesPage() {
           <table className="w-full text-sm">
             <thead>
               <tr style={{ borderBottom: "1px solid var(--color-cream-300)", background: "var(--color-cream-100)" }}>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Title</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Category</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Type</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Published</th>
-                <th className="text-left px-5 py-3 text-xs font-semibold" style={{ color: "var(--color-text-tertiary)" }}>Downloads</th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("title")}
+                >
+                  Title
+                  <SortIcon active={sortKey === "title"} dir={sortDir} />
+                </th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("category")}
+                >
+                  Category
+                  <SortIcon active={sortKey === "category"} dir={sortDir} />
+                </th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("type")}
+                >
+                  Type
+                  <SortIcon active={sortKey === "type"} dir={sortDir} />
+                </th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("published")}
+                >
+                  Published
+                  <SortIcon active={sortKey === "published"} dir={sortDir} />
+                </th>
+                <th
+                  className="text-left px-5 py-3 text-xs font-semibold cursor-pointer select-none hover:opacity-70 transition-opacity"
+                  style={{ color: "var(--color-text-tertiary)" }}
+                  onClick={() => toggleSort("downloads")}
+                >
+                  Downloads
+                  <SortIcon active={sortKey === "downloads"} dir={sortDir} />
+                </th>
                 <th className="px-5 py-3" />
               </tr>
             </thead>
             <tbody>
-              {filtered.map((r, i) => (
-                <tr key={r.id} style={{ borderBottom: i < filtered.length - 1 ? "1px solid var(--color-cream-200)" : "none" }}>
+              {sorted.map((r, i) => (
+                <tr key={r.id} className="transition-colors duration-150 hover:bg-[var(--color-sage-50)]" style={{ borderBottom: i < sorted.length - 1 ? "1px solid var(--color-cream-200)" : "none" }}>
                   <td className="px-5 py-3.5 font-medium" style={{ color: "var(--color-text-primary)" }}>{r.title}</td>
                   <td className="px-5 py-3.5"><Badge>{r.category}</Badge></td>
                   <td className="px-5 py-3.5 text-xs" style={{ color: "var(--color-text-tertiary)" }}>{r.type}</td>

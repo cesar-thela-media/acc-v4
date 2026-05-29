@@ -8,14 +8,15 @@ import { Button } from "@/components/ui/Button";
 
 // Mock accounts; replace with BetterAuth when backend is wired
 const MOCK_ACCOUNTS: Record<string, { password: string; redirect: string }> = {
-  "jane@thecircle.test":  { password: "demo", redirect: "/dashboard" },
-  "sarah@thecircle.test": { password: "founder", redirect: "/admin" },
+  "jane@acc.com":    { password: "demo",    redirect: "/dashboard" },
+  "sarah@acc.com":   { password: "founder", redirect: "/admin" },
 };
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showForgot, setShowForgot] = useState(false);
   const router = useRouter();
 
   function handleSubmit(e: React.FormEvent) {
@@ -59,7 +60,7 @@ export default function SignInPage() {
               Member account
             </p>
             <p className="text-sm font-medium" style={{ color: "#fff" }}>
-              Jane: Member dashboard →
+              Jane: Member Dashboard →
             </p>
           </button>
           <button
@@ -72,13 +73,19 @@ export default function SignInPage() {
               Founder account
             </p>
             <p className="text-sm font-medium" style={{ color: "#fff" }}>
-              Sarah Arnold: Admin panel →
+              Sarah Arnold: Admin Panel →
             </p>
           </button>
         </div>
       </div>
 
       <div className="mb-8">
+        <div
+          className="w-10 h-10 rounded-full flex items-center justify-center text-base mb-5"
+          style={{ background: "var(--color-sage-100)", color: "var(--color-sage-600)" }}
+        >
+          ◉
+        </div>
         <h1
           className="mb-2"
           style={{
@@ -91,7 +98,7 @@ export default function SignInPage() {
           Welcome back.
         </h1>
         <p className="text-sm" style={{ color: "var(--color-text-secondary)" }}>
-          Sign in to your The Circle account.
+          Sign in to The Circle.
         </p>
       </div>
 
@@ -126,16 +133,23 @@ export default function SignInPage() {
         )}
 
         <div className="flex items-center justify-between mt-1">
-          <Link
-            href="#"
-            className="text-xs underline"
-            style={{
-              color: "var(--color-sage-600)",
-              textUnderlineOffset: "3px",
-            }}
-          >
-            Forgot password?
-          </Link>
+          {showForgot ? (
+            <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>
+              Password reset will be available once the backend is connected. In the meantime, use the demo accounts above.
+            </p>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setShowForgot(true)}
+              className="text-xs underline text-left"
+              style={{
+                color: "var(--color-sage-600)",
+                textUnderlineOffset: "3px",
+              }}
+            >
+              Forgot password?
+            </button>
+          )}
         </div>
 
         <Button type="submit" className="w-full mt-2">

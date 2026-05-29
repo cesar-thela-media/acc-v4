@@ -131,11 +131,14 @@ export default function AdminApplicationsPage() {
           return (
             <div
               key={app.id}
-              className="bg-white rounded-2xl border overflow-hidden"
-              style={{ borderColor: "var(--color-cream-300)" }}
+              className="bg-white rounded-2xl border overflow-hidden transition-all duration-200"
+              style={{
+                borderColor: "var(--color-cream-300)",
+                boxShadow: isExpanded ? "0 4px 20px rgba(74,93,78,0.08)" : "none",
+              }}
             >
               <button
-                className="w-full text-left px-6 py-5 flex items-start justify-between gap-4"
+                className="w-full text-left px-6 py-5 flex items-start justify-between gap-4 transition-colors duration-150 hover:bg-[var(--color-sage-50)]"
                 onClick={() => setExpanded(isExpanded ? null : app.id)}
               >
                 <div className="flex items-center gap-4">
@@ -231,8 +234,16 @@ export default function AdminApplicationsPage() {
       </div>
 
       {filtered.length === 0 && (
-        <div className="py-20 text-center" style={{ color: "var(--color-text-tertiary)" }}>
+        <div className="py-20 text-center flex flex-col items-center gap-3" style={{ color: "var(--color-text-tertiary)" }}>
+          <span className="text-3xl" style={{ opacity: 0.3 }}>◷</span>
           <p className="text-sm">No applications in this category.</p>
+          <button
+            onClick={() => setFilter("pending")}
+            className="text-xs font-medium underline"
+            style={{ color: "var(--color-sage-700)", textUnderlineOffset: "3px" }}
+          >
+            View pending applications
+          </button>
         </div>
       )}
     </div>

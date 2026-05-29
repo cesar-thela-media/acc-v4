@@ -187,21 +187,21 @@ export default function HomePage() {
                 }}
               >
                 <Link
-                  href="/what-we-offer"
+                  href="/join"
                   className="inline-flex w-full sm:w-auto items-center justify-center px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90 hover:shadow-xl"
                   style={{ background: "#fff", color: "var(--color-sage-800)" }}
                 >
-                  Explore membership
+                  Apply for membership
                 </Link>
                 <Link
-                  href="/join"
+                  href="/what-we-offer"
                   className="inline-flex w-full sm:w-auto items-center justify-center px-8 py-4 rounded-full text-sm font-medium transition-all duration-200 hover:bg-white/10"
                   style={{
                     border: "1px solid rgba(255,255,255,0.2)",
                     color: "rgba(255,255,255,0.8)",
                   }}
                 >
-                  Join the circle →
+                  See what&apos;s included →
                 </Link>
               </div>
             </div>
@@ -209,56 +209,109 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 md:py-32" style={{ background: "var(--color-sage-700)" }}>
-        <div className="max-w-6xl mx-auto px-5 md:px-6 grid grid-cols-1 lg:grid-cols-[1.15fr,0.85fr] gap-12 lg:gap-16 items-start">
-          <div data-aos="fade-in-up">
-            <p
-              className="text-xs font-medium uppercase tracking-widest mb-6"
+      <section
+        className="py-20 md:py-28 relative overflow-hidden"
+        style={{ background: "var(--color-sage-700)" }}
+      >
+        {/* Decorative rings — subtle depth */}
+        <div
+          className="absolute -top-32 -right-32 w-[32rem] h-[32rem] rounded-full pointer-events-none"
+          style={{ border: "1px solid rgba(255,255,255,0.05)" }}
+        />
+        <div
+          className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full pointer-events-none"
+          style={{ border: "1px solid rgba(255,255,255,0.04)" }}
+        />
+
+        {/* Warm radial glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(ellipse at 50% 40%, rgba(var(--color-accent-highlight-rgb), 0.06) 0%, transparent 60%)",
+          }}
+        />
+
+        <div className="max-w-4xl mx-auto px-5 md:px-6 text-center relative z-10">
+          <p
+            className="text-xs font-medium uppercase tracking-widest mb-6"
+            data-aos="fade-in"
+            style={{ color: "rgba(255,255,255,0.72)" }}
+          >
+            Why The Circle exists
+          </p>
+          <h2
+            className="section-title-strong mb-8 leading-tight"
+            data-aos="fade-in-up"
+            data-delay="100"
+            style={{
+              fontSize: "clamp(2rem, 5vw, 3.25rem)",
+              color: "#fff",
+            }}
+          >
+            Private practice can feel isolating.
+            <br />
+            <span style={{ color: "var(--color-accent-highlight)" }}>
+              You don&apos;t have to do this alone.
+            </span>
+          </h2>
+
+          {/* Accent divider */}
+          <div
+            className="w-12 h-px mx-auto mb-8"
+            style={{ background: "rgba(255,255,255,0.15)" }}
+          />
+
+          <p
+            className="text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-5"
+            data-aos="fade-in"
+            data-delay="200"
+            style={{ color: "rgba(255,255,255,0.82)" }}
+          >
+            When you leave an agency or group practice, you gain autonomy and
+            lose the built-in consultation, community, and support from
+            colleagues that kept your clinical work sharp. Most therapists in
+            private practice never fully replace it.
+          </p>
+          <p
+            className="text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-10 md:mb-12 font-medium"
+            data-aos="fade-in"
+            data-delay="300"
+            style={{ color: "#fff" }}
+          >
+            The Circle is here to change that.
+          </p>
+          <div
+            className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-3 px-5 sm:px-6 py-3 rounded-2xl sm:rounded-full text-center sm:text-left"
+            data-aos="fade-in"
+            data-delay="400"
+            style={{
+              background: "rgba(27,27,27,0.16)",
+              border: "1px solid rgba(255,255,255,0.14)",
+            }}
+          >
+            <span
+              className="text-sm"
               style={{ color: "rgba(255,255,255,0.72)" }}
             >
-              Why The Circle exists
-            </p>
-            <h2
-              className="section-title-strong leading-[0.98]"
-              style={{
-                fontSize: "clamp(2.75rem, 7vw, 5rem)",
-                color: "#fff",
-              }}
-            >
-              Private practice
-              <br />
-              can feel isolating.
-              <br />
-              <span style={{ color: "var(--color-accent-highlight)" }}>
-                You don&apos;t have to do this alone.
-              </span>
-            </h2>
-          </div>
-
-          <div className="flex flex-col gap-6 lg:pt-10" data-aos="fade-in" data-delay="120">
-            <p
-              className="text-base md:text-lg leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.84)" }}
-            >
-              When you leave an agency or group practice, you gain autonomy and
-              lose the built-in consultation, community, and support from
-              colleagues that kept your clinical work sharp. Most therapists in
-              private practice never fully replace it.
-            </p>
-            <p
-              className="text-lg md:text-xl leading-relaxed"
+              Founded by
+            </span>
+            <span
+              className="text-sm font-semibold"
               style={{ color: "#fff" }}
             >
-              The Circle is here to change that.
-            </p>
-            <p
-              className="text-sm leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.62)" }}
+              Sarah Arnold, LPC-S
+            </span>
+            <span
+              className="w-px h-4"
+              style={{ background: "rgba(255,255,255,0.24)" }}
+            />
+            <span
+              className="text-sm"
+              style={{ color: "rgba(255,255,255,0.68)" }}
             >
-              Founded by Sarah Arnold, LPC-S of Restored Family Counseling in
-              Austin, The Circle was created to give therapists a professional
-              home that feels steady, useful, and genuinely connected.
-            </p>
+              Restored Family Counseling · Austin, TX
+            </span>
           </div>
         </div>
       </section>
@@ -390,6 +443,16 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+
+          <div className="mt-14 text-center" data-aos="fade-in" data-delay="400">
+            <Link
+              href="/join"
+              className="inline-flex w-full sm:w-auto items-center justify-center px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90"
+              style={{ background: "var(--color-sage-700)", color: "#fff" }}
+            >
+              Start your application →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -490,7 +553,7 @@ export default function HomePage() {
               className="block text-center w-full py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90"
               style={{ background: "var(--color-sage-700)", color: "#fff" }}
             >
-              Start your application
+              Apply for membership
             </Link>
           </div>
         </div>

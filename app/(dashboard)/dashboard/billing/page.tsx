@@ -3,11 +3,11 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 
 const invoices = [
-  { id: "INV-2026-04", date: "Apr 1, 2026", amount: "$129.00", status: "Paid" },
-  { id: "INV-2026-03", date: "Mar 1, 2026", amount: "$129.00", status: "Paid" },
-  { id: "INV-2026-02", date: "Feb 1, 2026", amount: "$129.00", status: "Paid" },
-  { id: "INV-2026-01", date: "Jan 1, 2026", amount: "$129.00", status: "Paid" },
-  { id: "INV-2025-12", date: "Dec 1, 2025", amount: "$129.00", status: "Paid" },
+  { id: "INV-2026-04", date: "Apr 1, 2026", amount: "$79.00", status: "Paid" },
+  { id: "INV-2026-03", date: "Mar 1, 2026", amount: "$79.00", status: "Paid" },
+  { id: "INV-2026-02", date: "Feb 1, 2026", amount: "$79.00", status: "Paid" },
+  { id: "INV-2026-01", date: "Jan 1, 2026", amount: "$79.00", status: "Paid" },
+  { id: "INV-2025-12", date: "Dec 1, 2025", amount: "$79.00", status: "Paid" },
 ];
 
 export default function BillingPage() {
@@ -40,7 +40,7 @@ export default function BillingPage() {
         >
           <div>
             <p className="text-2xl font-light" style={{ fontFamily: "var(--font-serif), Manrope, sans-serif", color: "var(--color-sage-700)" }}>
-              $129
+              $79
               <span className="text-sm font-normal ml-1" style={{ color: "var(--color-text-tertiary)" }}>/month</span>
             </p>
             <p className="text-xs mt-0.5" style={{ color: "var(--color-text-tertiary)" }}>
@@ -86,7 +86,7 @@ export default function BillingPage() {
             Save 15% with annual billing
           </p>
           <p className="text-xs mt-0.5" style={{ color: "var(--color-text-secondary)" }}>
-            Switch to $1,313/year (equivalent to $109/month) and lock in your rate.
+            Switch to $806/year (equivalent to $67/month) and lock in your rate.
           </p>
         </div>
         <Button variant="primary" size="sm">Switch to annual</Button>

@@ -190,6 +190,14 @@ export default function JoinPage() {
           ))}
         </div>
 
+        {/* Steps with transition */}
+        <div
+          key={step}
+          style={{
+            animation: "fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both",
+          }}
+        >
+
         {/* STEP 1: About you */}
         {step === 0 && (
           <div className="flex flex-col gap-5">
@@ -481,6 +489,8 @@ export default function JoinPage() {
           </div>
         )}
       </div>
+
+    </div>
     </div>
   );
 }

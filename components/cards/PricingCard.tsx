@@ -11,7 +11,7 @@ export function PricingCard({
   price,
   period = "/month",
   features,
-  ctaLabel = "Join the circle",
+  ctaLabel = "Apply for membership",
   ctaHref = "/join",
   featured = false,
 }: PricingCardProps) {

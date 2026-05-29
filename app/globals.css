@@ -179,3 +179,35 @@ a {
 [data-delay="600"] { transition-delay: 0.60s; }
 [data-delay="700"] { transition-delay: 0.70s; }
 [data-delay="800"] { transition-delay: 0.80s; }
+
+/* ─── Accessibility ──────────────────────────────────────────────────── */
+
+@custom-media --motion-ok (prefers-reduced-motion: no-preference);
+
+/* Focus-visible ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-sage-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove focus ring for mouse clicks (keeps :focus-visible only) */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

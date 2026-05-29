@@ -57,9 +57,19 @@ export default function ComingSoonPage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col"
+      className="min-h-screen flex flex-col relative overflow-hidden"
       style={{ background: "var(--color-sage-900)" }}
     >
+      {/* Decorative rings */}
+      <div
+        className="absolute -top-40 -right-32 w-[36rem] h-[36rem] rounded-full pointer-events-none"
+        style={{ border: "1px solid rgba(255,255,255,0.05)" }}
+      />
+      <div
+        className="absolute -bottom-32 -left-24 w-96 h-96 rounded-full pointer-events-none"
+        style={{ border: "1px solid rgba(255,255,255,0.04)" }}
+      />
+
       {/* Subtle texture overlay */}
       <div
         className="fixed inset-0 pointer-events-none"
@@ -72,20 +82,20 @@ export default function ComingSoonPage() {
       {/* Header */}
       <header className="relative z-10 px-5 md:px-6 pt-6 md:pt-8">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-center sm:text-left">
+          <Link href="/" className="text-center sm:text-left no-underline">
             <p
-              className="text-[11px] font-medium uppercase tracking-[0.24em] mb-2"
+              className="text-[11px] font-medium uppercase tracking-[0.24em] mb-1"
               style={{ color: "rgba(255,255,255,0.34)" }}
             >
               Free guide for therapists
             </p>
             <p
-              className="text-sm font-semibold"
+              className="text-base font-semibold transition-opacity hover:opacity-80"
               style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}
             >
               The Circle
             </p>
-          </div>
+          </Link>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
@@ -100,7 +110,7 @@ export default function ComingSoonPage() {
               className="inline-flex items-center justify-center px-4 py-2.5 rounded-full text-sm font-medium transition-opacity hover:opacity-90"
               style={{ background: "var(--color-sage-700)", color: "#fff" }}
             >
-              Apply now
+              Join the circle
             </Link>
           </div>
         </div>
@@ -185,24 +195,30 @@ export default function ComingSoonPage() {
             {!submitted ? (
               /* ── Opt-in form ── */
               <div
-                className="rounded-3xl p-8"
+                className="rounded-3xl p-8 relative overflow-hidden"
                 style={{
                   background: "rgba(255,255,255,0.04)",
                   border: "1px solid rgba(255,255,255,0.09)",
                   backdropFilter: "blur(12px)",
                 }}
               >
+                {/* Form card glow */}
+                <div
+                  className="absolute -top-20 -right-20 w-48 h-48 rounded-full pointer-events-none"
+                  style={{ background: "rgba(var(--color-accent-highlight-rgb), 0.06)" }}
+                />
+
                 <p
-                  className="text-base font-semibold mb-1"
+                  className="text-base font-semibold mb-1 relative"
                   style={{ color: "#fff" }}
                 >
                   Get the free playbook
                 </p>
-                <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <p className="text-sm mb-6 relative" style={{ color: "rgba(255,255,255,0.45)" }}>
                   Delivered instantly to your inbox. No spam, ever.
                 </p>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 relative" noValidate>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.4)" }}>
                       First name
@@ -213,14 +229,20 @@ export default function ComingSoonPage() {
                       onChange={(e) => setFirstName(e.target.value)}
                       placeholder="Jane"
                       required
-                      className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-300"
                       style={{
                         background: "rgba(255,255,255,0.07)",
                         border: "1px solid rgba(255,255,255,0.12)",
                         color: "#fff",
                       }}
-                      onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(var(--color-accent-highlight-rgb), 0.5)")}
-                      onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = "var(--color-accent-highlight)";
+                        e.currentTarget.style.background = "rgba(255,255,255,0.10)";
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                        e.currentTarget.style.background = "rgba(255,255,255,0.07)";
+                      }}
                     />
                   </div>
 
@@ -234,14 +256,20 @@ export default function ComingSoonPage() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="jane@example.com"
                       required
-                      className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
+                      className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-300"
                       style={{
                         background: "rgba(255,255,255,0.07)",
                         border: "1px solid rgba(255,255,255,0.12)",
                         color: "#fff",
                       }}
-                      onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(var(--color-accent-highlight-rgb), 0.5)")}
-                      onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)")}
+                      onFocus={(e) => {
+                        e.currentTarget.style.borderColor = "var(--color-accent-highlight)";
+                        e.currentTarget.style.background = "rgba(255,255,255,0.10)";
+                      }}
+                      onBlur={(e) => {
+                        e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                        e.currentTarget.style.background = "rgba(255,255,255,0.07)";
+                      }}
                     />
                   </div>
 

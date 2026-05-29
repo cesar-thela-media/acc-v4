@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 const values = [
@@ -14,6 +15,12 @@ const values = [
     body: "Beyond your solo brand, there is a professional community you belong to. The Circle gives you a home, a directory listing, and colleagues who understand the work.",
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Who We Are — The Circle",
+  description:
+    "Learn the story behind The Circle. Founded by Sarah Arnold, LPC-S, The Circle is a professional home and community for licensed therapists in Austin, TX.",
+};
 
 export default function WhoWeArePage() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Input, Textarea } from "@/components/ui/Input";
 
@@ -18,6 +18,21 @@ export default function ProfilePage() {
   const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>(["Anxiety", "Trauma", "EMDR"]);
   const [format, setFormat] = useState("Both");
   const [accepting, setAccepting] = useState(true);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handlePhotoClick() {
+    fileInputRef.current?.click();
+  }
+
+  function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (ev) => setPhotoPreview(ev.target?.result as string);
+      reader.readAsDataURL(file);
+    }
+  }
 
   function toggleSpecialty(s: string) {
     setSelectedSpecialties((prev) =>
@@ -56,13 +71,27 @@ export default function ProfilePage() {
           <h2 className="text-sm font-semibold uppercase tracking-widest" style={{ color: "var(--color-sage-700)" }}>Photo</h2>
           <div className="flex items-center gap-5">
             <div
-              className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-medium"
-              style={{ background: "var(--color-sage-100)", color: "var(--color-sage-500)" }}
+              className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-medium overflow-hidden shrink-0"
+              style={{ background: photoPreview ? "transparent" : "var(--color-sage-100)", color: "var(--color-sage-500)" }}
             >
-              J
+              {photoPreview ? (
+                <img src={photoPreview} alt="Profile preview" className="w-full h-full object-cover" />
+              ) : (
+                "J"
+              )}
             </div>
             <div>
-              <Button type="button" variant="secondary" size="sm">Upload photo</Button>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/png,image/jpeg"
+                onChange={handlePhotoChange}
+                className="hidden"
+                aria-label="Upload profile photo"
+              />
+              <Button type="button" variant="secondary" size="sm" onClick={handlePhotoClick}>
+                {photoPreview ? "Change photo" : "Upload photo"}
+              </Button>
               <p className="text-xs mt-1.5" style={{ color: "var(--color-text-tertiary)" }}>
                 JPG or PNG. 2MB max. Square crops best.
               </p>

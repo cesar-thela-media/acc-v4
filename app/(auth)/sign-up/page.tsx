@@ -17,6 +17,7 @@ export default function SignUpPage() {
     licenseType: "",
   });
   const [errors, setErrors] = useState<Partial<typeof form>>({});
+  const [submitted, setSubmitted] = useState(false);
 
   function set(field: keyof typeof form, value: string) {
     setForm((f) => ({ ...f, [field]: value }));
@@ -44,11 +45,54 @@ export default function SignUpPage() {
       return;
     }
     // TODO: wire to BetterAuth
+    setSubmitted(true);
+  }
+
+  if (submitted) {
+    return (
+      <div className="w-full max-w-md">
+        <div className="text-center">
+          <div
+            className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl"
+            style={{ background: "var(--color-sage-100)", color: "var(--color-sage-700)" }}
+          >
+            ✓
+          </div>
+          <h1
+            className="mb-3"
+            style={{
+              fontFamily: "var(--font-serif), Manrope, sans-serif",
+              fontSize: "2rem",
+              fontWeight: 400,
+              color: "var(--color-sage-900)",
+            }}
+          >
+            Account created.
+          </h1>
+          <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-text-secondary)" }}>
+            Welcome to The Circle, {form.firstName}. You can now sign in and start exploring the community.
+          </p>
+          <Link
+            href="/sign-in"
+            className="inline-flex items-center justify-center px-7 py-3 rounded-full text-sm font-medium transition-opacity hover:opacity-90"
+            style={{ background: "var(--color-sage-700)", color: "#fff" }}
+          >
+            Sign in
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="w-full max-w-md">
       <div className="mb-8">
+        <div
+          className="w-10 h-10 rounded-full flex items-center justify-center text-base mb-5"
+          style={{ background: "var(--color-sage-100)", color: "var(--color-sage-600)" }}
+        >
+          ◈
+        </div>
         <h1
           className="mb-2"
           style={{
