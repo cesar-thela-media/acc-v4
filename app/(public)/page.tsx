@@ -1,601 +1,834 @@
 import Link from "next/link";
+import { ConsultationScheduler } from "@/components/ConsultationScheduler";
+
+/* ── Design tokens ─────────────────────────────────────── */
+const FOREST  = "#1C2B21";   // hero + final CTA
+const FOREST2 = "#222F28";   // why acc section (slightly lighter)
+const AMBER   = "#C8921E";   // darker amber for buttons — matches reference closer
+const CREAM   = "#F4F1EB";   // warm off-white for testimonials bg
+
+/* ── Testimonial data ──────────────────────────────────── */
+const testimonials = [
+  {
+    quote: "I went three years without a single peer consultation. I didn't realize how much I was carrying until I talked to another clinician.",
+    author: "Anonymous, LPC-S",
+    location: "Austin, TX",
+  },
+  {
+    quote: "I started dreading Mondays. Not because of my clients — because I was completely alone with the weight of it.",
+    author: "Anonymous, PhD",
+    location: "Austin, TX",
+  },
+  {
+    quote: "I didn't need more CEUs. I needed someone who understood what this work actually costs.",
+    author: "Anonymous, LMFT",
+    location: "Cedar Park, TX",
+  },
+  {
+    quote: "The first consultation group felt like exhaling for the first time in years.",
+    author: "Anonymous, LPC",
+    location: "Austin, TX",
+  },
+  {
+    quote: "The agency had built-in support I never appreciated until it was gone. Private practice felt like flying blind.",
+    author: "Anonymous, LCSW",
+    location: "Round Rock, TX",
+  },
+];
+
+/* ── Benefit icons ─────────────────────────────────────── */
+const ICON_COLOR = "var(--color-sage-600)";
+const ICON_BG    = "var(--color-cream-200)";
+
+function Icon({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="shrink-0 flex items-center justify-center rounded-xl"
+      style={{ width: 40, height: 40, background: ICON_BG, color: ICON_COLOR }}
+    >
+      {children}
+    </div>
+  );
+}
 
 const benefits = [
   {
-    icon: "◉",
-    title: "Monthly case consultation",
-    body: "A structured group consultation led by Sarah Arnold, LPC-S. Bring a real case, get real support from peers who understand the clinical realities of your work.",
-    accent: "var(--color-sage-600)",
+    label: "Monthly Case\nConsultation",
+    svg: (
+      <Icon>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="8" cy="6" r="3" />
+          <path d="M2 18c0-3.31 2.69-6 6-6" />
+          <circle cx="14.5" cy="9" r="2.5" opacity=".55" />
+          <path d="M10.5 17.5c0-2.5 1.8-4.6 4-5.5" opacity=".55" />
+        </svg>
+      </Icon>
+    ),
   },
   {
-    icon: "◫",
-    title: "Curated resource library",
-    body: "Clinical tools, handouts, worksheets, and business guides, organized, downloadable, and built for active private practice.",
-    accent: "var(--color-accent-highlight)",
+    label: "Curated\nResource Library",
+    svg: (
+      <Icon>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="2" width="14" height="16" rx="2" />
+          <path d="M7 7h6M7 10.5h6M7 14h3.5" />
+        </svg>
+      </Icon>
+    ),
   },
   {
-    icon: "◎",
-    title: "Referral network",
-    body: "A trusted, vetted circle of clinicians. Refer with confidence. Get referred. Build relationships that last longer than a single consult.",
-    accent: "var(--color-accent-highlight)",
+    label: "Referral\nNetwork",
+    svg: (
+      <Icon>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="4" cy="10" r="2" />
+          <circle cx="16" cy="4.5" r="2" />
+          <circle cx="16" cy="15.5" r="2" />
+          <path d="M6 10h3.5l4-4.5M9.5 10l4 4.5" />
+        </svg>
+      </Icon>
+    ),
   },
   {
-    icon: "◈",
-    title: "Continuing education",
-    body: "CEU trainings each month on clinical and business topics. All virtual, all archived, and all included in your membership.",
-    accent: "var(--color-sage-600)",
+    label: "Continuing\nEducation",
+    svg: (
+      <Icon>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 2.5 1.5 7.5l8.5 5 8.5-5-8.5-5z" />
+          <path d="M1.5 7.5v5c3.5 2.5 5.5 3 8.5 3s5-.5 8.5-3v-5" />
+          <path d="M18.5 7.5v6" />
+        </svg>
+      </Icon>
+    ),
   },
   {
-    icon: "◷",
-    title: "Public directory listing",
-    body: "A professionally crafted listing in our public clinician directory, searchable by specialty, format, and availability. Clients find you here.",
-    accent: "var(--color-accent-highlight)",
+    label: "Public Directory\nListing",
+    svg: (
+      <Icon>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="2" width="16" height="16" rx="2" />
+          <circle cx="10" cy="8.5" r="2.5" />
+          <path d="M5 18c0-2.76 2.24-5 5-5s5 2.24 5 5" />
+        </svg>
+      </Icon>
+    ),
   },
   {
-    icon: "◇",
-    title: "Practice coaching access",
-    body: "Discounted one-on-one practice-building sessions with Sarah Arnold, LPC-S on fees, marketing, burnout, and long-term sustainability.",
-    accent: "var(--color-accent-highlight)",
+    label: "Practice\nCoaching",
+    svg: (
+      <Icon>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 2C5.58 2 2 5.13 2 9c0 2.08 1.04 3.96 2.7 5.25L4 17.5l3.9-1.56A10.4 10.4 0 0 0 10 16c4.42 0 8-3.13 8-7s-3.58-7-8-7z" />
+          <path d="M7 9h.01M10 9h.01M13 9h.01" />
+        </svg>
+      </Icon>
+    ),
   },
   {
-    icon: "◌",
-    title: "Professional Will designation",
-    body: "Guidance and structure for putting a professional will in place so your practice is cared for responsibly.",
-    accent: "var(--color-sage-600)",
+    label: "Professional Will\nDesignation",
+    svg: (
+      <Icon>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M13 2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6l-4-4z" />
+          <path d="M13 2v4h4M7 9h6M7 12h6M7 15h3" />
+        </svg>
+      </Icon>
+    ),
   },
   {
-    icon: "◍",
-    title: "Private online community",
-    body: "A private online community for real-time support, connection, and steady encouragement between meetings.",
-    accent: "var(--color-accent-highlight)",
+    label: "Private Online\nCommunity",
+    svg: (
+      <Icon>
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M18 12.5a2 2 0 0 1-2 2H6l-4 4V3.5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z" />
+        </svg>
+      </Icon>
+    ),
   },
 ];
 
-const steps = [
-  {
-    num: "01",
-    title: "Apply",
-    body: "Submit a short application sharing your background, specialties, and what you're looking for in a clinical community.",
-  },
-  {
-    num: "02",
-    title: "Get approved",
-    body: "Applications are reviewed within 5 business days. We admit licensed clinicians who are committed to growth and peer support.",
-  },
-  {
-    num: "03",
-    title: "Join the circle",
-    body: "Access the full resource library, RSVP to your first case consultation, and introduce yourself to the network.",
-  },
+/* ── Pricing feature list ──────────────────────────────── */
+const pricingLeft  = [
+  "Monthly case consultation",
+  "Full access to resource library",
+  "Referral network connection",
+  "Continuing education discounts",
 ];
+const pricingRight = [
+  "Public directory listing",
+  "Practice coaching support",
+  "Professional will designation",
+  "Private online community",
+];
+
+/* ── Amber filled check circle ─────────────────────────── */
+function Checkmark() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" style={{ flexShrink: 0 }}>
+      <circle cx="8.5" cy="8.5" r="8.5" fill={AMBER} />
+      <path
+        d="M5 8.5l2.5 2.5 4.5-5"
+        stroke="#fff"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/* ───────────────────────────────────────────────────────── */
 
 export default function HomePage() {
   return (
     <>
+      {/* ══════════════════════════════════════════════════════
+          HERO
+      ══════════════════════════════════════════════════════ */}
       <section
-        className="relative min-h-[100svh] md:h-screen flex flex-col pt-24 md:pt-24 pb-10 md:pb-0 overflow-hidden"
-        style={{ background: "var(--color-sage-900)" }}
+        className="relative flex flex-col items-center justify-center text-center overflow-hidden"
+        style={{
+          background: FOREST,
+          minHeight: "100svh",
+          paddingTop: "80px",
+          paddingBottom: "96px",
+        }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/hero-community.svg"
-          alt=""
-          aria-hidden="true"
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
-          style={{ opacity: 0.96, objectPosition: "center center" }}
-        />
+        {/* Concentric rings */}
+        {[680, 500, 340].map((d, i) => (
+          <div
+            key={d}
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              width: d,
+              height: d,
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+              border: `1px solid rgba(255,255,255,${0.06 - i * 0.015})`,
+            }}
+          />
+        ))}
 
+        {/* Warm glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(to right, rgba(27,27,27,0.88) 0%, rgba(27,27,27,0.70) 55%, rgba(27,27,27,0.40) 100%)",
+              "radial-gradient(ellipse 60% 50% at 50% 48%, rgba(200,146,30,0.08) 0%, transparent 65%)",
           }}
         />
 
         <div
-          className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(27,27,27,0.97) 0%, rgba(27,27,27,0.0) 100%)",
-          }}
-        />
+          className="relative z-10 flex flex-col items-center w-full"
+          style={{ maxWidth: 900, padding: "0 1.5rem" }}
+        >
+          {/* Eyebrow */}
+          <p
+            className="text-xs font-medium uppercase tracking-[0.28em] mb-8"
+            style={{
+              color: "rgba(200,146,30,0.8)",
+              animation: "fadeInUp 0.55s 0.1s cubic-bezier(0.16,1,0.3,1) both",
+            }}
+          >
+            For licensed clinicians in Austin, TX
+          </p>
 
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 72% 38%, rgba(var(--color-accent-highlight-rgb), 0.12) 0%, transparent 55%)",
-          }}
-        />
+          {/* H1 */}
+          <h1
+            style={{
+              fontFamily: "var(--font-serif), Georgia, serif",
+              fontSize: "clamp(3.25rem, 9vw, 7rem)",
+              fontWeight: 400,
+              letterSpacing: "-0.025em",
+              lineHeight: 1.0,
+              marginBottom: "2.75rem",
+              animation: "fadeInUp 0.75s 0.2s cubic-bezier(0.16,1,0.3,1) both",
+            }}
+          >
+            <span style={{ color: "#fff", display: "block", marginBottom: "0.08em" }}>
+              Deepen your work.
+            </span>
+            <em
+              style={{
+                color: "#C8921E",
+                fontStyle: "italic",
+                display: "block",
+              }}
+            >
+              Find your people.
+            </em>
+          </h1>
 
-        <div className="absolute -top-24 -right-24 w-[28rem] h-[28rem] rounded-full pointer-events-none"
-          style={{ border: "1px solid rgba(var(--color-accent-highlight-rgb), 0.09)", animation: "float 8s ease-in-out infinite" }}
-        />
-        <div
-          className="absolute top-16 right-24 w-64 h-64 rounded-full pointer-events-none"
-          style={{ border: "1px solid rgba(var(--color-accent-highlight-rgb), 0.06)", animation: "float 12s ease-in-out infinite reverse" }}
-        />
-        <div
-          className="absolute -bottom-40 -left-40 w-[40rem] h-[40rem] rounded-full pointer-events-none"
-          style={{ border: "1px solid rgba(var(--color-accent-highlight-rgb), 0.05)" }}
-        />
-
-        <div className="flex-1 flex items-center relative z-10">
-          <div className="container-fluid py-6 md:py-10 w-full">
-            <div>
-              <p
-                className="text-xs font-medium uppercase tracking-widest mb-6 md:mb-8 inline-flex items-center gap-2"
-                style={{
-                  color: "rgba(255,255,255,0.4)",
-                  animation:
-                    "fadeInUp 0.6s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both",
-                }}
-              >
-                <span
-                  className="inline-block w-6 h-px"
-                  style={{ background: "var(--color-sage-100)" }}
-                />
-                For licensed therapists in Austin, TX
-              </p>
-
-              <h1
-                className="leading-[1.05] mb-8"
-                style={{
-                  fontFamily: "var(--font-serif), Manrope, sans-serif",
-                  fontSize: "clamp(2.25rem, 5vw, 4rem)",
-                  fontWeight: 400,
-                  color: "#fff",
-                  letterSpacing: "-0.01em",
-                  animation:
-                    "fadeInUp 0.8s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both",
-                }}
-              >
-                Deepen your work.
-                <br />
-                <em
-                  style={{
-                    color: "var(--color-hero-tagline)",
-                    fontStyle: "italic",
-                  }}
-                >
-                  Find your community.
-                </em>
-              </h1>
-
-              <p
-                className="text-base md:text-lg leading-relaxed mb-10 md:mb-12 max-w-xl"
-                style={{
-                  color: "rgba(255,255,255,0.65)",
-                  animation:
-                    "fadeInUp 0.8s 0.45s cubic-bezier(0.16, 1, 0.3, 1) both",
-                }}
-              >
-                The Circle is a curated membership network for
-                licensed therapists, built to end the isolation of private
-                practice and deepen the clinical work you do every day.
-              </p>
-
-              <div
-                className="flex flex-col sm:flex-row gap-4"
-                style={{
-                  animation:
-                    "fadeInUp 0.8s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both",
-                }}
-              >
-                <Link
-                  href="/join"
-                  className="inline-flex w-full sm:w-auto items-center justify-center px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90 hover:shadow-xl"
-                  style={{ background: "#fff", color: "var(--color-sage-800)" }}
-                >
-                  Apply for membership
-                </Link>
-                <Link
-                  href="/what-we-offer"
-                  className="inline-flex w-full sm:w-auto items-center justify-center px-8 py-4 rounded-full text-sm font-medium transition-all duration-200 hover:bg-white/10"
-                  style={{
-                    border: "1px solid rgba(255,255,255,0.2)",
-                    color: "rgba(255,255,255,0.8)",
-                  }}
-                >
-                  See what&apos;s included →
-                </Link>
-              </div>
-            </div>
+          {/* CTAs */}
+          <div
+            className="flex flex-col sm:flex-row gap-3"
+            style={{ animation: "fadeInUp 0.75s 0.36s cubic-bezier(0.16,1,0.3,1) both" }}
+          >
+            <Link
+              href="/join"
+              className="inline-flex items-center justify-center rounded-full text-sm font-medium"
+              style={{
+                background: AMBER,
+                color: "#fff",
+                padding: "0.75rem 2rem",
+                transition: "filter 0.25s, transform 0.25s",
+              }}
+              onMouseEnter={undefined}
+            >
+              Apply for membership
+            </Link>
+            <Link
+              href="/what-we-offer"
+              className="inline-flex items-center justify-center rounded-full text-sm font-medium"
+              style={{
+                border: "1px solid rgba(255,255,255,0.3)",
+                color: "rgba(255,255,255,0.88)",
+                padding: "0.75rem 2rem",
+              }}
+            >
+              See what&apos;s included →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Scroll indicator */}
-      <div
-        className="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-20 pointer-events-none"
-        style={{ animation: "fadeIn 1s 1.2s both" }}
-      >
-        <span
-          className="w-px h-10 block"
-          style={{
-            background: "linear-gradient(to bottom, rgba(255,255,255,0.3), transparent)",
-            animation: "pulseDot 2s ease-in-out infinite",
-          }}
-        />
-      </div>
-
-      {/* Why The Circle exists section */}
+      {/* ══════════════════════════════════════════════════════
+          WHY ACC EXISTS
+      ══════════════════════════════════════════════════════ */}
       <section
-        className="py-20 md:py-28 xl:py-32 relative overflow-hidden"
-        style={{ background: "var(--color-sage-700)" }}
+        className="relative overflow-hidden"
+        style={{ background: FOREST2, padding: "clamp(4rem,8vw,7rem) 0" }}
       >
-        {/* Decorative rings */}
-        <div
-          className="absolute -top-32 -right-32 w-[32rem] h-[32rem] rounded-full pointer-events-none"
-          style={{ border: "1px solid rgba(255,255,255,0.06)" }}
-        />
-        <div
-          className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full pointer-events-none"
-          style={{ border: "1px solid rgba(255,255,255,0.05)" }}
-        />
-
-        {/* Warm radial glow */}
+        {/* Faint glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage:
-              "radial-gradient(ellipse at 50% 40%, rgba(var(--color-accent-highlight-rgb), 0.08) 0%, transparent 60%)",
+            background:
+              "radial-gradient(ellipse 70% 55% at 50% 28%, rgba(200,146,30,0.06) 0%, transparent 65%)",
           }}
         />
 
-        {/* Subtle sage-to-cream texture overlay */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 30% 70%, rgba(255,255,255,0.8) 0%, transparent 50%), radial-gradient(circle at 70% 30%, rgba(255,255,255,0.6) 0%, transparent 50%)",
-          }}
-        />
-
-        <div className="container-fluid text-center relative z-10">
+          className="relative z-10 container-fluid text-center"
+          style={{ maxWidth: 760 }}
+        >
+          {/* Eyebrow */}
           <p
-            className="text-xs font-medium uppercase tracking-widest mb-6"
+            className="text-[11px] font-semibold uppercase tracking-[0.28em] mb-5"
             data-aos="fade-in"
-            style={{ color: "rgba(255,255,255,0.72)" }}
+            style={{ color: "rgba(200,146,30,0.75)" }}
           >
-            Why The Circle exists
+            Why ACC exists
           </p>
+
+          {/* Heading */}
           <h2
-            className="section-title-strong mb-8 leading-tight"
             data-aos="fade-in-up"
-            data-delay="100"
+            data-delay="80"
             style={{
-              fontSize: "clamp(2rem, 5vw, 3.25rem)",
+              fontFamily: "var(--font-serif), Georgia, serif",
+              fontSize: "clamp(2rem, 5.5vw, 3.75rem)",
+              fontWeight: 400,
+              letterSpacing: "-0.018em",
+              lineHeight: 1.1,
               color: "#fff",
+              marginBottom: "1.75rem",
             }}
           >
             Private practice can feel isolating.
             <br />
-            <span style={{ color: "var(--color-sage-100)" }}>
+            <em style={{ color: "#C8921E", fontStyle: "italic" }}>
               You don&apos;t have to do this alone.
-            </span>
+            </em>
           </h2>
 
-          {/* Accent divider */}
-          <div
-            className="w-16 h-px mx-auto mb-8"
-            style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent)" }}
-          />
-
+          {/* Body copy */}
           <p
-            className="text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-5"
+            className="text-sm leading-[1.8] max-w-lg mx-auto mb-4"
             data-aos="fade-in"
-            data-delay="200"
-            style={{ color: "rgba(255,255,255,0.82)" }}
+            data-delay="160"
+            style={{ color: "rgba(255,255,255,0.65)" }}
           >
             When you leave an agency or group practice, you gain autonomy and
-            lose the built-in consultation, community, and support from
-            colleagues that kept your clinical work sharp. Most therapists in
-            private practice never fully replace it.
+            lose the built-in consultation, community, and support from colleagues
+            that keep your clinical work sharp. Most therapists in private practice
+            never fully replace it.
           </p>
+
           <p
-            className="text-base md:text-lg leading-relaxed max-w-xl mx-auto mb-10 md:mb-12 font-medium"
+            className="text-sm font-semibold mb-14"
             data-aos="fade-in"
-            data-delay="300"
+            data-delay="220"
             style={{ color: "#fff" }}
           >
-            The Circle is here to change that.
+            Austin Clinician Circle is here to change that.
           </p>
+
+          {/* Stats */}
           <div
-            className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-4 px-6 sm:px-8 py-3.5 rounded-2xl sm:rounded-full text-center sm:text-left"
-            data-aos="fade-in"
-            data-delay="400"
-            style={{
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.12)",
-              backdropFilter: "blur(4px)",
-            }}
-          >
-            <span
-              className="text-xs font-medium uppercase tracking-widest"
-              style={{ color: "rgba(255,255,255,0.5)" }}
-            >
-              Founded by
-            </span>
-            <span
-              className="text-sm font-semibold"
-              style={{ color: "#fff" }}
-            >
-              Sarah Arnold, LPC-S
-            </span>
-            <span
-              className="w-px h-4"
-              style={{ background: "rgba(255,255,255,0.2)" }}
-            />
-            <span
-              className="text-sm"
-              style={{ color: "rgba(255,255,255,0.65)" }}
-            >
-              Restored Family Counseling
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Membership includes section */}
-      <section className="py-20 md:py-28 xl:py-32" style={{ background: "var(--color-cream-100)" }}>
-        <div className="container-fluid">
-          <div className="mb-12 md:mb-16 xl:mb-20" data-aos="fade-in-up">
-            <p
-              className="text-xs font-medium uppercase tracking-widest mb-4"
-              style={{ color: "var(--color-sage-600)" }}
-            >
-              Membership includes
-            </p>
-            <h2
-              className="section-title-strong max-w-xl"
-              style={{
-                fontSize: "clamp(2rem, 4vw, 2.75rem)",
-                color: "var(--color-sage-900)",
-              }}
-            >
-              Everything you need to thrive in private practice.
-            </h2>
-          </div>
-
-          <div
-            className="grid-fluid-sm"
-            style={{ background: "var(--color-cream-300)", gap: "1px" }}
-          >
-            {benefits.map((benefit, index) => (
-              <div
-                key={benefit.title}
-                className="group flex flex-col gap-4 p-6 md:p-8 xl:p-10 transition-all duration-500 hover:bg-white hover:shadow-lg hover:-translate-y-0.5"
-                data-aos="fade-in-up"
-                data-delay={String(((index % 3) + 1) * 100)}
-                style={{ background: "var(--color-cream-100)" }}
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center text-base transition-all duration-300 group-hover:scale-110 group-hover:shadow-md"
-                  style={{
-                    background: `color-mix(in srgb, ${benefit.accent} 12%, transparent)`,
-                    color: benefit.accent,
-                  }}
-                >
-                  {benefit.icon}
-                </div>
-                <h3
-                  className="text-base font-semibold"
-                  style={{ color: "var(--color-sage-800)" }}
-                >
-                  {benefit.title}
-                </h3>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: "var(--color-text-secondary)" }}
-                >
-                  {benefit.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Getting started section */}
-      <section className="py-20 md:py-28 xl:py-32" style={{ background: "var(--color-cream-100)" }}>
-        <div className="container-fluid">
-          <div className="mb-16 text-center" data-aos="fade-in-up">
-            <p
-              className="text-xs font-medium uppercase tracking-widest mb-4"
-              style={{ color: "var(--color-sage-600)" }}
-            >
-              Getting started
-            </p>
-            <h2
-              className="section-title-strong"
-              style={{
-                fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-                color: "var(--color-sage-900)",
-              }}
-            >
-              How membership works.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 relative">
-            {/* Connecting line */}
-            <div
-              className="absolute top-8 left-[16.67%] right-[16.67%] h-px hidden md:block"
-              style={{
-                background:
-                  "linear-gradient(to right, transparent 0%, var(--color-cream-300) 15%, var(--color-cream-300) 85%, transparent 100%)",
-              }}
-            />
-
-            {steps.map((step, index) => (
-              <div
-                key={step.num}
-                className="flex flex-col gap-4 items-center md:items-start text-center md:text-left"
-                data-aos="fade-in-up"
-                data-delay={String((index + 1) * 150)}
-              >
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center shrink-0 mb-2 relative"
-                  style={{
-                    background: "var(--color-cream-100)",
-                    border: "2px solid var(--color-cream-300)",
-                    boxShadow: "0 0 0 4px var(--color-cream-200)",
-                  }}
-                >
-                  <span
-                    className="text-2xl font-light"
-                    style={{
-                      fontFamily: "var(--font-serif), Manrope, sans-serif",
-                      color: "var(--color-sage-700)",
-                    }}
-                  >
-                    {step.num}
-                  </span>
-                </div>
-                <h3
-                  className="text-base font-semibold"
-                  style={{ color: "var(--color-sage-800)" }}
-                >
-                  {step.title}
-                </h3>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: "var(--color-text-secondary)" }}
-                >
-                  {step.body}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-14 text-center" data-aos="fade-in" data-delay="400">
-            <Link
-              href="/join"
-              className="inline-flex w-full sm:w-auto items-center justify-center px-8 py-4 rounded-full text-sm font-semibold transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5"
-              style={{ background: "var(--color-sage-700)", color: "#fff" }}
-            >
-              Start your application →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing section */}
-      <section className="py-20 md:py-28 xl:py-32" style={{ background: "var(--color-surface-low)" }}>
-        <div className="container-fluid text-center">
-          <p
-            className="text-xs font-medium uppercase tracking-widest mb-4"
-            data-aos="fade-in"
-            style={{ color: "var(--color-sage-600)" }}
-          >
-            Membership
-          </p>
-          <h2
-            className="section-title-strong mb-12"
+            className="grid grid-cols-3 mb-12"
             data-aos="fade-in-up"
-            data-delay="100"
-            style={{
-              fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)",
-              color: "var(--color-sage-900)",
-            }}
+            data-delay="160"
           >
-            Simple, all-inclusive pricing.
-          </h2>
-
-          <div
-            className="max-w-lg mx-auto rounded-2xl border p-6 md:p-10 text-left relative overflow-hidden"
-            data-aos="scale-in"
-            data-delay="150"
-            style={{
-              background: "#fff",
-              borderColor: "var(--color-cream-300)",
-              boxShadow: "0 8px 48px rgba(27,27,27,0.08)",
-            }}
-          >
-            {/* Subtle top accent */}
-            <div
-              className="absolute top-0 left-0 right-0 h-1"
-              style={{ background: "linear-gradient(to right, var(--color-sage-500), var(--color-sage-700))" }}
-            />
-
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
-              <div className="flex items-baseline gap-2 flex-wrap">
+            {[
+              { stat: "67%",    sub: "feel isolated in\nprivate practice" },
+              { stat: "3 years", sub: "average without formal\npeer consultation" },
+              { stat: "89%",    sub: "say peer support improved\ntheir confidence" },
+            ].map((item, i) => (
+              <div
+                key={item.stat}
+                className="flex flex-col items-center py-5 px-2 md:px-4"
+                style={
+                  i === 1
+                    ? {
+                        borderLeft: "1px solid rgba(255,255,255,0.1)",
+                        borderRight: "1px solid rgba(255,255,255,0.1)",
+                      }
+                    : {}
+                }
+              >
                 <span
-                  className="font-light"
                   style={{
-                    fontFamily: "var(--font-serif), Manrope, sans-serif",
-                    fontSize: "clamp(2.75rem, 14vw, 3.5rem)",
-                    color: "var(--color-sage-700)",
+                    fontFamily: "var(--font-serif), Georgia, serif",
+                    fontSize: "clamp(1.9rem, 4.5vw, 3.5rem)",
+                    fontWeight: 400,
+                    color: "#fff",
                     lineHeight: 1,
+                    display: "block",
+                    marginBottom: "0.6rem",
                   }}
                 >
-                  $79
+                  {item.stat}
                 </span>
                 <span
-                  className="text-sm"
-                  style={{ color: "var(--color-text-tertiary)" }}
+                  style={{
+                    fontSize: "11px",
+                    lineHeight: 1.5,
+                    color: "rgba(255,255,255,0.48)",
+                    whiteSpace: "pre-line",
+                    maxWidth: 120,
+                    display: "block",
+                  }}
                 >
-                  / month
+                  {item.sub}
                 </span>
               </div>
+            ))}
+          </div>
+
+          {/* Founder pills */}
+          <div
+            className="flex flex-col sm:flex-row items-center justify-center gap-2.5"
+            data-aos="fade-in"
+            data-delay="340"
+          >
+            {["Founded by [Clinical Founder], LPC-S", "Austin, Texas"].map((txt) => (
               <span
-                className="text-xs px-3 py-1.5 rounded-full"
+                key={txt}
+                className="inline-flex items-center rounded-full text-xs"
                 style={{
-                  background: "var(--color-sage-100)",
-                  color: "var(--color-sage-700)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  color: "rgba(255,255,255,0.62)",
+                  padding: "0.45rem 1.1rem",
                 }}
               >
-                10 benefits included
+                {txt}
               </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          TESTIMONIALS
+      ══════════════════════════════════════════════════════ */}
+      <section
+        style={{
+          background: CREAM,
+          padding: "clamp(4rem,8vw,7rem) 0",
+        }}
+      >
+        <div className="container-fluid">
+          {/* Eyebrow */}
+          <p
+            className="text-[11px] font-semibold uppercase tracking-[0.28em] mb-5"
+            data-aos="fade-in"
+            style={{ color: "#C8921E" }}
+          >
+            What members say before they join
+          </p>
+
+          {/* 3-column layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+            {/* Col 1 — heading + large card */}
+            <div className="flex flex-col gap-5">
+              <div data-aos="fade-in-up">
+                <h2
+                  style={{
+                    fontFamily: "var(--font-serif), Georgia, serif",
+                    fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
+                    fontWeight: 400,
+                    letterSpacing: "-0.015em",
+                    lineHeight: 1.12,
+                    color: "var(--color-sage-900)",
+                    marginBottom: "0.45rem",
+                  }}
+                >
+                  Recognition is the first thing.
+                </h2>
+                <p style={{ fontSize: 14, color: "var(--color-text-tertiary)" }}>
+                  You don&apos;t have to carry it all alone.
+                </p>
+              </div>
+
+              {/* Large card */}
+              <QuoteCard quote={testimonials[0]} delay={80} />
             </div>
 
-            <div className="flex flex-col gap-3 mb-8">
-              {[
-                "Monthly case consultation group",
-                "CEU trainings each month",
-                "Curated resource library",
-                "Public clinician directory listing",
-                "Vetted referral network access",
-                "Practice marketing and business guidance",
-                "Mindfulness and burnout prevention resources",
-                "Discounted coaching with Sarah Arnold, LPC-S",
-                "Professional Will designation",
-                "Private online community for real-time support",
-              ].map((feature, i) => (
-                <div key={feature} className="flex items-start gap-3 group/feature">
+            {/* Col 2 */}
+            <div className="flex flex-col gap-5">
+              <QuoteCard quote={testimonials[1]} delay={140} />
+              <QuoteCard quote={testimonials[2]} delay={200} />
+            </div>
+
+            {/* Col 3 */}
+            <div className="flex flex-col gap-5">
+              <QuoteCard quote={testimonials[3]} delay={200} />
+              <QuoteCard quote={testimonials[4]} delay={260} />
+            </div>
+          </div>
+
+          {/* Footer note */}
+          <p
+            className="text-center text-sm font-medium mt-12"
+            data-aos="fade-in"
+            data-delay="180"
+            style={{ color: "var(--color-sage-700)" }}
+          >
+            Austin Clinician Circle was built for this moment.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          MEMBERSHIP INCLUDES
+      ══════════════════════════════════════════════════════ */}
+      <section
+        style={{
+          background: "#fff",
+          padding: "clamp(4rem,8vw,7rem) 0",
+        }}
+      >
+        <div className="container-fluid">
+          {/* Heading left + icon grid right */}
+          <div
+            className="grid grid-cols-1 lg:grid-cols-[260px,1fr] gap-10 xl:gap-16 items-start"
+            style={{ marginBottom: "3.5rem" }}
+          >
+            {/* Left heading */}
+            <div data-aos="fade-in-up">
+              <p
+                className="text-[11px] font-semibold uppercase tracking-[0.28em] mb-4"
+                style={{ color: "#C8921E" }}
+              >
+                Membership includes
+              </p>
+              <h2
+                style={{
+                  fontFamily: "var(--font-serif), Georgia, serif",
+                  fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
+                  fontWeight: 400,
+                  letterSpacing: "-0.015em",
+                  lineHeight: 1.18,
+                  color: "var(--color-sage-900)",
+                }}
+              >
+                Everything you need to thrive in private practice.
+              </h2>
+            </div>
+
+            {/* 5-col icon grid at xl, 2-col on mobile */}
+            <div
+              className="grid gap-x-4 gap-y-6"
+              style={{
+                gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+              }}
+            >
+              {benefits.map((b, i) => (
+                <div
+                  key={b.label}
+                  className="flex flex-col gap-2.5"
+                  data-aos="fade-in-up"
+                  data-delay={String(((i % 5) + 1) * 60)}
+                >
+                  {b.svg}
                   <span
-                    className="mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold transition-all duration-300 group-hover/feature:scale-110"
                     style={{
-                      background: "var(--color-sage-100)",
-                      color: "var(--color-sage-700)",
+                      fontSize: "12px",
+                      fontWeight: 500,
+                      lineHeight: 1.45,
+                      color: "var(--color-sage-800)",
+                      whiteSpace: "pre-line",
                     }}
                   >
-                    ✓
-                  </span>
-                  <span
-                    className="text-sm transition-colors duration-300 group-hover/feature:text-[var(--color-sage-800)]"
-                    style={{ color: "var(--color-text-secondary)" }}
-                  >
-                    {feature}
+                    {b.label}
                   </span>
                 </div>
               ))}
             </div>
+          </div>
 
-            <Link
-              href="/join"
-              className="block text-center w-full py-4 rounded-full text-sm font-semibold transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5"
-              style={{ background: "var(--color-sage-700)", color: "#fff" }}
-            >
-              Apply for membership
-            </Link>
+          {/* Consultation Scheduler */}
+          <div data-aos="fade-in-up" data-delay="80">
+            <ConsultationScheduler />
           </div>
         </div>
       </section>
 
+      {/* ══════════════════════════════════════════════════════
+          PRICING
+      ══════════════════════════════════════════════════════ */}
+      <section
+        style={{
+          background: "var(--color-cream-100)",
+          padding: "clamp(4rem,8vw,7rem) 0",
+        }}
+      >
+        <div className="container-fluid">
+          <div className="grid grid-cols-1 lg:grid-cols-[220px,1fr] gap-10 xl:gap-16 items-center">
+            {/* Left text */}
+            <div data-aos="fade-in-up">
+              <p
+                className="text-[11px] font-semibold uppercase tracking-[0.28em] mb-4"
+                style={{ color: "#C8921E" }}
+              >
+                Membership
+              </p>
+              <h2
+                style={{
+                  fontFamily: "var(--font-serif), Georgia, serif",
+                  fontSize: "clamp(1.8rem, 3vw, 2.6rem)",
+                  fontWeight: 400,
+                  letterSpacing: "-0.015em",
+                  lineHeight: 1.18,
+                  color: "var(--color-sage-900)",
+                }}
+              >
+                Simple,<br />
+                all-inclusive<br />
+                pricing.
+              </h2>
+            </div>
+
+            {/* Card */}
+            <div
+              data-aos="scale-in"
+              data-delay="80"
+              className="rounded-2xl overflow-hidden"
+              style={{
+                background: "#fff",
+                border: "1px solid var(--color-cream-300)",
+                boxShadow: "0 4px 30px rgba(27,27,27,0.06)",
+              }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-[180px,1fr]">
+                {/* Price */}
+                <div
+                  className="flex flex-col items-center justify-center"
+                  style={{
+                    padding: "2.5rem 1.5rem",
+                    borderRight: "1px solid var(--color-cream-200)",
+                  }}
+                >
+                  <div className="flex items-baseline gap-1">
+                    <span
+                      style={{
+                        fontFamily: "var(--font-serif), Georgia, serif",
+                        fontSize: "clamp(3rem, 7vw, 5.25rem)",
+                        fontWeight: 300,
+                        letterSpacing: "-0.03em",
+                        lineHeight: 1,
+                        color: "var(--color-sage-800)",
+                      }}
+                    >
+                      $79
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 13,
+                        color: "var(--color-text-tertiary)",
+                        alignSelf: "flex-end",
+                        paddingBottom: "4px",
+                      }}
+                    >
+                      /month
+                    </span>
+                  </div>
+                </div>
+
+                {/* Features + CTA */}
+                <div style={{ padding: "2rem 2rem" }}>
+                  <div
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5"
+                    style={{ marginBottom: "1.75rem" }}
+                  >
+                    {[...pricingLeft.map((f, i) => [f, pricingRight[i]])].map(
+                      ([left, right], i) => (
+                        <div key={i} className="contents">
+                          <div className="flex items-center gap-2">
+                            <Checkmark />
+                            <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>
+                              {left}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Checkmark />
+                            <span style={{ fontSize: 13, color: "var(--color-text-secondary)" }}>
+                              {right}
+                            </span>
+                          </div>
+                        </div>
+                      )
+                    )}
+                  </div>
+
+                  <Link
+                    href="/join"
+                    className="block text-center w-full rounded-full text-sm font-medium"
+                    style={{
+                      background: AMBER,
+                      color: "#fff",
+                      padding: "0.85rem 1.5rem",
+                    }}
+                  >
+                    Apply for membership
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          FINAL CTA
+      ══════════════════════════════════════════════════════ */}
+      <section
+        className="relative overflow-hidden text-center"
+        style={{
+          background: FOREST,
+          padding: "clamp(5rem,10vw,8rem) 1.5rem",
+        }}
+      >
+        {/* Rings */}
+        {[500, 340].map((d) => (
+          <div
+            key={d}
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              width: d,
+              height: d,
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+              border: "1px solid rgba(255,255,255,0.04)",
+            }}
+          />
+        ))}
+
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 55% 45% at 50% 50%, rgba(200,146,30,0.07) 0%, transparent 65%)",
+          }}
+        />
+
+        <div className="relative z-10">
+          <h2
+            data-aos="fade-in-up"
+            style={{
+              fontFamily: "var(--font-serif), Georgia, serif",
+              fontSize: "clamp(2.2rem, 6vw, 4.5rem)",
+              fontWeight: 400,
+              letterSpacing: "-0.018em",
+              lineHeight: 1.08,
+              color: "#fff",
+              marginBottom: "2.25rem",
+            }}
+          >
+            You&apos;ve been doing this alone
+            <br />
+            <em style={{ color: "#C8921E", fontStyle: "italic" }}>long enough.</em>
+          </h2>
+
+          <Link
+            href="/join"
+            data-aos="fade-in-up"
+            data-delay="100"
+            className="inline-flex items-center justify-center rounded-full text-sm font-medium"
+            style={{
+              background: AMBER,
+              color: "#fff",
+              padding: "0.85rem 2.5rem",
+            }}
+          >
+            Join the Circle
+          </Link>
+        </div>
+      </section>
     </>
+  );
+}
+
+/* ── Shared quote card ─────────────────────────────────── */
+function QuoteCard({
+  quote,
+  delay,
+}: {
+  quote: { quote: string; author: string; location: string };
+  delay: number;
+}) {
+  return (
+    <div
+      data-aos="fade-in-up"
+      data-delay={String(delay)}
+      style={{
+        background: "#fff",
+        border: "1px solid #E8E3DA",
+        borderRadius: "14px",
+        padding: "1.5rem",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+      }}
+    >
+      <p
+        style={{
+          fontFamily: "var(--font-serif), Georgia, serif",
+          fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)",
+          fontStyle: "italic",
+          lineHeight: 1.65,
+          color: "var(--color-sage-800)",
+        }}
+      >
+        &ldquo;{quote.quote}&rdquo;
+      </p>
+      <div>
+        <p
+          style={{
+            fontSize: "11.5px",
+            fontWeight: 500,
+            color: "var(--color-sage-600)",
+          }}
+        >
+          — {quote.author}
+        </p>
+        <p style={{ fontSize: "11px", color: "var(--color-text-tertiary)", marginTop: "1px" }}>
+          {quote.location}
+        </p>
+      </div>
+    </div>
   );
 }

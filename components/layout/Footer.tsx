@@ -1,75 +1,100 @@
 import Link from "next/link";
 
-const exploreLinks = [
-  { href: "/", label: "Home" },
+const quickLinks = [
   { href: "/who-we-are", label: "Who we are" },
-  { href: "/what-we-offer", label: "What we offer" },
-  { href: "/find-a-clinician", label: "Find a clinician" },
+  { href: "/what-we-offer", label: "Membership" },
+  { href: "/coming-soon", label: "Community" },
+  { href: "/coming-soon", label: "Resources" },
+  { href: "/coming-soon", label: "Events" },
 ];
 
-const memberLinks = [
-  { href: "/join", label: "Join the circle" },
-  { href: "/sign-in", label: "Sign in" },
-  { href: "/dashboard", label: "Member dashboard" },
-  { href: "/coming-soon", label: "Free practice playbook" },
-];
-
-const memberHighlights = [
-  "Monthly case consultation led by Sarah Arnold, LPC-S",
-  "Curated referral network and public clinician directory",
-  "Clinical tools, CEUs, and practice-building support",
+const insideLinks = [
+  { href: "/find-a-clinician", label: "Member Directory" },
+  { href: "/coming-soon", label: "Consultation Groups" },
+  { href: "/dashboard/resources", label: "Resource Library" },
+  { href: "/coming-soon", label: "Continuing Education" },
+  { href: "/coming-soon", label: "FAQs" },
 ];
 
 export function Footer() {
   return (
-    <footer style={{ background: "var(--color-sage-900)" }}>
-      <div className="max-w-6xl mx-auto px-5 md:px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[1.35fr,0.9fr,0.9fr,1fr] gap-8 md:gap-10 mb-10 md:mb-12 text-center md:text-left">
+    <footer style={{ background: "#1C2B21" }}>
+      <div className="max-w-7xl mx-auto px-6 pt-14 pb-8">
+        {/* Main grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-[1.6fr,1fr,1fr,1fr] gap-10 mb-12">
+          {/* Brand col */}
           <div>
             <p
-              className="text-xl font-semibold mb-3"
+              className="text-base font-medium mb-1"
               style={{
                 fontFamily: "var(--font-serif), Georgia, serif",
                 color: "#fff",
               }}
             >
-              The Circle
+              Austin Clinician Circle
             </p>
-            <p
-              className="text-sm leading-relaxed max-w-sm mx-auto md:mx-0"
-              style={{ color: "rgba(255,255,255,0.6)" }}
-            >
-              A virtual support network for licensed therapists. Deepen your work. Find your community.
+            <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.52)" }}>
+              Connection. Consultation. Community.
             </p>
-            <p
-              className="text-xs mt-4 max-w-sm mx-auto md:mx-0"
-              style={{ color: "rgba(255,255,255,0.42)" }}
-            >
-              Founded by Sarah Arnold, LPC-S at Restored Family Counseling in Austin, Texas.
-            </p>
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mt-5"
-              style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.62)" }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-accent-highlight)" }} />
-              <span className="text-xs font-medium">Find your community.</span>
+
+            {/* Social icons */}
+            <div className="flex items-center gap-3">
+              {/* Instagram */}
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-white/10"
+                style={{ border: "1px solid rgba(255,255,255,0.15)" }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="0.5" fill="rgba(255,255,255,0.6)" stroke="none" />
+                </svg>
+              </a>
+              {/* LinkedIn */}
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-white/10"
+                style={{ border: "1px solid rgba(255,255,255,0.15)" }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              {/* Email */}
+              <a
+                href="mailto:hello@austincliniciancircle.org"
+                aria-label="Email"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-white/10"
+                style={{ border: "1px solid rgba(255,255,255,0.15)" }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="M2 7l10 7 10-7" />
+                </svg>
+              </a>
             </div>
           </div>
 
+          {/* Quick links */}
           <div>
             <p
-              className="text-xs font-medium uppercase tracking-widest mb-4"
-              style={{ color: "rgba(255,255,255,0.4)" }}
+              className="text-xs font-medium uppercase tracking-[0.18em] mb-4"
+              style={{ color: "rgba(255,255,255,0.35)" }}
             >
-              Explore
+              Quick Links
             </p>
             <nav className="flex flex-col gap-2.5">
-              {exploreLinks.map((link) => (
+              {quickLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className="text-sm transition-colors duration-150 hover:text-white"
-                  style={{ color: "rgba(255,255,255,0.6)" }}
+                  style={{ color: "rgba(255,255,255,0.58)" }}
                 >
                   {link.label}
                 </Link>
@@ -77,20 +102,21 @@ export function Footer() {
             </nav>
           </div>
 
+          {/* Inside ACC */}
           <div>
             <p
-              className="text-xs font-medium uppercase tracking-widest mb-4"
-              style={{ color: "rgba(255,255,255,0.4)" }}
+              className="text-xs font-medium uppercase tracking-[0.18em] mb-4"
+              style={{ color: "rgba(255,255,255,0.35)" }}
             >
-              Membership
+              Inside ACC
             </p>
             <nav className="flex flex-col gap-2.5">
-              {memberLinks.map((link) => (
+              {insideLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className="text-sm transition-colors duration-150 hover:text-white"
-                  style={{ color: "rgba(255,255,255,0.6)" }}
+                  style={{ color: "rgba(255,255,255,0.58)" }}
                 >
                   {link.label}
                 </Link>
@@ -98,49 +124,52 @@ export function Footer() {
             </nav>
           </div>
 
+          {/* Community */}
           <div>
             <p
-              className="text-xs font-medium uppercase tracking-widest mb-4"
-              style={{ color: "rgba(255,255,255,0.4)" }}
+              className="text-xs font-medium uppercase tracking-[0.18em] mb-4"
+              style={{ color: "rgba(255,255,255,0.35)" }}
             >
-              Inside The Circle
+              Community
             </p>
-            <div className="flex flex-col gap-3">
-              {memberHighlights.map((item) => (
-                <p
-                  key={item}
-                  className="text-sm leading-relaxed"
-                  style={{ color: "rgba(255,255,255,0.6)" }}
-                >
-                  {item}
-                </p>
-              ))}
+            <div className="flex flex-col gap-2.5">
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.58)" }}>
+                Austin, Texas
+              </p>
+              <a
+                href="mailto:hello@austincliniciancircle.org"
+                className="text-sm transition-colors duration-150 hover:text-white"
+                style={{ color: "rgba(255,255,255,0.58)" }}
+              >
+                hello@austincliniciancircle.org
+              </a>
             </div>
           </div>
         </div>
 
+        {/* Bottom bar */}
         <div
-          className="pt-8 border-t flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-center md:text-left"
-          style={{ borderColor: "rgba(255,255,255,0.08)" }}
+          className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
         >
-          <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-            © {new Date().getFullYear()} The Circle. All rights reserved.
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+            © {new Date().getFullYear()} Austin Clinician Circle. All rights reserved.
           </p>
-          <div
-            className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-xs"
-            style={{ color: "rgba(255,255,255,0.4)" }}
-          >
-            <span>Austin, Texas</span>
-            <span className="hidden md:inline">•</span>
-            <a
-              href="https://www.restoredfamily.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-white transition-colors duration-150"
-              style={{ color: "rgba(255,255,255,0.5)" }}
+          <div className="flex items-center gap-4">
+            <Link
+              href="/coming-soon"
+              className="text-xs transition-colors duration-150 hover:text-white"
+              style={{ color: "rgba(255,255,255,0.35)" }}
             >
-              Restored Family Counseling
-            </a>
+              Privacy
+            </Link>
+            <Link
+              href="/coming-soon"
+              className="text-xs transition-colors duration-150 hover:text-white"
+              style={{ color: "rgba(255,255,255,0.35)" }}
+            >
+              Terms
+            </Link>
           </div>
         </div>
       </div>

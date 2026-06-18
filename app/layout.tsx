@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AosInit } from "@/components/AosInit";
 import { hasClerkCredentials } from "@/lib/env";
@@ -8,21 +8,22 @@ import { hasClerkCredentials } from "@/lib/env";
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const dmSans = DM_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "The Circle",
+  title: "Austin Clinician Circle",
   description:
-    "The Circle is a virtual membership network for licensed therapists in Austin, TX. Deepen your work. Find your community.",
+    "Austin Clinician Circle is a membership network for licensed clinicians in Austin, TX. Deepen your work. Find your people.",
 };
 
 export default function RootLayout({
@@ -40,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${jakarta.variable} h-full antialiased`}
+      className={`${cormorant.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {hasClerkCredentials ? <ClerkProvider>{appShell}</ClerkProvider> : appShell}
