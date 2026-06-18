@@ -81,40 +81,42 @@ const benefits = [
 ];
 
 /* ── Corkboard cards ──────────────────────────────────────── */
+/* Positions designed so adjacent cards genuinely overlap at their edges,
+   never grid-aligned. zIndex cascade keeps Card 1 (center) on top. */
 const corkCards = [
   {
-    // Card 1 — center landscape
+    // Card 1 — center landscape (highest z-index — visually dominant)
     quote: "I started dreading Mondays. Not because of my clients — because I was completely alone with the weight of it.",
     author: "Anonymous, PhD", location: "Austin, TX",
-    desktop: { left: "22%", top: "55px",  width: "360px" },
+    desktop: { left: "16%", top: "48px",  width: "355px" },
     rotation: 2,
   },
   {
-    // Card 2 — upper-left portrait
+    // Card 2 — upper-left portrait (overlaps Card 1 left edge)
     quote: "I went three years without a single peer consultation. I didn't realize how much I was carrying until I talked to another clinician.",
     author: "Anonymous, LPC-S", location: "Austin, TX",
-    desktop: { left: "0%",  top: "20px",  width: "215px" },
+    desktop: { left: "0%",  top: "18px",  width: "220px" },
     rotation: -3,
   },
   {
-    // Card 3 — lower-right landscape
+    // Card 3 — lower-center landscape (overlaps Card 1 bottom-right + Card 4 left)
     quote: "The agency had built-in support I never appreciated until it was gone. Private practice felt like flying blind.",
     author: "Anonymous, LCSW", location: "Round Rock, TX",
-    desktop: { left: "33%", top: "310px", width: "360px" },
+    desktop: { left: "34%", top: "282px", width: "348px" },
     rotation: -1.5,
   },
   {
-    // Card 4 — upper-right small square
+    // Card 4 — upper-right small square (overlaps Card 3 right edge)
     quote: "I didn't need more CEUs. I needed someone who understood what this work actually costs.",
     author: "Anonymous, LMFT", location: "Cedar Park, TX",
-    desktop: { left: "67%", top: "10px",  width: "220px" },
+    desktop: { left: "60%", top: "12px",  width: "218px" },
     rotation: 4,
   },
   {
-    // Card 5 — lower-left portrait
+    // Card 5 — lower-left portrait (overlaps Card 2 bottom + Card 3 left edge)
     quote: "The first consultation group felt like exhaling for the first time in years.",
     author: "Anonymous, LPC", location: "Austin, TX",
-    desktop: { left: "6%",  top: "290px", width: "215px" },
+    desktop: { left: "4%",  top: "265px", width: "218px" },
     rotation: -2.5,
   },
 ];
@@ -206,7 +208,7 @@ export default function HomePage() {
         />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center" style={{ maxWidth: 880, padding: "0 1.5rem", width: "100%" }}>
+        <div className="relative z-10 flex flex-col items-center" style={{ maxWidth: 1100, padding: "0 1.5rem", width: "100%" }}>
           {/* Eyebrow */}
           <p
             className="uppercase tracking-[0.28em] font-medium mb-8 text-xs"
@@ -218,13 +220,13 @@ export default function HomePage() {
             For licensed clinicians in Austin, TX
           </p>
 
-          {/* Headline — ultra-thin Cormorant 300 */}
+          {/* Headline — ultra-thin Spectral 300 (Tiempos Fine closest free match) */}
           <h1
             style={{
               fontFamily: "var(--font-serif), Georgia, serif",
-              fontSize: "clamp(3.25rem, 9.5vw, 7rem)",
+              fontSize: "clamp(3rem, 7.2vw, 6rem)",
               fontWeight: 300,
-              letterSpacing: "-0.025em",
+              letterSpacing: "-0.015em",
               lineHeight: 1.0,
               marginBottom: "2.75rem",
               animation: "fadeInUp 0.75s 0.2s cubic-bezier(0.16,1,0.3,1) both",

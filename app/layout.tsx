@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Cormorant, DM_Sans } from "next/font/google";
+import { Spectral, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AosInit } from "@/components/AosInit";
 import { hasClerkCredentials } from "@/lib/env";
 
-/* Cormorant — ultra-thin high-contrast display serif (weight 300 = hairline) */
-const cormorant = Cormorant({
+/* Spectral — ultra-thin high-contrast editorial serif by Production Type.
+   Weight 300 = Light with hairline strokes and dramatic thick-thin contrast,
+   closest free Google match to Tiempos Fine / Freight Display Light style. */
+const spectral = Spectral({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["200", "300", "400", "600"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -41,7 +43,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${spectral.variable} ${dmSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {hasClerkCredentials ? <ClerkProvider>{appShell}</ClerkProvider> : appShell}
