@@ -81,42 +81,38 @@ const benefits = [
 ];
 
 /* ── Corkboard cards ──────────────────────────────────────── */
-/* Positions designed so adjacent cards genuinely overlap at their edges,
-   never grid-aligned. zIndex cascade keeps Card 1 (center) on top. */
+/* Positions tuned for genuine edge-overlap at 1280px container.
+   z-index cascade: Card 1 (dominant center) = highest.
+   No data-aos on individual cards — the container fades in as one. */
 const corkCards = [
   {
-    // Card 1 — center landscape (highest z-index — visually dominant)
     quote: "I started dreading Mondays. Not because of my clients — because I was completely alone with the weight of it.",
     author: "Anonymous, PhD", location: "Austin, TX",
-    desktop: { left: "16%", top: "48px",  width: "355px" },
+    desktop: { left: "17%", top: "55px",  width: "355px" },
     rotation: 2,
   },
   {
-    // Card 2 — upper-left portrait (overlaps Card 1 left edge)
     quote: "I went three years without a single peer consultation. I didn't realize how much I was carrying until I talked to another clinician.",
     author: "Anonymous, LPC-S", location: "Austin, TX",
-    desktop: { left: "0%",  top: "18px",  width: "220px" },
+    desktop: { left: "0%",  top: "20px",  width: "225px" },
     rotation: -3,
   },
   {
-    // Card 3 — lower-center landscape (overlaps Card 1 bottom-right + Card 4 left)
     quote: "The agency had built-in support I never appreciated until it was gone. Private practice felt like flying blind.",
     author: "Anonymous, LCSW", location: "Round Rock, TX",
-    desktop: { left: "34%", top: "282px", width: "348px" },
+    desktop: { left: "44%", top: "235px", width: "350px" },
     rotation: -1.5,
   },
   {
-    // Card 4 — upper-right small square (overlaps Card 3 right edge)
     quote: "I didn't need more CEUs. I needed someone who understood what this work actually costs.",
     author: "Anonymous, LMFT", location: "Cedar Park, TX",
-    desktop: { left: "60%", top: "12px",  width: "218px" },
+    desktop: { left: "64%", top: "12px",  width: "215px" },
     rotation: 4,
   },
   {
-    // Card 5 — lower-left portrait (overlaps Card 2 bottom + Card 3 left edge)
     quote: "The first consultation group felt like exhaling for the first time in years.",
     author: "Anonymous, LPC", location: "Austin, TX",
-    desktop: { left: "4%",  top: "265px", width: "218px" },
+    desktop: { left: "5%",  top: "248px", width: "215px" },
     rotation: -2.5,
   },
 ];
@@ -352,10 +348,10 @@ export default function HomePage() {
       </section>
 
       {/* ══ TESTIMONIALS — CORKBOARD ════════════════════════ */}
-      <section style={{ background: PARCHMENT, padding: "clamp(4.5rem,9vw,7rem) 0" }}>
+      <section style={{ background: PARCHMENT, padding: "clamp(4rem,7vw,6rem) 0" }}>
         <div className="container-fluid">
-          {/* Header */}
-          <p className="uppercase tracking-[0.28em] font-medium text-[11px] mb-5" data-aos="fade-in" style={{ color: AMBER }}>
+          {/* Section header */}
+          <p className="uppercase tracking-[0.28em] font-medium text-[11px] mb-4" data-aos="fade-in" style={{ color: AMBER }}>
             What members say before they join
           </p>
           <h2
@@ -367,23 +363,28 @@ export default function HomePage() {
               letterSpacing: "-0.018em",
               lineHeight: 1.1,
               color: "#1A1A1A",
-              marginBottom: "0.5rem",
+              marginBottom: "0.4rem",
             }}
           >
             Recognition is the first thing.
           </h2>
-          <p className="text-sm mb-12" style={{ color: "#7A7A6E" }}>You don&apos;t have to carry it all alone.</p>
+          <p
+            className="text-sm"
+            style={{ color: "#7A7A6E", marginBottom: "clamp(2rem,5vw,3.5rem)" }}
+          >
+            You don&apos;t have to carry it all alone.
+          </p>
 
-          {/* ── Desktop corkboard ── */}
+          {/* ── Desktop corkboard — cards visible immediately, container fades in ── */}
           <div
             className="hidden md:block relative"
-            style={{ minHeight: 570 }}
+            data-aos="fade-in"
+            data-delay="100"
+            style={{ minHeight: 480 }}
           >
             {corkCards.map((card, i) => (
               <div
                 key={i}
-                data-aos="fade-in"
-                data-delay={String(100 + i * 60)}
                 style={{
                   position: "absolute",
                   left: card.desktop.left,
@@ -392,45 +393,58 @@ export default function HomePage() {
                   transform: `rotate(${card.rotation}deg)`,
                   background: "#fff",
                   borderRadius: "12px",
-                  padding: "1.4rem 1.5rem",
-                  boxShadow: "0 4px 20px rgba(45,59,44,0.09), 0 1px 4px rgba(45,59,44,0.06)",
+                  padding: "1.35rem 1.45rem",
+                  boxShadow: "0 6px 24px rgba(45,59,44,0.10), 0 1px 4px rgba(45,59,44,0.06)",
                   zIndex: 5 - i,
                   display: "flex",
                   flexDirection: "column",
-                  gap: "1rem",
+                  gap: "0.9rem",
                 }}
               >
+                {/* Tack pin */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: -6,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    background: `rgba(194,150,58,0.55)`,
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
+                  }}
+                />
                 <p
                   style={{
                     fontFamily: "var(--font-serif), Georgia, serif",
-                    fontSize: "clamp(0.88rem, 1.1vw, 1rem)",
+                    fontSize: "clamp(0.85rem, 1.05vw, 0.97rem)",
                     fontStyle: "italic",
                     fontWeight: 400,
-                    lineHeight: 1.65,
+                    lineHeight: 1.7,
                     color: "#1A1A1A",
                   }}
                 >
                   &ldquo;{card.quote}&rdquo;
                 </p>
-                {/* Amber hairline */}
-                <div style={{ height: "0.5px", background: `rgba(194,150,58,0.35)` }} />
+                <div style={{ height: "0.5px", background: `rgba(194,150,58,0.3)` }} />
                 <div>
-                  <p style={{ fontSize: "11.5px", fontWeight: 500, color: "#4A5E48" }}>— {card.author}</p>
-                  <p style={{ fontSize: "11px", color: "#7A7A6E", marginTop: 2 }}>{card.location}</p>
+                  <p style={{ fontSize: "11px", fontWeight: 600, color: "#4A5E48", letterSpacing: "0.01em" }}>— {card.author}</p>
+                  <p style={{ fontSize: "10.5px", color: "#9A9A8E", marginTop: 2 }}>{card.location}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* ── Mobile stack ── */}
-          <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* ── Mobile: clean vertical stack ── */}
+          <div className="md:hidden flex flex-col gap-4">
             {corkCards.map((card, i) => (
               <div
                 key={i}
                 style={{
                   background: "#fff",
                   borderRadius: "12px",
-                  padding: "1.4rem 1.5rem",
+                  padding: "1.35rem 1.45rem",
                   boxShadow: "0 2px 12px rgba(45,59,44,0.08)",
                   display: "flex", flexDirection: "column", gap: "0.9rem",
                 }}
@@ -441,23 +455,26 @@ export default function HomePage() {
                     fontSize: "1rem",
                     fontStyle: "italic",
                     fontWeight: 400,
-                    lineHeight: 1.65,
+                    lineHeight: 1.7,
                     color: "#1A1A1A",
                   }}
                 >
                   &ldquo;{card.quote}&rdquo;
                 </p>
-                <div style={{ height: "0.5px", background: `rgba(194,150,58,0.35)` }} />
+                <div style={{ height: "0.5px", background: `rgba(194,150,58,0.3)` }} />
                 <div>
-                  <p style={{ fontSize: "11.5px", fontWeight: 500, color: "#4A5E48" }}>— {card.author}</p>
-                  <p style={{ fontSize: "11px", color: "#7A7A6E", marginTop: 2 }}>{card.location}</p>
+                  <p style={{ fontSize: "11px", fontWeight: 600, color: "#4A5E48" }}>— {card.author}</p>
+                  <p style={{ fontSize: "10.5px", color: "#9A9A8E", marginTop: 2 }}>{card.location}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Footer note */}
-          <p className="text-center text-sm font-medium mt-12" data-aos="fade-in" data-delay="200" style={{ color: "#3D4A3B" }}>
+          <p
+            className="text-center text-sm font-medium"
+            data-aos="fade-in"
+            style={{ color: "#3D4A3B", marginTop: "clamp(2rem,5vw,3.5rem)" }}
+          >
             Austin Clinician Circle was built for this moment.
           </p>
         </div>
