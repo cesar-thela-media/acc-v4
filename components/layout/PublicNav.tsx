@@ -57,7 +57,7 @@ export function PublicNav() {
             </Link>
 
             {/* Desktop nav with dot separators */}
-            <nav className="hidden md:flex items-center gap-0">
+            <nav className="hidden lg:flex items-center gap-0">
               {navLinks.map((link, i) => (
                 <span key={link.href + link.label} className="flex items-center">
                   {i > 0 && (
@@ -78,7 +78,7 @@ export function PublicNav() {
             </nav>
 
             {/* Right actions */}
-            <div className="hidden md:flex items-center gap-5 shrink-0">
+            <div className="hidden lg:flex items-center gap-5 shrink-0">
               <Link
                 href="/sign-in"
                 className="text-sm transition-colors duration-300 hover:opacity-70"
@@ -102,7 +102,7 @@ export function PublicNav() {
 
             {/* Mobile hamburger */}
             <button
-              className="md:hidden flex flex-col gap-1.5 p-2 ml-auto"
+              className="lg:hidden flex flex-col gap-1.5 p-2 ml-auto"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
