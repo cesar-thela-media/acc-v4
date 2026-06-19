@@ -36,13 +36,14 @@ export function DashboardNav() {
       >
         <Link
           href="/dashboard"
-          className="text-base font-semibold tracking-wide"
-          style={{
-            fontFamily: "var(--font-serif), Georgia, serif",
-            color: "#fff",
-          }}
+          className="shrink-0"
+          aria-label="Austin Clinician Circle"
         >
-          Austin Clinician Circle
+          <img
+            src="/logo.png"
+            alt="Austin Clinician Circle"
+            className="h-5 w-auto"
+          />
         </Link>
 
         <button
@@ -65,13 +66,14 @@ export function DashboardNav() {
       >
         <Link
           href="/dashboard"
-          className="text-base font-semibold tracking-wide px-3 mb-6 block"
-          style={{
-            fontFamily: "var(--font-serif), Georgia, serif",
-            color: "#fff",
-          }}
+          className="px-3 mb-6 block"
+          aria-label="Austin Clinician Circle"
         >
-          Austin Clinician Circle
+          <img
+            src="/logo.png"
+            alt="Austin Clinician Circle"
+            className="h-5 w-auto"
+          />
         </Link>
 
         <nav className="flex flex-col gap-1">

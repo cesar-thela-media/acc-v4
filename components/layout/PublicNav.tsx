@@ -42,18 +42,15 @@ export function PublicNav() {
         >
           <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between gap-8">
             {/* Logo */}
-            <Link
-              href="/"
-              className="shrink-0 text-sm transition-colors duration-300"
-              style={{
-                fontFamily: "var(--font-serif), Georgia, serif",
-                fontWeight: 400,
-                fontSize: "1rem",
-                letterSpacing: "0.01em",
-                color: onDark ? "#fff" : "#2D3B2C",
-              }}
-            >
-              Austin Clinician Circle
+            <Link href="/" className="shrink-0" aria-label="Austin Clinician Circle">
+              <img
+                src="/logo.png"
+                alt="Austin Clinician Circle"
+                className="h-7 w-auto transition-all duration-300"
+                style={{
+                  filter: onDark ? "none" : "brightness(0) saturate(100%) invert(15%) sepia(3%) saturate(685%) hue-rotate(60deg) brightness(95%) contrast(89%)",
+                }}
+              />
             </Link>
 
             {/* Desktop nav with dot separators */}

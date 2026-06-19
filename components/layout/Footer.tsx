@@ -27,12 +27,13 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-[1.5fr,1fr,1fr,1fr] gap-10 mb-10">
           {/* Brand */}
           <div>
-            <p
-              className="text-sm font-medium mb-1"
-              style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff", fontWeight: 400, fontSize: "1.05rem" }}
-            >
-              Austin Clinician Circle
-            </p>
+            <Link href="/" aria-label="Austin Clinician Circle" className="inline-block mb-1">
+              <img
+                src="/logo.png"
+                alt="Austin Clinician Circle"
+                className="h-6 w-auto"
+              />
+            </Link>
             <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.48)" }}>
               Connection. Consultation. Community.
             </p>

@@ -36,12 +36,13 @@ export function AdminNav() {
           <p className="text-[11px] font-medium uppercase tracking-[0.24em]" style={{ color: "rgba(255,255,255,0.48)" }}>
             ACC Admin
           </p>
-          <span
-            className="text-base"
-            style={{ fontFamily: "var(--font-serif), Georgia, serif", fontWeight: 400, color: "#fff" }}
-          >
-            Austin Clinician Circle
-          </span>
+          <Link href="/admin" aria-label="Austin Clinician Circle">
+            <img
+              src="/logo.png"
+              alt="Austin Clinician Circle"
+              className="h-5 w-auto mt-0.5"
+            />
+          </Link>
         </div>
 
         <button
@@ -69,16 +70,13 @@ export function AdminNav() {
           >
             ACC Admin
           </p>
-          <span
-            className="text-base"
-            style={{
-              fontFamily: "var(--font-serif), Georgia, serif",
-              fontWeight: 400,
-              color: "#fff",
-            }}
-          >
-            Austin Clinician Circle
-          </span>
+          <Link href="/admin" aria-label="Austin Clinician Circle">
+            <img
+              src="/logo.png"
+              alt="Austin Clinician Circle"
+              className="h-5 w-auto"
+            />
+          </Link>
         </div>
 
         <nav className="flex flex-col gap-1">

@@ -18,16 +18,15 @@ export default function AuthLayout({
       style={{ background: "var(--color-cream-100)" }}
     >
       <header className="w-full px-5 md:px-6 py-4 md:py-5 flex items-center justify-between max-w-6xl mx-auto">
-        <Link
-          href="/"
-          className="text-base tracking-wide"
-          style={{
-            fontFamily: "var(--font-serif), Georgia, serif",
-            fontWeight: 400,
-            color: "var(--color-sage-800)",
-          }}
-        >
-          Austin Clinician Circle
+        <Link href="/" aria-label="Austin Clinician Circle">
+          <img
+            src="/logo.png"
+            alt="Austin Clinician Circle"
+            className="h-6 w-auto"
+            style={{
+              filter: "brightness(0) saturate(100%) invert(15%) sepia(3%) saturate(685%) hue-rotate(60deg) brightness(95%) contrast(89%)",
+            }}
+          />
         </Link>
       </header>
       <main className="flex-1 flex items-start md:items-center justify-center px-5 md:px-6 py-10 md:py-16">
