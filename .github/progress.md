@@ -169,3 +169,8 @@
 - **Created Privacy & Terms pages** — Simple dark branded placeholder pages at `/privacy` and `/terms`. Footer links now point to real pages instead of `/coming-soon`.
 - **Live QA results** — All 29 routes tested in production browser: zero console errors, zero uncaught page errors. Only RSC prefetch aborts (normal Next.js prefetch cancellation behavior) and a sarah-arnold.jpeg preload warning (harmless). Demo login flow works end-to-end.
 
+### 2026-06-20 (continued) — SVG icons + metadata fix
+- **Replaced all Unicode sidebar icons** with proper SVG icons across DashboardNav (7 links), AdminNav (5 links), SignOutAction, and dashboard quick actions. Icons now render consistently across all OS/browsers instead of variable Unicode glyphs.
+- **Fixed `/find-a-clinician` metadata** — Added `layout.tsx` with proper title/description since the page is a client component that can't export Metadata directly.
+- **Verified**: demo name fix ("Welcome back, Jamie" not "Dr."), logo fits sidebar (167px in 224px), all 31 routes build clean.
+
