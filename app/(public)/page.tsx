@@ -266,6 +266,13 @@ export default function HomePage() {
             >
               See what&apos;s included →
             </Link>
+            <Link
+              href="/sign-in"
+              className="inline-flex items-center justify-center rounded-full text-sm font-medium transition-opacity hover:opacity-80"
+              style={{ color: "rgba(255,255,255,0.6)", padding: "0.8rem 2.1rem" }}
+            >
+              Try the demo →
+            </Link>
           </div>
         </div>
       </section>

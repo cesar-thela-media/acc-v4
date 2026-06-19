@@ -20,7 +20,11 @@ export function MockSignIn({ redirectTo = "/dashboard" }: Props) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim() || !email.trim()) {
+    await signIn(name, email);
+  }
+
+  async function signIn(nameVal: string, emailVal: string) {
+    if (!nameVal.trim() || !emailVal.trim()) {
       setError("Please enter your name and email.");
       return;
     }
@@ -30,7 +34,7 @@ export function MockSignIn({ redirectTo = "/dashboard" }: Props) {
       const res = await fetch("/api/mock-auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email: email.trim() }),
+        body: JSON.stringify({ name: nameVal.trim(), email: emailVal.trim() }),
       });
       if (res.ok) {
         router.push(redirectTo);
@@ -43,6 +47,13 @@ export function MockSignIn({ redirectTo = "/dashboard" }: Props) {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function demoLogin() {
+    setError("");
+    setName("Dr. Jamie Torres, LPC-S");
+    setEmail("jamie@austincliniciancircle.com");
+    await signIn("Dr. Jamie Torres, LPC-S", "jamie@austincliniciancircle.com");
   }
 
   return (
@@ -79,6 +90,30 @@ export function MockSignIn({ redirectTo = "/dashboard" }: Props) {
         <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
           Clerk auth isn&apos;t configured — enter any name and email to access the member dashboard.
         </p>
+      </div>
+
+      {/* One-click demo login */}
+      <button
+        type="button"
+        onClick={demoLogin}
+        disabled={loading}
+        className="w-full rounded-full text-sm font-medium py-3 transition-all hover:scale-[1.02] disabled:opacity-60 flex items-center justify-center gap-2"
+        style={{
+          background: SAGE_800,
+          color: "#fff",
+        }}
+      >
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        {loading ? "Signing you in…" : "Log in as Demo User"}
+      </button>
+
+      <div className="flex items-center gap-3">
+        <div className="flex-1" style={{ height: "0.5px", background: "rgba(194,150,58,0.18)" }} />
+        <span className="text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: "var(--color-text-tertiary)" }}>or</span>
+        <div className="flex-1" style={{ height: "0.5px", background: "rgba(194,150,58,0.18)" }} />
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
