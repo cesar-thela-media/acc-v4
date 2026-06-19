@@ -14,10 +14,10 @@ export default function Error({
     >
       <div className="max-w-md text-center">
         <div
-          className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6 text-xl"
+          className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
           style={{ background: "rgba(194,150,58,0.15)", color: "#C2963A" }}
         >
-          ◈
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
         <p
           className="text-[11px] font-medium uppercase tracking-[0.2em] mb-4"

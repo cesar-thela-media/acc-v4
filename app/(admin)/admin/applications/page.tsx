@@ -267,7 +267,7 @@ export default function AdminApplicationsPage() {
 
       {filtered.length === 0 && (
         <div className="py-20 text-center flex flex-col items-center gap-3" style={{ color: "var(--color-text-tertiary)" }}>
-          <span className="text-3xl" style={{ opacity: 0.3 }}>◷</span>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.3 }}><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="12" y2="16"/></svg>
           <p className="text-sm">No applications in this category.</p>
           <button
             onClick={() => setFilter("pending")}

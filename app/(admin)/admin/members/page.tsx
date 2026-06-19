@@ -278,7 +278,7 @@ export default function AdminMembersPage() {
 
       {filtered.length === 0 && (
         <div className="py-20 text-center flex flex-col items-center gap-3" style={{ color: "var(--color-text-tertiary)" }}>
-          <span className="text-3xl" style={{ opacity: 0.3 }}>◎</span>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.3 }}><circle cx="12" cy="10" r="3"/><path d="M12 13v4"/><path d="M8 17h8"/><circle cx="5" cy="7" r="2"/><circle cx="19" cy="7" r="2"/><path d="M6.5 8.5 9 10"/><path d="M15 10l2.5-1.5"/></svg>
           <p className="text-sm">No members match your filters.</p>
           <button
             onClick={() => { setSearch(""); setStatusFilter("all"); }}

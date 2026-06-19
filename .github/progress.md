@@ -174,3 +174,10 @@
 - **Fixed `/find-a-clinician` metadata** — Added `layout.tsx` with proper title/description since the page is a client component that can't export Metadata directly.
 - **Verified**: demo name fix ("Welcome back, Jamie" not "Dr."), logo fits sidebar (167px in 224px), all 31 routes build clean.
 
+### 2026-06-20 (continued) — Round 3: Unicode purge + mobile QA
+- **Mobile QA** — All 6 dashboard pages + 5 admin pages tested at 390px viewport. All have mobile headers, visible content, correct h1 headings. Zero crashes.
+- **Privacy/Terms deployed** — Verified live on Vercel. ✅
+- **Replaced remaining Unicode icons** — error.tsx (◈→alert circle SVG), dashboard resources collections (◎◫◈→clock/document/dollar SVGs), dashboard files (◫→document SVG), admin empty states in resources (◫), members (◎), applications (◷) — all replaced with matching SVG icons.
+- **Zero Unicode icons remain** in any visible UI (hamburger ☰ is standard and fine).
+- **Verified** — Sarah Arnold photo loads correctly on /who-we-are. 404 page works. Footer links all correct (Privacy→/privacy, Terms→/terms).
+
