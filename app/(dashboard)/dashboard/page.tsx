@@ -40,7 +40,7 @@ export default async function DashboardPage() {
   } else {
     const jar = await cookies();
     const demoCookieName = jar.get("acc_demo_name")?.value;
-    if (demoCookieName) firstName = demoCookieName.split(" ")[0];
+    if (demoCookieName) firstName = demoCookieName.replace(/^(Dr\.|Mr\.|Mrs\.|Ms\.)\s+/i, "").split(" ")[0];
   }
 
   return (

@@ -164,3 +164,8 @@
 - **Fixed nav links** — Community → `/find-a-clinician`, Resources → `/what-we-offer` (was `/coming-soon`).
 - **Fixed footer links** — Quick Links: Community → `/find-a-clinician`, Resources → `/what-we-offer`, Events → `/dashboard/events`. Inside Links: Consultation Groups → `/what-we-offer`, CE → `/what-we-offer`, FAQs → `/what-we-offer`.
 
+### 2026-06-20 (continued) — Live QA + fixes
+- **Fixed "Welcome back, Dr." bug** — Dashboard demo name extraction now strips title prefixes (Dr./Mr./Mrs./Ms.) before extracting first name. Was showing "Dr." instead of "Jamie".
+- **Created Privacy & Terms pages** — Simple dark branded placeholder pages at `/privacy` and `/terms`. Footer links now point to real pages instead of `/coming-soon`.
+- **Live QA results** — All 29 routes tested in production browser: zero console errors, zero uncaught page errors. Only RSC prefetch aborts (normal Next.js prefetch cancellation behavior) and a sarah-arnold.jpeg preload warning (harmless). Demo login flow works end-to-end.
+

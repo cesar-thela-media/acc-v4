@@ -120,8 +120,11 @@ export function Footer() {
             © {new Date().getFullYear()} Austin Clinician Circle. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            {["Privacy", "Terms"].map((label) => (
-              <Link key={label} href="/coming-soon" className="text-[11.5px] transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.32)" }}>
+            {[
+              { label: "Privacy", href: "/privacy" },
+              { label: "Terms", href: "/terms" },
+            ].map(({ label, href }) => (
+              <Link key={label} href={href} className="text-[11.5px] transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.32)" }}>
                 {label}
               </Link>
             ))}
