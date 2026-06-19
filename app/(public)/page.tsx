@@ -537,6 +537,9 @@ export default function HomePage() {
 
           {/* Consultation Scheduler */}
           <div data-aos="fade-in-up" data-delay="80">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] mb-3" style={{ color: "rgba(194,150,58,0.75)" }}>
+              Member preview
+            </p>
             <ConsultationScheduler />
           </div>
         </div>

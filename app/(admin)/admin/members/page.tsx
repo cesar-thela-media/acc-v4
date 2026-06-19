@@ -64,23 +64,8 @@ export default function AdminMembersPage() {
   return (
     <div className="flex flex-col gap-8">
       <div>
-        <p
-          className="text-[11px] font-medium uppercase tracking-[0.2em] mb-1"
-          style={{ color: "#C2963A" }}
-        >
-          Admin
-        </p>
-        <h1
-          style={{
-            fontFamily: "var(--font-serif), Georgia, serif",
-            fontWeight: 400,
-            fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
-            color: "var(--color-sage-800)",
-            lineHeight: 1.15,
-          }}
-        >
-          Members
-        </h1>
+        <p className="text-eyebrow mb-1">Admin</p>
+        <h1 className="text-page-title">Members</h1>
       </div>
 
       {/* Toolbar */}

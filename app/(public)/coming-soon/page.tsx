@@ -1,9 +1,5 @@
 "use client";
 
-// TODO: wire form submission to Resend to send the guide PDF to the captured
-// email and notify Sarah at sarah@restoredfc.com of the new lead.
-// Handler pattern: POST /api/leads  { firstName, email }
-
 import { useState } from "react";
 import Link from "next/link";
 

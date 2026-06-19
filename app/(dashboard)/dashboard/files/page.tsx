@@ -118,8 +118,8 @@ export default function FilesPage() {
                         View certificate
                       </Button>
                     )}
-                    <Button variant="secondary" size="sm" onClick={() => alert('Download started.')}>Download</Button>
-                    <Button variant="ghost" size="sm" onClick={() => alert('Preview coming soon.')}>View</Button>
+                    <Button variant="secondary" size="sm" onClick={() => {}}>Download</Button>
+                    <Button variant="ghost" size="sm" onClick={() => {}}>View</Button>
                   </div>
                 </Card>
               ))}
