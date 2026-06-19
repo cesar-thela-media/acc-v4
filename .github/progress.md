@@ -138,3 +138,29 @@
 - Re-ran `bun run build` from `c:\Users\idder\tmg\ACC` and verified the production build still passes cleanly on the current workspace state.
 - Re-ran production browser/runtime checks on the current standalone build served locally on port `3007`; `/`, `/who-we-are`, `/what-we-offer`, `/find-a-clinician`, `/join`, `/sign-in`, `/sign-up`, `/dashboard`, `/dashboard/profile`, `/dashboard/resources`, `/dashboard/events`, `/dashboard/network`, `/dashboard/billing`, `/admin`, `/admin/members`, `/admin/applications`, `/admin/resources`, and `/admin/events` all showed zero console errors, zero uncaught page errors, and zero failed network requests.
 - Final recheck verdict: no missed console/runtime regressions were found in the current build, and no additional code fixes were required beyond the earlier auth/billing and hero-preload cleanup.
+
+## 2026-06-20 — Session: Vercel deployment fix + logo + branding polish
+
+### Fixes applied
+1. **Vercel 404** — `output: "standalone"` in next.config.ts incompatible with Vercel. Made conditional via `NEXT_OUTPUT` env var. Created `vercel.json` with build env fallback DATABASE_URL. Created `scripts/prisma-generate.js` for resilient postinstall.
+2. **Logo** — Replaced all text branding with `logo_website_04.png` → `public/logo.png` across PublicNav, Footer, DashboardNav, AdminNav, Auth layout. Dark/light CSS filter on PublicNav.
+3. **Favicon** — `Logo ACC.png` → `app/icon.png`. Deleted old Vercel `favicon.ico`. Added `icons` metadata in root layout.
+4. **Logo sizing** — Final: 144px (h-36) everywhere. Nav containers made flexible (py-3 instead of fixed h-14/h-16).
+5. **Section colors** — Section 2 (Why ACC): #4A5E48→#FFFFFF. Section 3 (Testimonials): #F0EDE6→#2D3B2C. All inner text/UI adjusted.
+6. **Demo login** — One-click "Log in as Demo User" (Dr. Jamie Torres) on MockSignIn. "Demo" nav link. Hero "Try the demo →" CTA.
+
+### Full codebase audit complete
+- 17 pages: all public (5), all dashboard (7), all admin (5) built with mock data
+- 20 components, 6 API routes, 7 lib files fully audited
+- Prisma schema: 13 models, 6 enums — complete but no real DB queries yet
+- Stack: Next.js 16 + Prisma + Clerk (mock fallback) + Stripe (sandbox) + Resend (dev fallback)
+
+### Pushed to
+- `cesar-thela-media/ACC` (cesar + main)
+- `thela-media-group/austin-clinician-circle` (cesar)
+
+### 2026-06-20 (continued) — find-a-clinician + nav fixes
+- **Built real `/find-a-clinician` directory** — Replaced "Coming soon" placeholder with full searchable directory of 9 mock clinicians. Hero + stats bar (9 listed, 7 accepting) + search input + specialty filter pills + "accepting only" toggle + 3-column grid of ClinicianCards. Dark CTA section at bottom.
+- **Fixed nav links** — Community → `/find-a-clinician`, Resources → `/what-we-offer` (was `/coming-soon`).
+- **Fixed footer links** — Quick Links: Community → `/find-a-clinician`, Resources → `/what-we-offer`, Events → `/dashboard/events`. Inside Links: Consultation Groups → `/what-we-offer`, CE → `/what-we-offer`, FAQs → `/what-we-offer`.
+

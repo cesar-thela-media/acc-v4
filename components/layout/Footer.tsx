@@ -6,17 +6,17 @@ const BG    = "#2D3B2C";
 const quickLinks = [
   { href: "/who-we-are",   label: "Who we are" },
   { href: "/what-we-offer", label: "Membership" },
-  { href: "/coming-soon",  label: "Community" },
-  { href: "/coming-soon",  label: "Resources" },
-  { href: "/coming-soon",  label: "Events" },
+  { href: "/find-a-clinician",  label: "Community" },
+  { href: "/what-we-offer",  label: "Resources" },
+  { href: "/dashboard/events",  label: "Events" },
 ];
 
 const insideLinks = [
   { href: "/find-a-clinician",      label: "Member Directory" },
-  { href: "/coming-soon",           label: "Consultation Groups" },
+  { href: "/what-we-offer",           label: "Consultation Groups" },
   { href: "/dashboard/resources",   label: "Resource Library" },
-  { href: "/coming-soon",           label: "Continuing Education" },
-  { href: "/coming-soon",           label: "FAQs" },
+  { href: "/what-we-offer",           label: "Continuing Education" },
+  { href: "/what-we-offer",           label: "FAQs" },
 ];
 
 export function Footer() {

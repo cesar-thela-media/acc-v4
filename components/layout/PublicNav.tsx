@@ -8,8 +8,8 @@ import { MobileSidePanel } from "@/components/layout/MobileSidePanel";
 const navLinks = [
   { href: "/who-we-are",   label: "Who we are" },
   { href: "/what-we-offer", label: "Membership" },
-  { href: "/coming-soon",  label: "Community" },
-  { href: "/coming-soon",  label: "Resources" },
+  { href: "/find-a-clinician",  label: "Community" },
+  { href: "/what-we-offer",  label: "Resources" },
 ];
 
 export function PublicNav() {
