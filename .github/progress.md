@@ -181,3 +181,62 @@
 - **Zero Unicode icons remain** in any visible UI (hamburger ☰ is standard and fine).
 - **Verified** — Sarah Arnold photo loads correctly on /who-we-are. 404 page works. Footer links all correct (Privacy→/privacy, Terms→/terms).
 
+### 2026-06-20 — Session: ACC.txt QA execution
+
+Executed comprehensive QA feedback from live review session:
+
+**Navbar:**
+- Unsticky (fixed→absolute), thinner (py-3→py-1, logo 144px→64px)
+- "Membership" → "What we offer", "Demo" → "Sign In"
+- Mobile panel "Demo — Try the Dashboard" → "Sign In"
+
+**Homepage hero:**
+- Added sub-headline: "A membership network for licensed therapists who want to do deeper work — together."
+- "Try the demo →" → "Sign In →"
+
+**Why ACC Exists section:**
+- Headings made one-liners (removed `<br/>`, wrapped in `<span display:block>`)
+- Widened from maxWidth 740→900
+- Shortened body text
+- Stats enlarged (3.5rem→4.25rem max), sub-labels shortened
+- Founder pills border/text darkened
+
+**Testimonials:**
+- Header block centered (wrapped in text-center div)
+- Bottom gap reduced (3.5rem→2rem)
+
+**Membership Includes — full emotional rework:**
+- Replaced logical benefit grid with 6 emotional-trigger cards ("Seen.", "Supported.", "Connected.", "Sharp.", "Visible.", "Grounded.")
+- New headline: "You didn't become a therapist to do it alone."
+- Kept dashboard preview and mobile text card
+
+**Who We Are — reordered:**
+- Removed "A professional home for therapists" hero section entirely
+- Sarah Arnold founder section moved to first position
+- Origin story moved to second
+- Values section stays third
+
+**Find a Clinician — simplified:**
+- Removed hero section entirely (no rings, no title)
+- Removed stats bar (9 clinicians, 7 accepting)
+- Bigger search bar (rounded-2xl, py-4, shadow)
+- Simplified filters to 5 pills + accepting toggle
+- Added real Unsplash photos to all 9 members
+
+**Sign In — two-column layout:**
+- Auth layout reworked: dark brand panel (left) + form panel (right)
+- Desktop: not scrollable (h-screen overflow-hidden)
+- Mobile: form only with logo
+
+**What We Offer — full rework:**
+- New emotional hero: "The support you've been missing since you left the agency."
+- 6 large numbered benefit cards with conversational copy
+- Dark pricing section with checklist and CTA
+- Kept 5 FAQs with accordion UI (+ icon rotates on open)
+
+**New: /playbook lead magnet page:**
+- Two-column hero (text left, PDF placeholder right)
+- 4 benefit cards
+- Dark CTA section
+- All CTAs point to /sign-in
+
