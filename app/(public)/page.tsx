@@ -641,7 +641,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Features */}
-                <div style={{ padding: "2rem" }}>
+                <div style={{ padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
                   {/* Amber hairline */}
                   <div className="md:hidden" style={{ height: "0.5px", background: `rgba(194,150,58,0.3)`, marginBottom: "1.5rem" }} />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5" style={{ marginBottom: "1.75rem" }}>

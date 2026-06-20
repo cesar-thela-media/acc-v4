@@ -40,7 +40,7 @@ export function PublicNav() {
             borderBottom: onDark ? "none" : "1px solid rgba(194,150,58,0.14)",
           }}
         >
-          <div className="max-w-7xl mx-auto px-6 py-1 flex items-center justify-between gap-8">
+          <div className="max-w-[90rem] mx-auto px-6 py-1 flex items-center justify-between gap-8">
             {/* Logo */}
             <Link href="/" className="shrink-0" aria-label="Austin Clinician Circle">
               <img

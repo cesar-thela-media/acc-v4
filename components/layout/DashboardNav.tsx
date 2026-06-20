@@ -52,7 +52,7 @@ export function DashboardNav() {
           <img
             src="/logo.png"
             alt="Austin Clinician Circle"
-            className="h-36 w-auto"
+            className="h-14 w-auto"
           />
         </Link>
 
@@ -68,7 +68,7 @@ export function DashboardNav() {
       </div>
 
       <aside
-        className="hidden md:flex w-56 shrink-0 h-screen overflow-hidden flex-col py-6 px-4"
+        className="hidden md:flex w-56 shrink-0 h-screen overflow-hidden flex-col py-6 px-3"
         style={{
           background: "var(--color-sage-800)",
           borderRight: "1px solid rgba(255, 255, 255, 0.10)",
@@ -76,13 +76,13 @@ export function DashboardNav() {
       >
         <Link
           href="/dashboard"
-          className="px-3 mb-6 block"
+          className="px-1 mb-6 block"
           aria-label="Austin Clinician Circle"
         >
           <img
             src="/logo.png"
             alt="Austin Clinician Circle"
-            className="h-36 w-auto"
+            className="h-16 w-auto"
           />
         </Link>
 

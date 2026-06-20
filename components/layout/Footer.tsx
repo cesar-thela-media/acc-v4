@@ -27,14 +27,14 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-[1.5fr,1fr,1fr,1fr] gap-10 mb-10">
           {/* Brand */}
           <div>
-            <Link href="/" aria-label="Austin Clinician Circle" className="inline-block mb-1">
+            <Link href="/" aria-label="Austin Clinician Circle" className="inline-block mb-2">
               <img
                 src="/logo.png"
                 alt="Austin Clinician Circle"
-                className="h-36 w-auto"
+                className="h-20 w-auto"
               />
             </Link>
-            <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.48)" }}>
+            <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.48)" }}>
               Connection. Consultation. Community.
             </p>
             {/* Social icons */}
@@ -71,12 +71,12 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: AMBER }}>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: AMBER }}>
               Quick Links
             </p>
             <nav className="flex flex-col gap-2.5">
               {quickLinks.map((l) => (
-                <Link key={l.label} href={l.href} className="text-[13px] transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>
+                <Link key={l.label} href={l.href} className="text-sm transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>
                   {l.label}
                 </Link>
               ))}
@@ -85,12 +85,12 @@ export function Footer() {
 
           {/* Inside ACC */}
           <div>
-            <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: AMBER }}>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: AMBER }}>
               Inside ACC
             </p>
             <nav className="flex flex-col gap-2.5">
               {insideLinks.map((l) => (
-                <Link key={l.label} href={l.href} className="text-[13px] transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>
+                <Link key={l.label} href={l.href} className="text-sm transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>
                   {l.label}
                 </Link>
               ))}
@@ -99,12 +99,12 @@ export function Footer() {
 
           {/* Community */}
           <div>
-            <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: AMBER }}>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: AMBER }}>
               Community
             </p>
             <div className="flex flex-col gap-2.5">
-              <p className="text-[13px]" style={{ color: "rgba(255,255,255,0.55)" }}>Austin, Texas</p>
-              <a href="mailto:hello@austincliniciancircle.org" className="text-[13px] transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>Austin, Texas</p>
+              <a href="mailto:hello@austincliniciancircle.org" className="text-sm transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>
                 hello@austincliniciancircle.org
               </a>
             </div>
@@ -116,7 +116,7 @@ export function Footer() {
           className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
           style={{ borderTop: `1px solid rgba(194,150,58,0.2)` }}
         >
-          <p className="text-[11.5px]" style={{ color: "rgba(255,255,255,0.32)" }}>
+          <p className="text-sm" style={{ color: "rgba(255,255,255,0.32)" }}>
             © {new Date().getFullYear()} Austin Clinician Circle. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
@@ -124,7 +124,7 @@ export function Footer() {
               { label: "Privacy", href: "/privacy" },
               { label: "Terms", href: "/terms" },
             ].map(({ label, href }) => (
-              <Link key={label} href={href} className="text-[11.5px] transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.32)" }}>
+              <Link key={label} href={href} className="text-sm transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.32)" }}>
                 {label}
               </Link>
             ))}

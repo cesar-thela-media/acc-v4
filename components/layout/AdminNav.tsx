@@ -48,7 +48,7 @@ export function AdminNav() {
             <img
               src="/logo.png"
               alt="Austin Clinician Circle"
-              className="h-36 w-auto mt-0.5"
+              className="h-14 w-auto mt-0.5"
             />
           </Link>
         </div>
@@ -65,13 +65,13 @@ export function AdminNav() {
       </div>
 
       <aside
-        className="hidden md:flex w-56 shrink-0 h-screen overflow-hidden flex-col py-6 px-4"
+        className="hidden md:flex w-56 shrink-0 h-screen overflow-hidden flex-col py-6 px-3"
         style={{
           background: "#2D3B2C",
           borderRight: "1px solid rgba(255, 255, 255, 0.08)",
         }}
       >
-        <div className="px-3 mb-6">
+        <div className="px-1 mb-6">
           <p
             className="text-[11px] font-medium uppercase tracking-[0.24em] mb-1"
             style={{ color: "rgba(255,255,255,0.40)" }}
@@ -82,7 +82,7 @@ export function AdminNav() {
             <img
               src="/logo.png"
               alt="Austin Clinician Circle"
-              className="h-36 w-auto"
+              className="h-16 w-auto"
             />
           </Link>
         </div>
