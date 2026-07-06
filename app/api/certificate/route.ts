@@ -1,23 +1,10 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { currentUser } from "@clerk/nextjs/server";
-import { hasClerkCredentials, hasRobollyConfig } from "@/lib/env";
+import { hasRobollyConfig } from "@/lib/env";
+import { getCurrentMemberName } from "@/lib/auth";
 import { renderCertificatePdf } from "@/lib/robolly";
 
 // Next.js App Router default runtime is Node.js and required for fetch → Buffer here
 export const runtime = "nodejs";
-
-async function resolveMemberName(): Promise<string> {
-  if (hasClerkCredentials) {
-    const user = await currentUser();
-    const fullName = [user?.firstName, user?.lastName].filter(Boolean).join(" ").trim();
-    if (fullName) return fullName;
-  }
-
-  const jar = await cookies();
-  const demoName = jar.get("acc_demo_name")?.value?.trim();
-  return demoName || "Member";
-}
 
 export async function GET() {
   if (!hasRobollyConfig) {
@@ -27,7 +14,8 @@ export async function GET() {
     );
   }
 
-  const name = await resolveMemberName();
+  const { firstName, lastName } = await getCurrentMemberName();
+  const name = [firstName, lastName].filter(Boolean).join(" ") || "Member";
 
   let pdfBuffer: Buffer;
   try {
