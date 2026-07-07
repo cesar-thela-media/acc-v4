@@ -1,6 +1,6 @@
 import { hasRobollyConfig, robollyNameElement } from "@/lib/env";
 
-const ROBOLLY_API_BASE = "https://api.robolly.com/v1";
+const ROBOLLY_API_BASE = "https://api.robolly.com";
 
 // Render a member's name into the membership certificate template and
 // return the rendered PDF as a buffer. Robolly returns the rendered file
