@@ -19,7 +19,7 @@ export async function GET() {
 
   let pdfBuffer: Buffer;
   try {
-    pdfBuffer = await renderCertificatePdf({ name });
+    pdfBuffer = await renderCertificatePdf({ name, date: new Date() });
   } catch (err) {
     console.error("[certificate] Robolly render failed:", err);
     return NextResponse.json({ error: "Failed to generate certificate. Please try again." }, { status: 502 });

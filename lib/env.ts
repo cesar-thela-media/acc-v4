@@ -21,6 +21,7 @@ export const hasRobollyConfig =
   isConfigured(process.env.ROBOLLY_API_KEY) && isConfigured(process.env.ROBOLLY_TEMPLATE_ID);
 
 export const robollyNameElement = process.env.ROBOLLY_NAME_ELEMENT || "name";
+export const robollyDateElement = process.env.ROBOLLY_DATE_ELEMENT || "Date";
 
 export const clerkAdminEmails = (process.env.CLERK_ADMIN_EMAILS || "")
   .split(",")
