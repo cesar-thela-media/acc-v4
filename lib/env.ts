@@ -22,6 +22,8 @@ export const hasRobollyConfig =
 
 export const robollyNameElement = process.env.ROBOLLY_NAME_ELEMENT || "name";
 export const robollyDateElement = process.env.ROBOLLY_DATE_ELEMENT || "Date";
+export const robollyWorkshopElement = process.env.ROBOLLY_WORKSHOP_ELEMENT || "Workshop Title";
+export const robollyCeHoursElement = process.env.ROBOLLY_CE_HOURS_ELEMENT || "CE Hour Total";
 
 export const clerkAdminEmails = (process.env.CLERK_ADMIN_EMAILS || "")
   .split(",")
