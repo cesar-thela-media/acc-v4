@@ -25,6 +25,7 @@
 *.pem
 .playwright-mcp/
 delete-donotpush/
+context.md
 
 # debug
 npm-debug.log*

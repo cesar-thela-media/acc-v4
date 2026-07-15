@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service | The Circle",
-  description: "Terms of service for Austin Clinician Circle membership.",
+  description: "Terms of service for The Circle membership.",
 };
 
 export default function TermsPage() {
@@ -29,7 +29,7 @@ export default function TermsPage() {
         Membership is month-to-month with no long-term contract. Cancel anytime from your billing settings. Full terms will be published before member onboarding begins.
       </p>
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
-        For questions, contact sarah@restoredfc.com
+        For questions, contact sarah@restoredfamily.com
       </p>
     </section>
   );

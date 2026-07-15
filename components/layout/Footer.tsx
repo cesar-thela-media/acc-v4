@@ -27,10 +27,10 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-[1.5fr,1fr,1fr,1fr] gap-10 mb-10">
           {/* Brand */}
           <div>
-            <Link href="/" aria-label="Austin Clinician Circle" className="inline-block mb-2">
+            <Link href="/" aria-label="The Circle" className="inline-block mb-2">
               <img
                 src="/logo.png"
-                alt="Austin Clinician Circle"
+                alt="The Circle"
                 className="h-20 w-auto"
               />
             </Link>
@@ -56,7 +56,7 @@ export function Footer() {
                 </a>
               ))}
               <a
-                href="mailto:hello@austincliniciancircle.org"
+                href="mailto:sarah@restoredfamily.com"
                 aria-label="Email"
                 className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 hover:bg-white/10"
                 style={{ border: "1px solid rgba(255,255,255,0.14)" }}
@@ -83,10 +83,10 @@ export function Footer() {
             </nav>
           </div>
 
-          {/* Inside ACC */}
+          {/* Inside The Circle */}
           <div>
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] mb-4" style={{ color: AMBER }}>
-              Inside ACC
+              Inside The Circle
             </p>
             <nav className="flex flex-col gap-2.5">
               {insideLinks.map((l) => (
@@ -104,8 +104,8 @@ export function Footer() {
             </p>
             <div className="flex flex-col gap-2.5">
               <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>Austin, Texas</p>
-              <a href="mailto:hello@austincliniciancircle.org" className="text-sm transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>
-                hello@austincliniciancircle.org
+              <a href="mailto:sarah@restoredfamily.com" className="text-sm transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.55)" }}>
+                sarah@restoredfamily.com
               </a>
             </div>
           </div>
@@ -117,7 +117,7 @@ export function Footer() {
           style={{ borderTop: `1px solid rgba(194,150,58,0.2)` }}
         >
           <p className="text-sm" style={{ color: "rgba(255,255,255,0.32)" }}>
-            © {new Date().getFullYear()} Austin Clinician Circle. All rights reserved.
+            © {new Date().getFullYear()} The Circle. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             {[

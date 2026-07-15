@@ -53,8 +53,8 @@ export function MockSignIn({ redirectTo = "/dashboard" }: Props) {
   async function demoLogin() {
     setError("");
     setName("Dr. Jamie Torres, LPC-S");
-    setEmail("jamie@austincliniciancircle.com");
-    await signIn("Dr. Jamie Torres, LPC-S", "jamie@austincliniciancircle.com");
+    setEmail("jamie@example.com");
+    await signIn("Dr. Jamie Torres, LPC-S", "jamie@example.com");
   }
 
   return (

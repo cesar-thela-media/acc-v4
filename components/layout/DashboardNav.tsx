@@ -47,11 +47,11 @@ export function DashboardNav() {
         <Link
           href="/dashboard"
           className="shrink-0"
-          aria-label="Austin Clinician Circle"
+          aria-label="The Circle"
         >
           <img
             src="/logo.png"
-            alt="Austin Clinician Circle"
+            alt="The Circle"
             className="h-16 w-auto"
           />
         </Link>
@@ -77,11 +77,11 @@ export function DashboardNav() {
         <Link
           href="/dashboard"
           className="px-1 mb-6 block"
-          aria-label="Austin Clinician Circle"
+          aria-label="The Circle"
         >
           <img
             src="/logo.png"
-            alt="Austin Clinician Circle"
+            alt="The Circle"
             className="h-20 w-auto"
           />
         </Link>
@@ -129,7 +129,7 @@ export function DashboardNav() {
               Member dashboard
             </p>
             <span className="text-base font-semibold" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
-              Austin Clinician Circle
+              The Circle
             </span>
           </div>
         }

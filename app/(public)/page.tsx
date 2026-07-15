@@ -5,131 +5,8 @@ import { ConsultationScheduler } from "@/components/ConsultationScheduler";
 const HERO_BG   = "#2D3B2C";   // deep forest sage — hero, CTA band, footer
 const SECTION2  = "#FFFFFF";   // white — why acc exists
 const PARCHMENT = "#F0EDE6";   // warm parchment — sections 4-5
-const SECTION3  = "#2D3B2C";   // deep sage — testimonials corkboard
+const SECTION3  = "#2D3B2C";   // deep sage — stat number color
 const AMBER     = "#C2963A";   // muted warm amber — accents, CTAs
-
-/* ── Benefit data ─────────────────────────────────────────── */
-const benefits = [
-  {
-    label: "Monthly Case\nConsultation",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="7.5" cy="6" r="3" /><path d="M1.5 18c0-3.31 2.69-6 6-6" />
-        <circle cx="14.5" cy="8" r="2.5" opacity=".55" /><path d="M11 17c0-2.5 1.6-4.5 3.5-5.5" opacity=".55" />
-      </svg>
-    ),
-  },
-  {
-    label: "Curated\nResource Library",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="2" width="14" height="16" rx="2" /><path d="M7 7h6M7 10.5h6M7 14h3.5" />
-      </svg>
-    ),
-  },
-  {
-    label: "Referral\nNetwork",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="4" cy="10" r="2" /><circle cx="16" cy="4.5" r="2" /><circle cx="16" cy="15.5" r="2" />
-        <path d="M6 10h3.5l4-4.8M9.5 10l4 4.8" />
-      </svg>
-    ),
-  },
-  {
-    label: "Continuing\nEducation",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 2.5 1.5 7.5l8.5 5 8.5-5-8.5-5z" /><path d="M1.5 7.5v5c3.5 2.5 5.5 3 8.5 3s5-.5 8.5-3v-5" /><path d="M18.5 7.5v6" />
-      </svg>
-    ),
-  },
-  {
-    label: "Public Directory\nListing",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="2" width="16" height="16" rx="2" /><circle cx="10" cy="8.5" r="2.5" />
-        <path d="M5 18c0-2.76 2.24-5 5-5s5 2.24 5 5" />
-      </svg>
-    ),
-  },
-  {
-    label: "Practice\nCoaching",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 2C5.58 2 2 5.13 2 9c0 2.1 1.04 3.96 2.7 5.25L4 18l4-1.6A9.8 9.8 0 0 0 10 16c4.42 0 8-3.13 8-7s-3.58-7-8-7z" />
-        <path d="M7 9h.01M10 9h.01M13 9h.01" />
-      </svg>
-    ),
-  },
-  {
-    label: "Professional Will\nDesignation",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6l-4-4z" />
-        <path d="M13 2v4h4M7 9h6M7 12h6M7 15h3" />
-      </svg>
-    ),
-  },
-  {
-    label: "Private Online\nCommunity",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 13a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z" />
-      </svg>
-    ),
-  },
-];
-
-/* ── Corkboard cards ──────────────────────────────────────── */
-/*
-  Cluster layout — percentage widths, centered across container.
-  Cluster spans 3% → 96%. Card 1 starts after Card 2's right edge so
-  Card 2 is fully readable (no overlap). Cards sit close with 1-5% gaps.
-    Card 2  upper-left portrait   [ 3% – 27% ]  row A
-    Card 1  center landscape      [28% – 66% ]  row A  (1% gap from Card 2)
-    Card 4  upper-right           [68% – 96% ]  row A  (2% gap from Card 1)
-    Card 5  lower center-left     [18% – 42% ]  row B
-    Card 3  lower-right landscape [47% – 85% ]  row B  (5% gap from Card 5)
-  z-index: Card 1 highest (5).
-*/
-const corkCards = [
-  {
-    // Card 1 — center landscape (dominant) — starts after Card 2 right edge
-    quote: "I started dreading Mondays. Not because of my clients. Because I was completely alone with the weight of it.",
-    author: "Anonymous, PhD", location: "Austin, TX",
-    desktop: { left: "28%", top: "56px", width: "38%" },
-    rotation: 1.5,
-  },
-  {
-    // Card 2 — upper-left portrait — fully readable, no overlap from Card 1
-    quote: "I went three years without a single peer consultation. I didn't realize how much I was carrying until I talked to another clinician.",
-    author: "Anonymous, LPC-S", location: "Austin, TX",
-    desktop: { left: "3%", top: "20px", width: "24%" },
-    rotation: -2.5,
-  },
-  {
-    // Card 3 — lower-right landscape
-    quote: "The agency had built-in support I never appreciated until it was gone. Private practice felt like flying blind.",
-    author: "Anonymous, LCSW", location: "Round Rock, TX",
-    desktop: { left: "47%", top: "262px", width: "38%" },
-    rotation: -1.5,
-  },
-  {
-    // Card 4 — upper-right
-    quote: "I didn't need more CEUs. I needed someone who understood what this work actually costs.",
-    author: "Anonymous, LMFT", location: "Cedar Park, TX",
-    desktop: { left: "68%", top: "12px", width: "28%" },
-    rotation: 3.5,
-  },
-  {
-    // Card 5 — lower center-left
-    quote: "The first consultation group felt like exhaling for the first time in years.",
-    author: "Anonymous, LPC", location: "Austin, TX",
-    desktop: { left: "18%", top: "270px", width: "24%" },
-    rotation: -2,
-  },
-];
 
 /* ── Pricing features ─────────────────────────────────────── */
 const pricingFeatures = [
@@ -146,23 +23,6 @@ function AmberCheck() {
       <circle cx="8" cy="8" r="8" fill={AMBER} />
       <path d="M4.5 8l2.5 2.5 4.5-5" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  );
-}
-
-function BenefitIcon({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      style={{
-        width: 40, height: 40,
-        borderRadius: "50%",
-        border: `1.5px solid rgba(194,150,58,0.55)`,
-        color: AMBER,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        flexShrink: 0,
-      }}
-    >
-      {children}
-    </div>
   );
 }
 
@@ -244,7 +104,7 @@ export default function HomePage() {
             }}
           >
             <span style={{ color: "#fff", display: "block" }}>Deepen your work.</span>
-            <em style={{ color: AMBER, fontStyle: "italic", display: "block" }}>Find your people.</em>
+            <em style={{ color: AMBER, fontStyle: "italic", display: "block" }}>Find your community.</em>
           </h1>
 
           {/* Sub-headline */}
@@ -293,7 +153,7 @@ export default function HomePage() {
         <div className="container-fluid text-center relative z-10" style={{ maxWidth: 900 }}>
           {/* Eyebrow */}
           <p className="uppercase tracking-[0.28em] font-medium text-[11px] mb-5" data-aos="fade-in" style={{ color: `rgba(194,150,58,0.85)` }}>
-            Why ACC exists
+            Why The Circle exists
           </p>
 
           {/* Heading */}
@@ -368,142 +228,6 @@ export default function HomePage() {
               </span>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ══ TESTIMONIALS — CORKBOARD ════════════════════════ */}
-      <section style={{ background: SECTION3, padding: "clamp(2.5rem,5vw,4rem) 0" }}>
-        <div className="container-fluid">
-          {/* Section header */}
-          <div className="text-center">
-          <p className="uppercase tracking-[0.28em] font-medium text-[11px] mb-4" data-aos="fade-in" style={{ color: `rgba(194,150,58,0.78)` }}>
-            What members say before they join
-          </p>
-          <h2
-            data-aos="fade-in-up" data-delay="80"
-            style={{
-              fontFamily: "var(--font-serif), Georgia, serif",
-              fontSize: "clamp(1.9rem, 3.5vw, 2.75rem)",
-              fontWeight: 400,
-              letterSpacing: "-0.018em",
-              lineHeight: 1.1,
-              color: "#fff",
-              marginBottom: "0.4rem",
-            }}
-          >
-            Recognition is the first thing.
-          </h2>
-          <p
-            className="text-sm"
-            style={{ color: "rgba(255,255,255,0.55)", marginBottom: "clamp(2rem,5vw,3.5rem)" }}
-          >
-            You don&apos;t have to carry it all alone.
-          </p>
-          </div>
-
-          {/* ── Desktop corkboard — cards visible immediately, container fades in ── */}
-          <div
-            className="hidden md:block relative"
-            data-aos="fade-in"
-            data-delay="100"
-            style={{ minHeight: 600 }}
-          >
-            {corkCards.map((card, i) => (
-              <div
-                key={i}
-                style={{
-                  position: "absolute",
-                  left: card.desktop.left,
-                  top: card.desktop.top,
-                  width: card.desktop.width,
-                  transform: `rotate(${card.rotation}deg)`,
-                  background: "#fff",
-                  borderRadius: "12px",
-                  padding: "1.35rem 1.45rem",
-                  boxShadow: "0 6px 24px rgba(45,59,44,0.10), 0 1px 4px rgba(45,59,44,0.06)",
-                  zIndex: 5 - i,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.9rem",
-                }}
-              >
-                {/* Tack pin */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: -6,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    background: `rgba(194,150,58,0.55)`,
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
-                  }}
-                />
-                <p
-                  style={{
-                    fontFamily: "var(--font-serif), Georgia, serif",
-                    fontSize: "0.9375rem",
-                    fontStyle: "italic",
-                    fontWeight: 400,
-                    lineHeight: 1.72,
-                    color: "#1C1C1A",
-                  }}
-                >
-                  &ldquo;{card.quote}&rdquo;
-                </p>
-                <div style={{ height: "0.5px", background: `rgba(194,150,58,0.32)` }} />
-                <div>
-                  <p style={{ fontSize: "11.5px", fontWeight: 600, color: "#4A5E48", letterSpacing: "0.01em" }}>{card.author}</p>
-                  <p style={{ fontSize: "11px", color: "#9A9A8E", marginTop: 3 }}>{card.location}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* ── Mobile: tilted card stack ── */}
-          <div className="md:hidden flex flex-col gap-4 px-2">
-            {corkCards.map((card, i) => (
-              <div
-                key={i}
-                style={{
-                  background: "#fff",
-                  borderRadius: "12px",
-                  padding: "1.35rem 1.45rem",
-                  boxShadow: "0 6px 24px rgba(45,59,44,0.10), 0 1px 4px rgba(45,59,44,0.06)",
-                  display: "flex", flexDirection: "column", gap: "0.9rem",
-                  transform: `rotate(${i % 2 === 0 ? -1.5 : 2}deg)`,
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-serif), Georgia, serif",
-                    fontSize: "1rem",
-                    fontStyle: "italic",
-                    fontWeight: 400,
-                    lineHeight: 1.7,
-                    color: "#1A1A1A",
-                  }}
-                >
-                  &ldquo;{card.quote}&rdquo;
-                </p>
-                <div style={{ height: "0.5px", background: `rgba(194,150,58,0.3)` }} />
-                <div>
-                  <p style={{ fontSize: "11px", fontWeight: 600, color: "#4A5E48" }}>{card.author}</p>
-                  <p style={{ fontSize: "10.5px", color: "#9A9A8E", marginTop: 2 }}>{card.location}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p
-            className="text-center text-sm font-medium"
-            data-aos="fade-in"
-            style={{ color: "rgba(255,255,255,0.72)", marginTop: "clamp(1.5rem,3vw,2rem)" }}
-          >
-            Austin Clinician Circle was built for this moment.
-          </p>
         </div>
       </section>
 

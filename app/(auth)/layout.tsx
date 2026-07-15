@@ -12,7 +12,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-screen flex overflow-hidden" style={{ background: "#fff" }}>
+    <div className="fixed inset-0 flex overflow-hidden" style={{ background: "#fff" }}>
       {/* Left — brand panel (desktop only) */}
       <div className="hidden md:flex w-1/2 relative overflow-hidden" style={{ background: "#2D3B2C" }}>
         <div className="absolute inset-0 opacity-30" style={{ background: "url(/hero-bg.jpg) center/cover" }} />
@@ -20,7 +20,7 @@ export default function AuthLayout({
         <div className="relative flex flex-col justify-center px-12 lg:px-16 w-full z-10">
           <div
             className="mb-3 w-72 max-w-full"
-            aria-label="Austin Clinician Circle"
+            aria-label="The Circle"
           >
             <img
               src="/logo-auth.png"
@@ -41,7 +41,7 @@ export default function AuthLayout({
           >
             Deepen your work.
             <br />
-            <em style={{ color: "#C2963A", fontStyle: "italic" }}>Find your people.</em>
+            <em style={{ color: "#C2963A", fontStyle: "italic" }}>Find your community.</em>
           </h1>
           <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
             A professional community for licensed therapists in Austin, TX.
@@ -60,7 +60,7 @@ export default function AuthLayout({
         >
           <img
             src="/logo-auth.png"
-            alt="Austin Clinician Circle"
+            alt="The Circle"
             width={1763}
             height={687}
             className="h-full w-full object-contain"

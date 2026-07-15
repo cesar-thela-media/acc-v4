@@ -424,7 +424,7 @@ export default function ComingSoonPage() {
                   Apply for founding membership
                 </Link>
                 <Link href="/find-a-clinician" className="text-sm transition-colors hover:text-white" style={{ color: "rgba(255,255,255,0.56)" }}>
-                  Browse the clinician directory
+                  Preview the therapist directory
                 </Link>
               </div>
             </div>

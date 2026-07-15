@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Find a Clinician | The Circle",
   description:
-    "Browse our curated directory of licensed clinicians in Austin, TX. Search by specialty and find the right therapist for your referral needs.",
+    "Our curated directory of licensed clinician members is coming soon. Apply for membership to be one of the first therapists listed.",
 };
 
 export default function FindAClinicianLayout({

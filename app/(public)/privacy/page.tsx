@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | The Circle",
-  description: "Privacy policy for Austin Clinician Circle.",
+  description: "Privacy policy for The Circle.",
 };
 
 export default function PrivacyPage() {
@@ -26,10 +26,10 @@ export default function PrivacyPage() {
         Privacy Policy
       </h1>
       <p className="text-base leading-relaxed max-w-lg mx-auto mb-8" style={{ color: "rgba(255,255,255,0.6)" }}>
-        We take your privacy seriously. This policy will be published before we collect any personal information from members. Austin Clinician Circle does not sell, share, or monetize clinician data.
+        We take your privacy seriously. This policy will be published before we collect any personal information from members. The Circle does not sell, share, or monetize clinician data.
       </p>
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
-        For questions, contact sarah@restoredfc.com
+        For questions, contact sarah@restoredfamily.com
       </p>
     </section>
   );

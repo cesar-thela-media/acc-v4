@@ -42,12 +42,12 @@ export function AdminNav() {
       >
         <div>
           <p className="text-[11px] font-medium uppercase tracking-[0.24em]" style={{ color: "rgba(255,255,255,0.48)" }}>
-            ACC Admin
+            The Circle Admin
           </p>
-          <Link href="/admin" aria-label="Austin Clinician Circle">
+          <Link href="/admin" aria-label="The Circle">
             <img
               src="/logo.png"
-              alt="Austin Clinician Circle"
+              alt="The Circle"
               className="h-16 w-auto mt-0.5"
             />
           </Link>
@@ -76,12 +76,12 @@ export function AdminNav() {
             className="text-[11px] font-medium uppercase tracking-[0.24em] mb-1"
             style={{ color: "rgba(255,255,255,0.40)" }}
           >
-            ACC Admin
+            The Circle Admin
           </p>
-          <Link href="/admin" aria-label="Austin Clinician Circle">
+          <Link href="/admin" aria-label="The Circle">
             <img
               src="/logo.png"
-              alt="Austin Clinician Circle"
+              alt="The Circle"
               className="h-20 w-auto"
             />
           </Link>
@@ -129,13 +129,13 @@ export function AdminNav() {
         title={
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.24em] mb-2" style={{ color: "rgba(255,255,255,0.40)" }}>
-              ACC Admin
+              The Circle Admin
             </p>
             <span
               className="text-base"
               style={{ fontFamily: "var(--font-serif), Georgia, serif", fontWeight: 400, color: "#fff" }}
             >
-              Austin Clinician Circle
+              The Circle
             </span>
           </div>
         }

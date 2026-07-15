@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: "How do I reach Sarah?",
-    a: "By email, sarah@restoredfc.com",
+    a: "By email, sarah@restoredfamily.com",
   },
 ];
 

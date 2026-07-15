@@ -42,10 +42,10 @@ export function PublicNav() {
         >
           <div className="max-w-[90rem] mx-auto px-6 py-2 flex items-center justify-between gap-8">
             {/* Logo */}
-            <Link href="/" className="shrink-0" aria-label="Austin Clinician Circle">
+            <Link href="/" className="shrink-0" aria-label="The Circle">
               <img
                 src="/logo.png"
-                alt="Austin Clinician Circle"
+                alt="The Circle"
                 width={2000}
                 height={1549}
                 className="block transition-all duration-300"
@@ -125,7 +125,7 @@ export function PublicNav() {
           <div>
             <p className="text-[10px] font-medium uppercase tracking-[0.24em] mb-2" style={{ color: "rgba(255,255,255,0.38)" }}>Navigate</p>
             <span className="text-base" style={{ fontFamily: "var(--font-serif), Georgia, serif", fontWeight: 400, color: "#fff" }}>
-              Austin Clinician Circle
+              The Circle
             </span>
           </div>
         }
