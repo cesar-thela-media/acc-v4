@@ -16,7 +16,7 @@ export function PublicNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const onDark = isHome && !scrolled;
+  const transparent = isHome && !scrolled;
 
   useEffect(() => {
     if (!isHome) return;
@@ -33,15 +33,15 @@ export function PublicNav() {
         <div
           className="transition-all duration-300"
           style={{
-            background: onDark ? "transparent" : "rgba(240,237,230,0.94)",
-            backdropFilter: onDark ? "none" : "blur(20px)",
-            WebkitBackdropFilter: onDark ? "none" : "blur(20px)",
-            borderBottom: onDark ? "none" : "1px solid rgba(194,150,58,0.14)",
+            background: transparent ? "transparent" : "rgba(45,59,44,0.96)",
+            backdropFilter: transparent ? "none" : "blur(20px)",
+            WebkitBackdropFilter: transparent ? "none" : "blur(20px)",
+            borderBottom: transparent ? "none" : "1px solid rgba(255,255,255,0.08)",
           }}
         >
-          <div className="max-w-[90rem] mx-auto px-6 py-2 flex items-center justify-between gap-8">
+          <div className="max-w-[90rem] mx-auto px-6 py-2 grid grid-cols-[1fr_auto_1fr] items-center gap-8">
             {/* Logo */}
-            <Link href="/" className="shrink-0" aria-label="The Circle">
+            <Link href="/" className="shrink-0 justify-self-start" aria-label="The Circle">
               <img
                 src="/logo.png"
                 alt="The Circle"
@@ -56,20 +56,20 @@ export function PublicNav() {
               />
             </Link>
 
-            {/* Desktop nav with dot separators */}
-            <nav className="hidden lg:flex items-center gap-0">
+            {/* Desktop nav with dot separators, true-centered */}
+            <nav className="hidden lg:flex items-center gap-0 justify-self-center">
               {navLinks.map((link, i) => (
                 <span key={link.href + link.label} className="flex items-center">
                   {i > 0 && (
                     <span
                       className="mx-3 select-none text-xs"
-                      style={{ color: onDark ? "rgba(255,255,255,0.28)" : "rgba(45,59,44,0.22)" }}
+                      style={{ color: "rgba(255,255,255,0.28)" }}
                     >·</span>
                   )}
                   <Link
                     href={link.href}
                     className="text-sm transition-colors duration-300 hover:opacity-70"
-                    style={{ color: onDark ? "rgba(255,255,255,0.8)" : "#3D4A3B" }}
+                    style={{ color: "rgba(255,255,255,0.8)" }}
                   >
                     {link.label}
                   </Link>
@@ -78,11 +78,11 @@ export function PublicNav() {
             </nav>
 
             {/* Right actions */}
-            <div className="hidden lg:flex items-center gap-5 shrink-0">
+            <div className="hidden lg:flex items-center gap-5 shrink-0 justify-self-end">
               <Link
                 href="/sign-in"
                 className="text-sm transition-colors duration-300 hover:opacity-70"
-                style={{ color: onDark ? "rgba(255,255,255,0.8)" : "#3D4A3B" }}
+                style={{ color: "rgba(255,255,255,0.8)" }}
               >
                 Login
               </Link>
@@ -90,8 +90,8 @@ export function PublicNav() {
                 href="/join"
                 className="text-sm px-5 py-2 rounded-full transition-all duration-300"
                 style={{
-                  border: onDark ? "1px solid rgba(255,255,255,0.45)" : "1px solid #C2963A",
-                  color: onDark ? "#fff" : "#C2963A",
+                  border: "1px solid rgba(255,255,255,0.45)",
+                  color: "#fff",
                   background: "transparent",
                   fontWeight: 500,
                 }}
@@ -102,12 +102,12 @@ export function PublicNav() {
 
             {/* Mobile hamburger */}
             <button
-              className="lg:hidden flex flex-col gap-1.5 p-2 ml-auto"
+              className="lg:hidden flex flex-col gap-1.5 p-2 ml-auto col-start-3 justify-self-end"
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
               {[0, 1, 2].map((n) => (
-                <span key={n} className="block w-5 h-0.5" style={{ background: onDark ? "#fff" : "#2D3B2C" }} />
+                <span key={n} className="block w-5 h-0.5" style={{ background: "#fff" }} />
               ))}
             </button>
           </div>

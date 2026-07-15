@@ -195,7 +195,7 @@ export default function HomePage() {
       </section>
 
       {/* ══ MEMBERSHIP INCLUDES ══════════════════════════════ */}
-      <section style={{ background: PARCHMENT, padding: "clamp(2.5rem,5vw,4rem) 0", borderTop: `1px solid rgba(194,150,58,0.12)` }}>
+      <section style={{ background: "#4A5E48", padding: "clamp(2.5rem,5vw,4rem) 0" }}>
         <div className="container-fluid">
           <div className="text-center mb-10" data-aos="fade-in-up">
             <p className="uppercase tracking-[0.28em] font-medium text-[11px] mb-4" style={{ color: AMBER }}>
@@ -208,7 +208,7 @@ export default function HomePage() {
                 fontWeight: 400,
                 letterSpacing: "-0.018em",
                 lineHeight: 1.18,
-                color: "#1A1A1A",
+                color: "#fff",
                 maxWidth: 600,
                 margin: "0 auto",
               }}
@@ -233,7 +233,7 @@ export default function HomePage() {
                 data-aos="fade-in-up"
                 data-delay={String((i + 1) * 60)}
                 className="rounded-2xl p-6 flex flex-col gap-3"
-                style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}
+                style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.18)" }}
               >
                 <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: "rgba(194,150,58,0.12)" }}>
                   <span className="w-1.5 h-1.5 rounded-full block" style={{ background: AMBER }} />
@@ -273,7 +273,7 @@ export default function HomePage() {
             data-aos="scale-in"
             data-delay="80"
             className="max-w-3xl mx-auto rounded-2xl overflow-hidden"
-            style={{ background: "#fff", boxShadow: "0 4px 28px rgba(45,59,44,0.09)", border: "1px solid rgba(194,150,58,0.12)" }}
+            style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.22)" }}
           >
               <div className="grid grid-cols-1 md:grid-cols-[190px,1fr]">
                 {/* Price */}

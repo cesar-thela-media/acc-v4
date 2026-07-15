@@ -52,7 +52,7 @@ export function DashboardNav() {
           <img
             src="/logo.png"
             alt="The Circle"
-            className="h-16 w-auto"
+            className="h-20 w-auto"
           />
         </Link>
 
@@ -76,13 +76,13 @@ export function DashboardNav() {
       >
         <Link
           href="/dashboard"
-          className="px-1 mb-6 block"
+          className="mb-6 flex justify-center"
           aria-label="The Circle"
         >
           <img
             src="/logo.png"
             alt="The Circle"
-            className="h-20 w-auto"
+            className="h-28 w-auto"
           />
         </Link>
 

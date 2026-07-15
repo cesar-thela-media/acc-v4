@@ -145,7 +145,7 @@ export default function JoinPage() {
 
   return (
     <div
-      className="min-h-screen pt-24 md:pt-28 pb-16 md:pb-20"
+      className="min-h-screen pt-24 md:pt-28 pb-10 md:pb-12"
       style={{ background: "var(--color-cream-100)" }}
     >
       <div className="max-w-2xl mx-auto px-5 md:px-8">
@@ -172,6 +172,10 @@ export default function JoinPage() {
           </p>
         </div>
 
+        <div
+          className="rounded-2xl p-6 sm:p-8"
+          style={{ background: "#fff", border: "1px solid rgba(197,200,190,0.7)" }}
+        >
         {/* Step indicator */}
         <div className="flex items-center justify-center gap-2 mb-10">
           {STEPS.map((label, i) => (
@@ -495,7 +499,8 @@ export default function JoinPage() {
             </div>
           </div>
         )}
-      </div>
+        </div>
+        </div>
       </div>
     </div>
   );

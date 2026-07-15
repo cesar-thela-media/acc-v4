@@ -30,7 +30,7 @@ export function Footer() {
               <img
                 src="/logo.png"
                 alt="The Circle"
-                className="h-20 w-auto"
+                className="h-32 w-auto"
               />
             </Link>
             <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.48)" }}>
@@ -122,6 +122,7 @@ export function Footer() {
             {[
               { label: "Privacy", href: "/privacy" },
               { label: "Terms", href: "/terms" },
+              { label: "Invite Preview", href: "/invite" },
             ].map(({ label, href }) => (
               <Link key={label} href={href} className="text-sm transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.32)" }}>
                 {label}

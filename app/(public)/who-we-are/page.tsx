@@ -30,11 +30,11 @@ export const metadata: Metadata = {
 export default function WhoWeArePage() {
   return (
     <>
-      {/* Page heading */}
-      <section style={{ background: PARCHMENT, padding: "clamp(4rem,8vw,5.5rem) 1.5rem clamp(1.5rem,3vw,2rem)" }}>
+      {/* Heading + Origin story, merged, white */}
+      <section style={{ background: "#fff", padding: "clamp(4rem,8vw,6rem) 1.5rem" }}>
         <div className="container-fluid text-center max-w-3xl mx-auto">
           <h1
-            className="leading-snug"
+            className="leading-snug mb-10"
             style={{
               fontFamily: "var(--font-serif), Georgia, serif",
               fontWeight: 400,
@@ -44,27 +44,12 @@ export default function WhoWeArePage() {
           >
             A professional home and community for therapists.
           </h1>
-        </div>
-      </section>
 
-      {/* Origin story */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: SAGE_600, padding: "clamp(2.5rem,5vw,4.5rem) 0" }}
-      >
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "radial-gradient(ellipse 60% 50% at 50% 30%, rgba(194,150,58,0.06) 0%, transparent 65%)",
-            pointerEvents: "none",
-          }}
-        />
-        <div className="container-fluid text-center relative z-10">
+          <div style={{ width: 40, height: 1.5, background: AMBER, borderRadius: 1, margin: "0 auto 2.5rem" }} />
+
           <p
             className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5"
-            style={{ color: `rgba(194,150,58,0.78)` }}
+            style={{ color: AMBER }}
           >
             The origin
           </p>
@@ -74,14 +59,14 @@ export default function WhoWeArePage() {
               fontFamily: "var(--font-serif), Georgia, serif",
               fontWeight: 400,
               fontSize: "clamp(1.8rem, 3.2vw, 2.75rem)",
-              color: "#fff",
+              color: SAGE_800,
             }}
           >
             Why The Circle exists.
           </h2>
           <div
             className="flex flex-col gap-5 text-[0.9375rem] leading-relaxed max-w-2xl mx-auto text-left"
-            style={{ color: "rgba(255,255,255,0.78)" }}
+            style={{ color: "var(--color-text-secondary)" }}
           >
             <p>
               Most of us didn&apos;t fully anticipate how solo private practice would
@@ -106,13 +91,15 @@ export default function WhoWeArePage() {
         </div>
       </section>
 
-      {/* Founder — Sarah Arnold */}
+      {/* Founder — Sarah Arnold, green */}
       <section
-        style={{ background: PARCHMENT, padding: "clamp(4rem,8vw,6rem) 0 clamp(2.5rem,5vw,4rem)" }}
+        style={{ background: SAGE_600, padding: "clamp(4rem,8vw,6rem) 0" }}
       >
         <div className="container-fluid grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-          <div className="aspect-square rounded-2xl max-w-sm w-full mx-auto md:mx-0 lg:sticky lg:top-24 overflow-hidden"
-            style={{ boxShadow: "0 4px 28px rgba(45,59,44,0.12)" }}>
+          <div
+            className="aspect-square rounded-2xl max-w-sm w-full mx-auto md:mx-0 lg:sticky lg:top-24 overflow-hidden"
+            style={{ border: "1px solid rgba(255,255,255,0.14)" }}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/sarah-arnold.jpeg"
@@ -123,7 +110,7 @@ export default function WhoWeArePage() {
           <div>
             <p
               className="text-[11px] font-medium uppercase tracking-[0.28em] mb-4"
-              style={{ color: AMBER }}
+              style={{ color: `rgba(194,150,58,0.85)` }}
             >
               The founder
             </p>
@@ -133,14 +120,14 @@ export default function WhoWeArePage() {
                 fontFamily: "var(--font-serif), Georgia, serif",
                 fontWeight: 400,
                 fontSize: "clamp(1.8rem, 3.2vw, 2.75rem)",
-                color: SAGE_800,
+                color: "#fff",
               }}
             >
               Sarah Arnold, LPC-S
             </h2>
             <div
               className="flex flex-col gap-5 text-[0.9375rem] leading-relaxed"
-              style={{ color: "var(--color-text-secondary)" }}
+              style={{ color: "rgba(255,255,255,0.78)" }}
             >
               <p>
                 Sarah is a Licensed Professional Counselor and Supervisor based
@@ -173,7 +160,7 @@ export default function WhoWeArePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block mt-8 text-sm font-medium underline"
-              style={{ color: AMBER, textUnderlineOffset: "4px" }}
+              style={{ color: "#fff", textUnderlineOffset: "4px" }}
             >
               Visit Restored Family Counseling →
             </a>
@@ -215,8 +202,7 @@ export default function WhoWeArePage() {
                 className="rounded-2xl p-7 flex flex-col gap-3"
                 style={{
                   background: "#fff",
-                  boxShadow: "0 2px 16px rgba(45,59,44,0.07)",
-                  border: `1px solid rgba(194,150,58,0.12)`,
+                  border: `1px solid rgba(194,150,58,0.18)`,
                 }}
               >
                 <div style={{ width: 24, height: 1.5, background: AMBER, borderRadius: 1 }} />
