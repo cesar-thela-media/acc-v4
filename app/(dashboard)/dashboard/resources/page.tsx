@@ -269,16 +269,11 @@ export default function ResourcesPage() {
             >
               <div>
                 <p className="text-sm font-semibold" style={{ color: "var(--color-sage-800)" }}>
-                  Why members keep using this
+                  About this resource
                 </p>
                 <p className="text-xs mt-1" style={{ color: "var(--color-text-secondary)" }}>
-                  It&apos;s concise, practical, and ready to use in session or supervision.
+                  Concise and ready to use in session or supervision.
                 </p>
-              </div>
-              <div className="flex flex-col gap-2 text-xs" style={{ color: "var(--color-text-secondary)" }}>
-                <p>• Recommended by 9 members this month</p>
-                <p>• Pairs well with your consultation group notes</p>
-                <p>• Great for client prep and supervision follow-up</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 mt-auto">
                 <Button size="sm" onClick={() => alert('Download started.')}>Download</Button>

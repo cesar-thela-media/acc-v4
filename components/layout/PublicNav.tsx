@@ -6,10 +6,9 @@ import { usePathname } from "next/navigation";
 import { MobileSidePanel } from "@/components/layout/MobileSidePanel";
 
 const navLinks = [
-  { href: "/who-we-are",   label: "Who we are" },
-  { href: "/what-we-offer", label: "What we offer" },
-  { href: "/find-a-clinician",  label: "Community" },
-  { href: "/what-we-offer",  label: "Resources" },
+  { href: "/who-we-are",   label: "Who We Are" },
+  { href: "/what-we-offer", label: "What We Offer" },
+  { href: "/find-a-clinician",  label: "Find a Clinician" },
 ];
 
 export function PublicNav() {
@@ -85,7 +84,7 @@ export function PublicNav() {
                 className="text-sm transition-colors duration-300 hover:opacity-70"
                 style={{ color: onDark ? "rgba(255,255,255,0.8)" : "#3D4A3B" }}
               >
-                Sign In
+                Login
               </Link>
               <Link
                 href="/join"
@@ -148,7 +147,7 @@ export function PublicNav() {
         </nav>
         <div className="mt-8 pt-6 flex flex-col gap-3" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
           <Link href="/sign-in" onClick={() => setMobileOpen(false)} className="text-center py-3 rounded-full text-sm border transition-all duration-200" style={{ color: "#fff", borderColor: "rgba(255,255,255,0.2)" }}>
-            Sign In
+            Login
           </Link>
           <Link href="/join" onClick={() => setMobileOpen(false)} className="text-center py-3 rounded-full text-sm font-medium transition-all duration-200" style={{ border: "1px solid #C2963A", color: "#C2963A", background: "transparent" }}>
             Join the Circle

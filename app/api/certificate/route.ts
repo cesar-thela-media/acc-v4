@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
     status: 200,
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename="austin-clinician-circle-certificate.pdf"`,
+      "Content-Disposition": `attachment; filename="the-circle-certificate.pdf"`,
     },
   });
 }

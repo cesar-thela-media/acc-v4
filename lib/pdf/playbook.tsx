@@ -8,6 +8,7 @@ import {
   Link,
 } from "@react-pdf/renderer";
 import type { ReactElement } from "react";
+import { appUrl } from "@/lib/env";
 
 // ─── Palette ──────────────────────────────────────────────────────────────
 const SAGE_900 = "#1B1B1B";
@@ -322,7 +323,7 @@ function NumItem({ n, text }: { n: number; text: string }) {
 function Footer({ page }: { page: number }) {
   return (
     <View style={s.footer} fixed>
-      <Text style={s.footerLeft}>The Private Practice Playbook · ACC</Text>
+      <Text style={s.footerLeft}>The Private Practice Playbook · The Circle</Text>
       <Text style={s.footerRight}>{page}</Text>
     </View>
   );
@@ -336,12 +337,12 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
       title="The Private Practice Playbook"
       author="Sarah Arnold, LPC-S"
       subject="Building a sustainable, fulfilling private practice"
-      creator="Austin Clinician Circle"
+      creator="The Circle"
     >
       {/* ── COVER ── */}
       <Page size="A4" style={s.coverPage}>
         <View>
-          <Text style={s.coverEyebrow}>Austin Clinician Circle</Text>
+          <Text style={s.coverEyebrow}>The Circle</Text>
           <Text style={s.coverTitle}>
             The Private{"\n"}
             <Text style={s.coverTitleAccent}>Practice</Text>
@@ -353,7 +354,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
           <View style={s.coverDivider} />
           <Text style={s.coverByline}>
             <Text style={s.coverName}>Sarah Arnold, LPC-S</Text>
-            {"\n"}Founder, Austin Clinician Circle{"\n"}
+            {"\n"}Founder, The Circle{"\n"}
             Restored Family Counseling · Austin, TX
           </Text>
         </View>
@@ -606,18 +607,13 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
         <Text style={s.p}>
           Working in isolation has a compounding cost that rarely shows up on a ledger. It shows up as: lower fees (no benchmark), worse referrals (no network), slower clinical growth (no consultation), and earlier burnout (no community). Call it the isolation tax.
         </Text>
-        <View style={s.callout}>
-          <Text style={s.calloutText}>
-            "Private practice isn't supposed to mean practicing alone. The word 'private' refers to your clients, not you." (Sarah Arnold)
-          </Text>
-        </View>
         <Footer page={12} />
       </Page>
 
       <Page size="A4" style={s.page}>
         <Text style={s.h2}>What The Circle offers</Text>
         <Text style={s.p}>
-          Austin Clinician Circle is a curated membership community for licensed therapists, built around the structures that research and experience show actually protect clinician longevity:
+          The Circle is a curated membership community for licensed therapists, built around the structures that research and experience show actually protect clinician longevity:
         </Text>
         <CheckItem text="Monthly group case consultation led by Sarah Arnold, LPC-S, bring a real case and get real support." />
         <CheckItem text="CEU trainings each month on clinical and business topics, all archived." />
@@ -634,17 +630,17 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
         <View style={s.goldBox}>
           <Text style={s.goldBoxTitle}>Ready to apply?</Text>
           <Text style={s.goldBoxText}>
-            Applications are reviewed weekly. Visit austincliniciancircle.com/join to apply. It takes about 10 minutes and there's no commitment required to apply.{"\n\n"}
+            Applications are reviewed weekly. Visit {appUrl.replace(/^https?:\/\//, "")}/join to apply. It takes about 10 minutes and there's no commitment required to apply.{"\n\n"}
             Questions? Email Sarah directly at{" "}
-            <Link src="mailto:sarah@austincliniciancircle.com" style={{ color: GOLD }}>
-              sarah@austincliniciancircle.com
+            <Link src="mailto:sarah@restoredfamily.com" style={{ color: GOLD }}>
+              sarah@restoredfamily.com
             </Link>
           </Text>
         </View>
 
         <View style={{ marginTop: 32, paddingTop: 20, borderTopWidth: 1, borderTopColor: SAGE_100 }}>
           <Text style={{ fontSize: 8, color: "rgba(0,0,0,0.3)", lineHeight: 1.6 }}>
-            This guide is provided for educational purposes and reflects the professional experience and perspective of Sarah Arnold, LPC-S. It is not a substitute for clinical supervision, consultation, or personal therapy. Austin Clinician Circle is a membership community for licensed mental health professionals.
+            This guide is provided for educational purposes and reflects the professional experience and perspective of Sarah Arnold, LPC-S. It is not a substitute for clinical supervision, consultation, or personal therapy. The Circle is a membership community for licensed mental health professionals.
           </Text>
         </View>
         <Footer page={13} />

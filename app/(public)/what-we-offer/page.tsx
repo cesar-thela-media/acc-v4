@@ -47,34 +47,65 @@ export default function WhatWeOfferPage() {
             className="leading-tight mb-5"
             style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(2rem, 4.5vw, 3.5rem)", fontWeight: 400, color: "#fff" }}
           >
-            The support you&apos;ve been missing since you left the agency.
+            Membership gives you full access to clinical support, professional development, and community.
           </h1>
-          <p className="text-base leading-relaxed max-w-xl mx-auto" style={{ color: "rgba(255,255,255,0.58)" }}>
-            One membership. Every tool, every connection, every resource you need to build a private practice that feels sustainable.
-          </p>
         </div>
       </section>
 
-      {/* Benefits — large emotional cards */}
+      {/* Benefits — grouped by Clinical / Professional / Support */}
       <section style={{ background: PARCHMENT, padding: "clamp(2.5rem,5vw,4rem) 0" }}>
-        <div className="container-fluid max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { label: "01", title: "You talk through cases with people who get it.", body: "Monthly case consultation with a small, trusted group of clinicians. Bring your hardest sessions and leave with perspective you can actually use." },
-              { label: "02", title: "You stop Googling for handouts at 10pm.", body: "A searchable library of clinical tools, assessments, and templates, organized by specialty and ready when you are." },
-              { label: "03", title: "You send referrals without second-guessing.", body: "A vetted network of clinicians you know and trust. Because the best referrals come from real professional relationships." },
-              { label: "04", title: "You stay sharp without sitting through irrelevant CEUs.", body: "Continuing education designed for practicing clinicians, practical, relevant, and actually worth your Saturday morning." },
-              { label: "05", title: "You get found by the clients who need you.", body: "Your profile in our public directory, searchable by specialty, modality, and availability. A trusted source for client referrals." },
-              { label: "06", title: "You have someone to call when it feels heavy.", body: "Discounted one-on-one coaching with Sarah Arnold, LPC-S, for clinical guidance, practice strategy, or just a grounded conversation." },
-            ].map((item) => (
-              <div key={item.label} className="rounded-2xl p-7 flex gap-5" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}>
-                <span className="text-2xl shrink-0" style={{ fontFamily: "var(--font-serif), Georgia, serif", fontWeight: 400, color: AMBER, lineHeight: 1 }}>{item.label}</span>
-                <div>
+        <div className="container-fluid max-w-5xl mx-auto flex flex-col gap-12">
+          <div>
+            <p className="text-center text-[11px] font-medium uppercase tracking-[0.28em] mb-6" style={{ color: AMBER }}>
+              Clinical
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { title: "Monthly case consultation", body: "A structured consultation group meets the first Thursday of every month from 9:00 to 10:30am. Bring your difficult cases, process with trusted peers, and leave with a new perspective." },
+                { title: "Continuing education (CEUs)", body: "Access to continuing education content aligned with your licensure requirements. Curated for practicing clinicians and designed for professional growth." },
+                { title: "Resource library", body: "A growing library of clinical tools, assessment instruments, psychoeducation handouts, treatment frameworks, and business templates, organized and searchable." },
+              ].map((item) => (
+                <div key={item.title} className="rounded-2xl p-7 text-center" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}>
                   <h3 className="text-base font-semibold mb-2 leading-snug" style={{ color: SAGE_800 }}>{item.title}</h3>
                   <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{item.body}</p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-center text-[11px] font-medium uppercase tracking-[0.28em] mb-6" style={{ color: AMBER }}>
+              Professional
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { title: "Clinician directory listing", body: "Your profile in the public directory, searchable by specialty, modality, location, and availability. A trusted source for referrals from clients and colleagues." },
+                { title: "Referral network", body: "A private network of vetted clinicians. Send and receive referrals confidently, knowing every member has been part of the same professional community." },
+                { title: "Practice and marketing guidance", body: "Structured guidance on building a sustainable private practice: fee setting, marketing, business systems, and more." },
+              ].map((item) => (
+                <div key={item.title} className="rounded-2xl p-7 text-center" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}>
+                  <h3 className="text-base font-semibold mb-2 leading-snug" style={{ color: SAGE_800 }}>{item.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-center text-[11px] font-medium uppercase tracking-[0.28em] mb-6" style={{ color: AMBER }}>
+              Support
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+              {[
+                { title: "Burnout prevention", body: "Mindfulness practices and burnout prevention structures designed specifically for therapists carrying heavy caseloads. Because your sustainability matters too." },
+                { title: "Discounted coaching with Sarah", body: "Members receive discounted access to individual coaching sessions with Sarah Arnold, LPC-S for clinical consultation, practice development, or both." },
+              ].map((item) => (
+                <div key={item.title} className="rounded-2xl p-7 text-center" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}>
+                  <h3 className="text-base font-semibold mb-2 leading-snug" style={{ color: SAGE_800 }}>{item.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{item.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

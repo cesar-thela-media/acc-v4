@@ -1,11 +1,9 @@
 import Link from "next/link";
-import { ConsultationScheduler } from "@/components/ConsultationScheduler";
 
 /* ── Reference design tokens ───────────────────────────────── */
 const HERO_BG   = "#2D3B2C";   // deep forest sage — hero, CTA band, footer
 const SECTION2  = "#FFFFFF";   // white — why acc exists
 const PARCHMENT = "#F0EDE6";   // warm parchment — sections 4-5
-const SECTION3  = "#2D3B2C";   // deep sage — stat number color
 const AMBER     = "#C2963A";   // muted warm amber — accents, CTAs
 
 /* ── Pricing features ─────────────────────────────────────── */
@@ -175,46 +173,11 @@ export default function HomePage() {
 
           {/* Body */}
           <p className="text-sm leading-[1.7] max-w-[600px] mx-auto mb-4" data-aos="fade-in" data-delay="160" style={{ color: "#3D4A3B" }}>
-            When you leave an agency, you gain autonomy and lose the built-in consultation that keeps your clinical work sharp. Most private practitioners never fully replace it.
+            When you leave an agency, you gain autonomy and lose the built-in support from colleagues that keeps your clinical work sharp. Most private practitioners never fully replace it.
           </p>
           <p className="text-sm font-semibold mb-14" data-aos="fade-in" data-delay="220" style={{ color: "#1A1A1A" }}>
             The Circle is here to change that.
           </p>
-
-          {/* Stats — amber hairline dividers */}
-          <div className="grid grid-cols-3 mb-12 mx-auto" data-aos="fade-in-up" data-delay="160" style={{ maxWidth: 780 }}>
-            {[
-              { stat: "67%",     sub: "of private practitioners\nfeel isolated" },
-              { stat: "3 years", sub: "average without\npeer consultation" },
-              { stat: "89%",     sub: "say peer support improved\ntheir confidence" },
-            ].map((item, i) => (
-              <div
-                key={item.stat}
-                className="flex flex-col items-center py-5 px-3 md:px-5"
-                style={i === 1 ? {
-                  borderLeft:  `1px solid rgba(194,150,58,0.35)`,
-                  borderRight: `1px solid rgba(194,150,58,0.35)`,
-                } : {}}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-serif), Georgia, serif",
-                    fontSize: "clamp(2.5rem, 6vw, 4.25rem)",
-                    fontWeight: 400,
-                    color: SECTION3,
-                    lineHeight: 1,
-                    display: "block",
-                    marginBottom: "0.6rem",
-                  }}
-                >
-                  {item.stat}
-                </span>
-                <span style={{ fontSize: "12px", lineHeight: 1.5, color: "#75796E", whiteSpace: "pre-line", maxWidth: 140, display: "block" }}>
-                  {item.sub}
-                </span>
-              </div>
-            ))}
-          </div>
 
           {/* Founder pills */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5" data-aos="fade-in" data-delay="300">
@@ -250,65 +213,35 @@ export default function HomePage() {
                 margin: "0 auto",
               }}
             >
-              You didn&apos;t become a therapist to do it alone.
+              Everything you need to thrive in private practice.
             </h2>
           </div>
 
-          {/* Emotional benefit cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
             {[
-              { feeling: "Seen.", title: "Case consultation that meets you where you are", body: "Bring your hardest cases to clinicians who get it. No judgment, just the kind of perspective that only comes from someone who does this work too." },
-              { feeling: "Supported.", title: "Resources that save you hours", body: "Stop reinventing the wheel. A growing library of clinical tools, handouts, and templates, organized and ready when you need them." },
-              { feeling: "Connected.", title: "A referral network you actually trust", body: "Send and receive referrals with confidence. Every member has been vetted through the same professional community you belong to." },
-              { feeling: "Sharp.", title: "CEUs that don't waste your time", body: "Continuing education designed for practicing clinicians, relevant, practical, and aligned with your licensure." },
-              { feeling: "Visible.", title: "A directory listing that works for you", body: "Your profile, searchable by specialty and modality. A trusted source for client referrals and colleague connections." },
-              { feeling: "Grounded.", title: "Coaching that understands the weight", body: "Discounted one-on-one sessions with Sarah for when you need clinical guidance, practice strategy, or just someone who's been there." },
+              { title: "Monthly case consultation", body: "A structured consultation group led by Sarah Arnold, LPC-S. Bring a real case, get real support from peers who understand the clinical realities of your work." },
+              { title: "Curated resource library", body: "Clinical tools, handouts, and business guides, organized, downloadable, and built for active private practice." },
+              { title: "Referral network", body: "A trusted, vetted circle of clinicians. Get referred, refer with confidence. Build relationships that last longer than a single consult." },
+              { title: "Continuing education", body: "CEU trainings each month on clinical and business topics, all virtual, all archived, and all included in your membership." },
+              { title: "Public directory listing", body: "A professionally crafted listing in our public clinician directory, searchable by specialty, format, and availability. Clients find you here." },
+              { title: "Practice coaching access", body: "Discounted one-on-one practice-building sessions with Sarah Arnold, LPC-S on fees, marketing, burnout, and long-term sustainability." },
+              { title: "Professional Will designation", body: "Guidance and structure for putting a professional will in place so your practice is cared for responsibly." },
+              { title: "Private online community", body: "A private online community for real-time support, connection, and steady encouragement between meetings." },
             ].map((item, i) => (
               <div
                 key={item.title}
                 data-aos="fade-in-up"
                 data-delay={String((i + 1) * 60)}
-                className="rounded-2xl p-6 flex flex-col gap-3 group transition-all duration-300 hover:-translate-y-1"
+                className="rounded-2xl p-6 flex flex-col gap-3"
                 style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}
               >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em]" style={{ color: AMBER }}>{item.feeling}</p>
+                <span className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: "rgba(194,150,58,0.12)" }}>
+                  <span className="w-1.5 h-1.5 rounded-full block" style={{ background: AMBER }} />
+                </span>
                 <h3 className="text-base font-semibold leading-snug" style={{ color: "var(--color-sage-800)" }}>{item.title}</h3>
                 <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{item.body}</p>
               </div>
             ))}
-          </div>
-
-          {/* Dashboard preview */}
-          <div className="hidden md:block" data-aos="fade-in-up" data-delay="80">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] mb-4 text-center" style={{ color: "rgba(194,150,58,0.75)" }}>
-              A peek inside
-            </p>
-            <div
-              className="rounded-2xl overflow-hidden max-w-4xl mx-auto"
-              style={{ boxShadow: "0 28px 72px rgba(45,59,44,0.16), 0 4px 20px rgba(45,59,44,0.08)", border: "1px solid rgba(45,59,44,0.09)" }}
-            >
-              <div className="h-9 flex items-center px-4 gap-3" style={{ background: "#DEDAD2", borderBottom: "1px solid rgba(45,59,44,0.08)" }}>
-                <div className="flex items-center gap-1.5">
-                  {["rgba(194,80,60,0.75)", "rgba(210,150,40,0.75)", "rgba(60,160,80,0.75)"].map((c, j) => (
-                    <span key={j} className="w-2.5 h-2.5 rounded-full block" style={{ background: c }} />
-                  ))}
-                </div>
-                <div className="rounded px-3 py-0.5 text-center text-xs" style={{ background: "rgba(255,255,255,0.50)", color: "rgba(45,59,44,0.38)", width: 260, margin: "0 auto" }}>
-                  The Circle · Member Dashboard
-                </div>
-              </div>
-              <ConsultationScheduler />
-            </div>
-          </div>
-
-          {/* Mobile */}
-          <div className="md:hidden rounded-2xl p-6" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.14)", boxShadow: "0 2px 12px rgba(45,59,44,0.06)" }}>
-            <p className="text-base mb-2" style={{ fontFamily: "var(--font-serif), Georgia, serif", fontWeight: 400, color: "var(--color-sage-800)" }}>
-              Peer consultation groups, matched to your specialty.
-            </p>
-            <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-              Browse open groups by specialty. Trauma, anxiety, couples, ADHD, and more. Join as a member to see live availability and reserve your spot.
-            </p>
           </div>
         </div>
       </section>

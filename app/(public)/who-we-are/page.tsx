@@ -30,78 +30,20 @@ export const metadata: Metadata = {
 export default function WhoWeArePage() {
   return (
     <>
-      {/* Founder — Sarah Arnold */}
-      <section
-        style={{ background: PARCHMENT, padding: "clamp(4rem,8vw,6rem) 0 clamp(2.5rem,5vw,4rem)" }}
-      >
-        <div className="container-fluid grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-          <div className="aspect-square rounded-2xl max-w-sm w-full mx-auto md:mx-0 lg:sticky lg:top-24 overflow-hidden"
-            style={{ boxShadow: "0 4px 28px rgba(45,59,44,0.12)" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/sarah-arnold.jpeg"
-              alt="Sarah Arnold, LPC-S"
-              className="w-full h-full object-cover object-top"
-            />
-          </div>
-          <div>
-            <p
-              className="text-[11px] font-medium uppercase tracking-[0.28em] mb-4"
-              style={{ color: AMBER }}
-            >
-              The founder
-            </p>
-            <h1
-              className="mb-6 leading-snug"
-              style={{
-                fontFamily: "var(--font-serif), Georgia, serif",
-                fontWeight: 400,
-                fontSize: "clamp(1.8rem, 3.2vw, 2.75rem)",
-                color: SAGE_800,
-              }}
-            >
-              Sarah Arnold, LPC-S
-            </h1>
-            <div
-              className="flex flex-col gap-5 text-[0.9375rem] leading-relaxed"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              <p>
-                Sarah is a Licensed Professional Counselor and Supervisor based
-                in Austin, Texas, and the founder of Restored Family
-                Counseling. She has spent her career working with individuals
-                and couples doing the deeper work, exploring the parts of
-                themselves that have been running the show, releasing what no
-                longer serves them, and stepping into a life that feels in
-                alignment with who they truly desire to be.
-              </p>
-              <p>
-                As she built her group practice and supervised pre-licensed
-                associates, she noticed a pattern: once therapists became fully
-                licensed and launched their own practices, they lost the
-                built-in community they had during training. Supervision groups
-                ended. Colleagues scattered. What had once felt like a team
-                became, almost overnight, a practice of one.
-              </p>
-              <p>
-                The Circle is Sarah&apos;s answer to that problem.
-                It is not a supervision group, a continuing education provider,
-                or a therapist directory, though it includes elements of all
-                three. It is a membership network: a professional community for
-                therapists who want to keep growing, stay connected, and do
-                excellent work over the long term.
-              </p>
-            </div>
-            <a
-              href="https://www.restoredfamily.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-8 text-sm font-medium underline"
-              style={{ color: AMBER, textUnderlineOffset: "4px" }}
-            >
-              Visit Restored Family Counseling →
-            </a>
-          </div>
+      {/* Page heading */}
+      <section style={{ background: PARCHMENT, padding: "clamp(4rem,8vw,5.5rem) 1.5rem clamp(1.5rem,3vw,2rem)" }}>
+        <div className="container-fluid text-center max-w-3xl mx-auto">
+          <h1
+            className="leading-snug"
+            style={{
+              fontFamily: "var(--font-serif), Georgia, serif",
+              fontWeight: 400,
+              fontSize: "clamp(2.1rem, 4.5vw, 3.25rem)",
+              color: SAGE_800,
+            }}
+          >
+            A professional home and community for therapists.
+          </h1>
         </div>
       </section>
 
@@ -160,6 +102,81 @@ export default function WhoWeArePage() {
               open to any licensed therapist who shares this commitment to
               ongoing clinical growth and community.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder — Sarah Arnold */}
+      <section
+        style={{ background: PARCHMENT, padding: "clamp(4rem,8vw,6rem) 0 clamp(2.5rem,5vw,4rem)" }}
+      >
+        <div className="container-fluid grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+          <div className="aspect-square rounded-2xl max-w-sm w-full mx-auto md:mx-0 lg:sticky lg:top-24 overflow-hidden"
+            style={{ boxShadow: "0 4px 28px rgba(45,59,44,0.12)" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/sarah-arnold.jpeg"
+              alt="Sarah Arnold, LPC-S"
+              className="w-full h-full object-cover object-top"
+            />
+          </div>
+          <div>
+            <p
+              className="text-[11px] font-medium uppercase tracking-[0.28em] mb-4"
+              style={{ color: AMBER }}
+            >
+              The founder
+            </p>
+            <h2
+              className="mb-6 leading-snug"
+              style={{
+                fontFamily: "var(--font-serif), Georgia, serif",
+                fontWeight: 400,
+                fontSize: "clamp(1.8rem, 3.2vw, 2.75rem)",
+                color: SAGE_800,
+              }}
+            >
+              Sarah Arnold, LPC-S
+            </h2>
+            <div
+              className="flex flex-col gap-5 text-[0.9375rem] leading-relaxed"
+              style={{ color: "var(--color-text-secondary)" }}
+            >
+              <p>
+                Sarah is a Licensed Professional Counselor and Supervisor based
+                in Austin, Texas, and the founder of Restored Family
+                Counseling. She has spent her career working with individuals
+                and couples doing the deeper work, exploring the parts of
+                themselves that have been running the show, releasing what no
+                longer serves them, and stepping into a life that feels in
+                alignment with who they truly desire to be.
+              </p>
+              <p>
+                As she built her group practice and supervised pre-licensed
+                associates, she noticed a pattern: once therapists became fully
+                licensed and launched their own practices, they lost the
+                built-in community they had during training. Supervision groups
+                ended. Colleagues scattered. What had once felt like a team
+                became, almost overnight, a practice of one.
+              </p>
+              <p>
+                The Circle is Sarah&apos;s answer to that problem.
+                It is not a supervision group, a continuing education provider,
+                or a therapist directory, though it includes elements of all
+                three. It is a membership network: a professional community for
+                therapists who want to keep growing, stay connected, and do
+                excellent work over the long term.
+              </p>
+            </div>
+            <a
+              href="https://www.restoredfamily.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-8 text-sm font-medium underline"
+              style={{ color: AMBER, textUnderlineOffset: "4px" }}
+            >
+              Visit Restored Family Counseling →
+            </a>
           </div>
         </div>
       </section>

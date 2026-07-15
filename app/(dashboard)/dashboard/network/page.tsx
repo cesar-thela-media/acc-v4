@@ -20,12 +20,6 @@ const MEMBERS = [
   { name: "Dr. Ade Kolade", credentials: "PsyD", specialties: ["Cultural Identity", "Men", "Workplace"], city: "Austin, TX", format: "Virtual only", accepting: true, responseTime: "Within 48 hours", referralsThisMonth: 4, fit: "Black men, workplace stress, racial identity" },
 ];
 
-const referralActivity = [
-  { from: "James Whitfield, LPC", to: "You", specialty: "Somatic therapy", date: "Apr 18", status: "Completed" },
-  { from: "You", to: "Sofia Reyes, LMFT", specialty: "Family therapy", date: "Apr 14", status: "Pending fit call" },
-  { from: "Dr. Claire Hutchinson, PhD", to: "You", specialty: "Trauma (adult)", date: "Apr 9", status: "Accepted" },
-];
-
 const sortOptions = [
   { value: "recommended", label: "Recommended" },
   { value: "accepting", label: "Accepting now" },
@@ -70,8 +64,6 @@ export default function NetworkPage() {
   }, [acceptingOnly, search, selectedSpecialty, sort]);
 
   const hasActiveFilters = Boolean(search.trim() || selectedSpecialty !== "All" || acceptingOnly || sort !== "recommended");
-  const acceptingCount = MEMBERS.filter((member) => member.accepting).length;
-  const totalReferrals = MEMBERS.reduce((sum, member) => sum + member.referralsThisMonth, 0);
 
   function clearFilters() {
     setSearch("");
@@ -163,21 +155,6 @@ export default function NetworkPage() {
             Referral network
           </h1>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            { value: MEMBERS.length, label: "Active members" },
-            { value: acceptingCount, label: "Accepting clients now" },
-            { value: totalReferrals, label: "Referrals this month" },
-          ].map((stat) => (
-            <Card key={stat.label} className="flex flex-col gap-1">
-              <p className="text-3xl font-light" style={{ fontFamily: "var(--font-serif), Georgia, serif", fontWeight: 400, color: "var(--color-sage-700)" }}>
-                {stat.value}
-              </p>
-              <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>{stat.label}</p>
-            </Card>
-          ))}
-        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
@@ -241,18 +218,13 @@ export default function NetworkPage() {
             </div>
 
             <div className="rounded-2xl px-5 py-5 flex flex-col gap-4" style={{ background: "var(--color-cream-100)", border: "1px solid var(--color-cream-300)" }}>
-              <p className="text-sm font-semibold" style={{ color: "var(--color-sage-800)" }}>
-                This week at a glance
-              </p>
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="rounded-xl px-3 py-3" style={{ background: "#fff", border: "1px solid var(--color-cream-300)" }}>
-                  <p style={{ color: "var(--color-text-tertiary)" }}>Accepting now</p>
-                  <p className="text-base font-semibold mt-1" style={{ color: "var(--color-sage-800)" }}>{acceptingCount} clinicians</p>
-                </div>
-                <div className="rounded-xl px-3 py-3" style={{ background: "#fff", border: "1px solid var(--color-cream-300)" }}>
-                  <p style={{ color: "var(--color-text-tertiary)" }}>Avg response</p>
-                  <p className="text-base font-semibold mt-1" style={{ color: "var(--color-sage-800)" }}>24–48 hours</p>
-                </div>
+              <div>
+                <p className="text-sm font-semibold" style={{ color: "var(--color-sage-800)" }}>
+                  Keep your listing current
+                </p>
+                <p className="text-xs mt-1" style={{ color: "var(--color-text-secondary)" }}>
+                  Members can only refer to you if your availability and fit are up to date.
+                </p>
               </div>
               <Link
                 href="/dashboard/profile"
@@ -263,36 +235,6 @@ export default function NetworkPage() {
               </Link>
             </div>
           </Card>
-
-          <div>
-            <div className="flex items-center justify-between gap-3 mb-4">
-              <h2 className="text-base font-semibold" style={{ color: "var(--color-sage-900)" }}>Recent referral activity</h2>
-              <Badge variant="highlight">Live network feed</Badge>
-            </div>
-            <Card className="flex flex-col gap-3" style={{ padding: 0 }}>
-              {referralActivity.map((item, index) => (
-                <div
-                  key={`${item.from}-${item.date}`}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-6 py-4"
-                  style={{ borderBottom: index < referralActivity.length - 1 ? "1px solid var(--color-cream-200)" : "none" }}
-                >
-                  <div>
-                    <p className="text-sm" style={{ color: "var(--color-text-primary)" }}>
-                      <span className="font-medium">{item.from}</span>
-                      <span style={{ color: "var(--color-text-tertiary)" }}> referred </span>
-                      <span className="font-medium">{item.to}</span>
-                    </p>
-                    <p className="text-xs mt-1" style={{ color: "var(--color-text-tertiary)" }}>
-                      {item.specialty} · {item.date}
-                    </p>
-                  </div>
-                  <Badge variant={item.status === "Completed" ? "success" : item.status === "Accepted" ? "highlight" : "accent"}>
-                    {item.status}
-                  </Badge>
-                </div>
-              ))}
-            </Card>
-          </div>
 
           <div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -409,17 +351,6 @@ export default function NetworkPage() {
                       {member.specialties.map((specialty) => (
                         <Badge key={specialty}>{specialty}</Badge>
                       ))}
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div className="rounded-xl px-3 py-3" style={{ background: "var(--color-cream-100)", border: "1px solid var(--color-cream-300)" }}>
-                        <p style={{ color: "var(--color-text-tertiary)" }}>Referrals this month</p>
-                        <p className="text-sm font-semibold mt-1" style={{ color: "var(--color-sage-800)" }}>{member.referralsThisMonth}</p>
-                      </div>
-                      <div className="rounded-xl px-3 py-3" style={{ background: "var(--color-cream-100)", border: "1px solid var(--color-cream-300)" }}>
-                        <p style={{ color: "var(--color-text-tertiary)" }}>Typical response time</p>
-                        <p className="text-sm font-semibold mt-1" style={{ color: "var(--color-sage-800)" }}>{member.responseTime}</p>
-                      </div>
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3 mt-auto">

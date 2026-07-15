@@ -4,10 +4,9 @@ const AMBER = "#C2963A";
 const BG    = "#2D3B2C";
 
 const quickLinks = [
-  { href: "/who-we-are",   label: "Who we are" },
-  { href: "/what-we-offer", label: "What we offer" },
-  { href: "/find-a-clinician",  label: "Community" },
-  { href: "/what-we-offer",  label: "Resources" },
+  { href: "/who-we-are",   label: "Who We Are" },
+  { href: "/what-we-offer", label: "What We Offer" },
+  { href: "/find-a-clinician",  label: "Find a Clinician" },
   { href: "/dashboard/events",  label: "Events" },
 ];
 
@@ -35,7 +34,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.48)" }}>
-              Connection. Consultation. Community.
+              Deepen your Work. Find your community.
             </p>
             {/* Social icons */}
             <div className="flex items-center gap-2.5">
