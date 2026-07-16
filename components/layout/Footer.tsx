@@ -122,7 +122,7 @@ export function Footer() {
             {[
               { label: "Privacy", href: "/privacy" },
               { label: "Terms", href: "/terms" },
-              { label: "Invite Preview", href: "/invite" },
+              { label: "Coming Soon", href: "/coming-soon" },
             ].map(({ label, href }) => (
               <Link key={label} href={href} className="text-sm transition-colors duration-150 hover:text-white" style={{ color: "rgba(255,255,255,0.32)" }}>
                 {label}
