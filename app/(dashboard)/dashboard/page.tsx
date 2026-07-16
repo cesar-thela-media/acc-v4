@@ -87,44 +87,6 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* Member spotlight */}
-      <Card className="flex flex-col sm:flex-row items-start gap-5">
-        <div
-          className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-medium shrink-0"
-          style={{ background: "var(--color-sage-100)", color: "var(--color-sage-600)" }}
-        >
-          MO
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-eyebrow">
-            Member spotlight
-          </p>
-          <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>
-            Dr. Maya Okonkwo, LCSW
-          </p>
-          <p className="text-sm mt-1 leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-            "The consultation group alone is worth the membership. I've found referral partners I actually trust, and the resource library saves me hours every week."
-          </p>
-          <div className="flex items-center gap-2 mt-3">
-            <Link
-              href="/dashboard/network"
-              className="text-xs font-medium underline"
-              style={{ color: "var(--color-sage-700)", textUnderlineOffset: "3px" }}
-            >
-              Connect with Maya →
-            </Link>
-            <span className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>·</span>
-            <Link
-              href="/dashboard/network"
-              className="text-xs underline"
-              style={{ color: "var(--color-sage-600)", textUnderlineOffset: "3px" }}
-            >
-              View all members
-            </Link>
-          </div>
-        </div>
-      </Card>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Upcoming events */}
         <Card className="flex flex-col gap-5">
