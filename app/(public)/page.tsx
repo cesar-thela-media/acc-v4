@@ -30,115 +30,95 @@ export default function HomePage() {
   return (
     <>
       {/* ══ HERO ════════════════════════════════════════════ */}
-      <section
-        className="relative flex flex-col items-center justify-center text-center overflow-hidden"
-        style={{ background: HERO_BG, minHeight: "100svh", paddingTop: 80, paddingBottom: 100 }}
-      >
-        {/* 5 concentric rings — innermost brightest (8%), outermost most faded (3%).
-            vw-relative so they span ~75% viewport at any desktop size (1440–1920px). */}
-        {["75vw","58vw","43vw","28vw","15vw"].map((size, i) => (
-          <div
-            key={size}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              width: size, height: size,
-              top: "50%", left: "50%",
-              transform: "translate(-50%,-50%)",
-              border: `1px solid rgba(255,255,255,${(0.03 + i * 0.013).toFixed(3)})`,
-            }}
-          />
-        ))}
-
-        {/* Crosshair mark — upper right */}
-        <div className="absolute pointer-events-none" style={{ top: 28, right: 28, opacity: 0.18 }}>
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <line x1="9" y1="0" x2="9" y2="18" stroke="white" strokeWidth="0.6" />
-            <line x1="0" y1="9" x2="18" y2="9" stroke="white" strokeWidth="0.6" />
-          </svg>
-        </div>
-
-        {/* Three thin horizontal hairlines */}
-        {[
-          { top: "22%", left: "8%",  width: "55%" },
-          { top: "58%", left: "22%", width: "40%" },
-          { top: "80%", left: "12%", width: "62%" },
-        ].map((h, i) => (
-          <div
-            key={i}
-            className="absolute pointer-events-none"
-            style={{ top: h.top, left: h.left, width: h.width, height: "0.5px", background: "rgba(255,255,255,0.04)" }}
-          />
-        ))}
-
-        {/* Warm amber glow */}
+      <section className="p-4 pt-0">
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: `radial-gradient(ellipse 55% 48% at 50% 48%, rgba(194,150,58,0.07) 0%, transparent 65%)` }}
-        />
+          className="relative flex flex-col items-start justify-end overflow-hidden rounded-3xl"
+          style={{ minHeight: "calc(100svh - 88px)" }}
+        >
+          {/* Background photo */}
+          <img
+            src="/hero-bg-2.jpg"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "50% 35%" }}
+          />
 
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center" style={{ maxWidth: 1100, padding: "0 1.5rem", width: "100%", margin: "0 auto" }}>
-          {/* Eyebrow */}
-          <p
-            className="uppercase tracking-[0.28em] font-medium mb-8 text-xs"
-            style={{
-              color: `rgba(194,150,58,0.78)`,
-              animation: "fadeInUp 0.55s 0.1s cubic-bezier(0.16,1,0.3,1) both",
-            }}
-          >
-            For licensed clinicians in Austin, TX
-          </p>
-
-          {/* Headline — Playfair Display 400 (closest free match to Tiempos Fine / Freight Display Light) */}
-          <h1
-            style={{
-              fontFamily: "var(--font-serif), Georgia, serif",
-              fontSize: "clamp(3rem, 7.2vw, 6rem)",
-              fontWeight: 400,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.0,
-              marginBottom: "2.75rem",
-              animation: "fadeInUp 0.75s 0.2s cubic-bezier(0.16,1,0.3,1) both",
-            }}
-          >
-            <span style={{ color: "#fff", display: "block" }}>Deepen your work.</span>
-            <em style={{ color: AMBER, fontStyle: "italic", display: "block" }}>Find your community.</em>
-          </h1>
-
-          {/* Sub-headline */}
-          <p
-            className="text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto"
-            style={{ color: "rgba(255,255,255,0.55)", animation: "fadeInUp 0.75s 0.28s cubic-bezier(0.16,1,0.3,1) both" }}
-          >
-            A membership network for licensed therapists who want to do deeper work, together.
-          </p>
-
-          {/* CTA buttons */}
+          {/* Dark gradient scrim for legibility */}
           <div
-            className="flex flex-col sm:flex-row gap-3 justify-center"
-            style={{ animation: "fadeInUp 0.75s 0.36s cubic-bezier(0.16,1,0.3,1) both" }}
-          >
-            <Link
-              href="/join"
-              className="inline-flex items-center justify-center rounded-full text-sm font-medium"
-              style={{ background: AMBER, color: "#fff", padding: "0.8rem 2.1rem" }}
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: `linear-gradient(to top, ${HERO_BG} 0%, rgba(45,59,44,0.92) 42%, rgba(45,59,44,0.55) 70%, transparent 100%)` }}
+          />
+
+          {/* Content */}
+          <div className="relative z-10 w-full" style={{ maxWidth: 1100, padding: "0 2rem 4.5rem", margin: "0 auto" }}>
+            {/* Eyebrow */}
+            <p
+              className="uppercase tracking-[0.28em] font-medium mb-6 text-xs"
+              style={{
+                color: `rgba(194,150,58,0.85)`,
+                animation: "fadeInUp 0.55s 0.1s cubic-bezier(0.16,1,0.3,1) both",
+              }}
             >
-              Apply for membership
-            </Link>
-            <Link
-              href="/what-we-offer"
-              className="inline-flex items-center justify-center rounded-full text-sm font-medium"
-              style={{ border: "1px solid rgba(255,255,255,0.3)", color: "rgba(255,255,255,0.88)", padding: "0.8rem 2.1rem" }}
+              For licensed clinicians in Austin, TX
+            </p>
+
+            {/* Headline — Playfair Display 400 (closest free match to Tiempos Fine / Freight Display Light) */}
+            <h1
+              style={{
+                fontFamily: "var(--font-serif), Georgia, serif",
+                fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)",
+                fontWeight: 400,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.0,
+                marginBottom: "1.75rem",
+                animation: "fadeInUp 0.75s 0.2s cubic-bezier(0.16,1,0.3,1) both",
+              }}
             >
-              See what&apos;s included →
-            </Link>
-            <Link
-              href="/sign-in"
-              className="inline-flex items-center justify-center rounded-full text-sm font-medium transition-opacity hover:opacity-80"
-              style={{ color: "rgba(255,255,255,0.6)", padding: "0.8rem 2.1rem" }}
+              <span style={{ color: "#fff", display: "block" }}>Deepen your work.</span>
+              <em style={{ color: AMBER, fontStyle: "italic", display: "block" }}>Find your community.</em>
+            </h1>
+
+            {/* Sub-headline */}
+            <p
+              className="text-sm md:text-base leading-relaxed mb-8 max-w-lg"
+              style={{ color: "rgba(255,255,255,0.62)", animation: "fadeInUp 0.75s 0.28s cubic-bezier(0.16,1,0.3,1) both" }}
             >
-              Sign In →
-            </Link>
+              A membership network for licensed therapists who want to do deeper work, together.
+            </p>
+
+            {/* CTA row */}
+            <div
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-5"
+              style={{ animation: "fadeInUp 0.75s 0.36s cubic-bezier(0.16,1,0.3,1) both" }}
+            >
+              <Link
+                href="/join"
+                className="relative overflow-hidden group inline-flex items-center justify-center rounded-full text-sm font-medium"
+                style={{ background: "#fff", color: "#1A1A1A", padding: "0.85rem 2.2rem" }}
+              >
+                <span
+                  className="absolute left-1/2 -translate-x-1/2 top-full -translate-y-1/2 w-10 h-10 rounded-full scale-0 transition-transform duration-700 ease-in-out group-hover:scale-[18]"
+                  style={{ background: AMBER }}
+                />
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                  Apply for membership
+                </span>
+              </Link>
+              <Link
+                href="/what-we-offer"
+                className="text-sm font-medium transition-opacity hover:opacity-70"
+                style={{ color: "rgba(255,255,255,0.85)" }}
+              >
+                See what&apos;s included →
+              </Link>
+              <Link
+                href="/sign-in"
+                className="text-sm font-medium transition-opacity hover:opacity-70"
+                style={{ color: "rgba(255,255,255,0.55)" }}
+              >
+                Sign In →
+              </Link>
+            </div>
           </div>
         </div>
       </section>

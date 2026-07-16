@@ -1,10 +1,5 @@
 "use client";
-
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import Logo from "@/assets/logo/logo";
 import { Button } from "@/components/ui/shadcn/button";
 import {
   DropdownMenu,
@@ -20,18 +15,9 @@ import {
 } from "@/components/ui/shadcn/navigation-menu";
 import { Separator } from "@/components/ui/shadcn/separator";
 import { cn } from "@/lib/utils";
-
-type NavigationSection = {
-  name: string;
-  href: string;
-  isActive?: boolean;
-};
-
-const navigationData: NavigationSection[] = [
-  { name: "Who We Are", href: "/who-we-are" },
-  { name: "What We Offer", href: "/what-we-offer" },
-  { name: "Find a Clinician", href: "/find-a-clinician" },
-];
+import { Menu, Phone, X } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useState } from "react";
 
 const NavLink = ({
   item,
@@ -57,7 +43,7 @@ const NavLink = ({
       >
         <div className="w-6 h-0.5 rounded-full bg-foreground" />
       </div>
-      <Link
+      <a
         href={item.href}
         onClick={onClick}
         className={cn(
@@ -66,55 +52,31 @@ const NavLink = ({
         )}
       >
         {item.name}
-      </Link>
+      </a>
     </li>
   );
 };
 
-const JoinButton = ({ onClick }: { onClick?: () => void }) => (
-  <Button
-    render={<Link href="/join" onClick={onClick} />}
-    className="relative overflow-hidden group h-auto rounded-full px-5 py-2.5 cursor-pointer border border-sage-800 bg-sage-800 text-white shadow-none transition-all duration-300"
-  >
-    <span className="absolute left-1/2 -translate-x-1/2 top-full -translate-y-1/2 w-10 h-10 bg-white rounded-full scale-0 transition-transform duration-700 ease-in-out group-hover:scale-[18]" />
-    <span className="relative z-10 group-hover:text-sage-800 transition-colors duration-300">
-      Join the Circle
-    </span>
-  </Button>
-);
+export type NavigationSection = {
+  name: string;
+  href: string;
+  isActive?: boolean;
+};
 
-export function PublicNav() {
+interface NavbarProps {
+  navigationData: NavigationSection[];
+}
+
+const Navbar = ({ navigationData }: NavbarProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname();
-
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
-
-  const navItems = navigationData.map((item) => ({
-    ...item,
-    isActive: pathname === item.href,
-  }));
-
   return (
-    <header
-      className="sticky top-0 z-40 backdrop-blur-2xl"
-      style={{ background: "var(--color-parchment)" }}
-    >
+    <header className="sticky top-0 z-40 bg-background backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto xl:px-16 lg:px-8 px-4 py-4 w-full">
         <nav className="flex items-center justify-between">
           <div className="flex items-center ">
-            <Link href="/" className="flex items-center gap-3" aria-label="The Circle">
-              <img
-                src="/logo-mark.png"
-                alt=""
-                className="h-10 w-10 object-contain"
-              />
-              <span
-                className="text-xl text-sage-800"
-                style={{ fontFamily: "var(--font-serif), Georgia, serif" }}
-              >
-                The Circle
-              </span>
-            </Link>
+            <a href="#">
+              <Logo />
+            </a>
 
             <Separator
               orientation="vertical"
@@ -123,10 +85,10 @@ export function PublicNav() {
 
             <NavigationMenu className="max-lg:hidden">
               <NavigationMenuList className="gap-6">
-                {navItems.map((navItem) => (
+                {navigationData.map((navItem) => (
                   <NavigationMenuItem key={navItem.name}>
                     <NavigationMenuLink
-                      render={<Link href={navItem.href} />}
+                      href={navItem.href}
                       className={cn(
                         "p-0 text-base text-foreground hover:text-foreground/80 font-normal hover:bg-transparent focus:bg-transparent data-active:bg-transparent data-[state=open]:bg-transparent",
                         navItem.isActive && "font-medium",
@@ -141,10 +103,16 @@ export function PublicNav() {
           </div>
 
           <div className="max-lg:hidden flex items-center gap-2">
-            <Link href="/sign-in" className="flex items-center gap-2 py-2.5 px-5">
-              <span>Login</span>
-            </Link>
-            <JoinButton />
+            <a href="#" className="flex items-center gap-2 py-2.5 px-5">
+              <Phone size={16} />
+              <span>(512) 203-0405</span>
+            </a>
+            <Button className="relative overflow-hidden group h-auto rounded-full px-5 py-2.5 cursor-pointer border border-foreground bg-foreground text-background shadow-none transition-all duration-300">
+              <span className="absolute left-1/2 -translate-x-1/2 top-full -translate-y-1/2 w-10 h-10 bg-background rounded-full scale-0 transition-transform duration-700 ease-in-out group-hover:scale-[18]" />
+              <span className="relative z-10 group-hover:text-foreground transition-colors duration-300">
+                Contact Us
+              </span>
+            </Button>
           </div>
 
           {/* Mobile Menu */}
@@ -184,7 +152,7 @@ export function PublicNav() {
                     <hr className="border-border" />
                     {/* Navigation */}
                     <ul className="flex flex-col gap-3.5 pb-4">
-                      {navItems.map((item, index) => (
+                      {navigationData.map((item, index) => (
                         <NavLink
                           key={index}
                           item={item}
@@ -193,14 +161,16 @@ export function PublicNav() {
                       ))}
                     </ul>
                     <div className="flex flex-col gap-2">
-                      <Link
-                        href="/sign-in"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-2 py-2.5"
-                      >
-                        <span>Login</span>
-                      </Link>
-                      <JoinButton onClick={() => setMenuOpen(false)} />
+                      <a href="#" className="flex items-center gap-2 py-2.5">
+                        <Phone size={16} />
+                        <span>(512) 203-0405</span>
+                      </a>
+                      <Button className="relative overflow-hidden group h-auto rounded-full px-5 py-2.5 cursor-pointer border border-foreground bg-foreground text-background shadow-none transition-all duration-300">
+                        <span className="absolute left-1/2 -translate-x-1/2 top-full -translate-y-1/2 w-10 h-10 bg-background rounded-full scale-0 transition-transform duration-700 ease-in-out group-hover:scale-[18]" />
+                        <span className="relative z-10 group-hover:text-foreground transition-colors duration-300">
+                          Contact Us
+                        </span>
+                      </Button>
                     </div>
                   </div>
                 </DropdownMenuContent>
@@ -210,4 +180,6 @@ export function PublicNav() {
       </div>
     </header>
   );
-}
+};
+
+export default Navbar;
