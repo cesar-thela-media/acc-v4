@@ -31,6 +31,7 @@ const RESOURCES = [
 ];
 
 export default function AdminResourcesPage() {
+  const [resources, setResources] = useState(RESOURCES);
   const [category, setCategory] = useState("All");
   const [showForm, setShowForm] = useState(false);
   const [formCategory, setFormCategory] = useState("Clinical Tools");
@@ -48,7 +49,11 @@ export default function AdminResourcesPage() {
     }
   }
 
-  const filtered = RESOURCES.filter((r) => category === "All" || r.category === category);
+  function handleDelete(id: number) {
+    setResources((prev) => prev.filter((r) => r.id !== id));
+  }
+
+  const filtered = resources.filter((r) => category === "All" || r.category === category);
   const sorted = [...filtered].sort((a, b) => {
     const mul = sortDir === "asc" ? 1 : -1;
     if (sortKey === "title") return mul * a.title.localeCompare(b.title);
@@ -58,8 +63,23 @@ export default function AdminResourcesPage() {
     return mul * a.publishedSort.localeCompare(b.publishedSort);
   });
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const title = String(data.get("title") || "").trim() || "Untitled resource";
+    const today = new Date();
+    setResources((prev) => [
+      {
+        id: Math.max(0, ...prev.map((r) => r.id)) + 1,
+        title,
+        category: formCategory,
+        type: formType,
+        published: today.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+        publishedSort: today.toISOString().slice(0, 10),
+        downloads: 0,
+      },
+      ...prev,
+    ]);
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -148,7 +168,7 @@ export default function AdminResourcesPage() {
               >
                 <p className="text-sm" style={{ color: "var(--color-text-tertiary)" }}>
                   Drag & drop a file or{" "}
-                  <button type="button" className="underline" style={{ color: "#C2963A", textUnderlineOffset: "3px" }}>
+                  <button type="button" className="underline" style={{ color: "#C2963A", textUnderlineOffset: "3px" }} onClick={() => alert("File upload is coming soon. For now, publishing just adds the title/category/type to the list.")}>
                     browse
                   </button>
                 </p>
@@ -208,8 +228,8 @@ export default function AdminResourcesPage() {
               <span>{r.downloads} downloads</span>
             </div>
             <div className="flex flex-wrap items-center gap-4">
-              <button className="text-xs underline" style={{ color: "#C2963A", textUnderlineOffset: "3px" }}>Edit</button>
-              <button className="text-xs underline" style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }}>Delete</button>
+              <button className="text-xs underline" style={{ color: "#C2963A", textUnderlineOffset: "3px" }} onClick={() => alert(`Editing "${r.title}" is coming soon.`)}>Edit</button>
+              <button className="text-xs underline" style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }} onClick={() => handleDelete(r.id)}>Delete</button>
             </div>
           </div>
         ))}
@@ -294,8 +314,8 @@ export default function AdminResourcesPage() {
                   <td className="px-5 py-3.5" style={{ color: "var(--color-text-secondary)" }}>{r.downloads}</td>
                   <td className="px-5 py-3.5 text-right">
                     <div className="flex items-center justify-end gap-3">
-                      <button className="text-xs underline" style={{ color: "#C2963A", textUnderlineOffset: "3px" }}>Edit</button>
-                      <button className="text-xs underline" style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }}>Delete</button>
+                      <button className="text-xs underline" style={{ color: "#C2963A", textUnderlineOffset: "3px" }} onClick={() => alert(`Editing "${r.title}" is coming soon.`)}>Edit</button>
+                      <button className="text-xs underline" style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }} onClick={() => handleDelete(r.id)}>Delete</button>
                     </div>
                   </td>
                 </tr>

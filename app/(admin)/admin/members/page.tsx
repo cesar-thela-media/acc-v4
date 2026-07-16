@@ -40,6 +40,15 @@ export default function AdminMembersPage() {
   const [statusFilter, setStatusFilter] = useState<"all" | Status>("all");
   const [sortKey, setSortKey] = useState<SortKey>("joined");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
+  const [statusOverrides, setStatusOverrides] = useState<Record<number, Status>>({});
+
+  function getStatus(m: (typeof ALL_MEMBERS)[number]): Status {
+    return statusOverrides[m.id] ?? m.status;
+  }
+
+  function setMemberStatus(id: number, status: Status) {
+    setStatusOverrides((prev) => ({ ...prev, [id]: status }));
+  }
 
   function toggleSort(key: SortKey) {
     if (sortKey === key) {
@@ -51,13 +60,13 @@ export default function AdminMembersPage() {
   }
 
   const filtered = ALL_MEMBERS.filter((m) => {
-    if (statusFilter !== "all" && m.status !== statusFilter) return false;
+    if (statusFilter !== "all" && getStatus(m) !== statusFilter) return false;
     if (search && !m.name.toLowerCase().includes(search.toLowerCase()) && !m.email.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   }).sort((a, b) => {
     const mul = sortDir === "asc" ? 1 : -1;
     if (sortKey === "name") return mul * a.name.localeCompare(b.name);
-    if (sortKey === "status") return mul * a.status.localeCompare(b.status);
+    if (sortKey === "status") return mul * getStatus(a).localeCompare(getStatus(b));
     return mul * a.joinedSort.localeCompare(b.joinedSort);
   });
 
@@ -128,7 +137,7 @@ export default function AdminMembersPage() {
                     <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>{m.credentials}</p>
                   </div>
                 </div>
-                <Badge variant={STATUS_VARIANTS[m.status]}>{STATUS_LABELS[m.status]}</Badge>
+                <Badge variant={STATUS_VARIANTS[getStatus(m)]}>{STATUS_LABELS[getStatus(m)]}</Badge>
               </div>
               <div className="text-sm flex flex-col gap-1.5">
                 <p style={{ color: "var(--color-text-secondary)" }}>{m.email}</p>
@@ -141,21 +150,24 @@ export default function AdminMembersPage() {
                 <button
                   className="text-xs underline"
                   style={{ color: "#C2963A", textUnderlineOffset: "3px" }}
+                  onClick={() => alert(`Viewing ${m.name}'s full profile is coming soon.`)}
                 >
                   View
                 </button>
-                {m.status === "active" && (
+                {getStatus(m) === "active" && (
                   <button
                     className="text-xs underline"
                     style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }}
+                    onClick={() => setMemberStatus(m.id, "suspended")}
                   >
                     Suspend
                   </button>
                 )}
-                {m.status === "suspended" && (
+                {getStatus(m) === "suspended" && (
                   <button
                     className="text-xs underline"
                     style={{ color: "var(--color-success)", textUnderlineOffset: "3px" }}
+                    onClick={() => setMemberStatus(m.id, "active")}
                   >
                     Reinstate
                   </button>
@@ -241,28 +253,31 @@ export default function AdminMembersPage() {
                   <td className="px-5 py-3.5" style={{ color: "var(--color-text-secondary)" }}>{m.email}</td>
                   <td className="px-5 py-3.5" style={{ color: "var(--color-text-tertiary)" }}>{m.joined}</td>
                   <td className="px-5 py-3.5">
-                    <Badge variant={STATUS_VARIANTS[m.status]}>{STATUS_LABELS[m.status]}</Badge>
+                    <Badge variant={STATUS_VARIANTS[getStatus(m)]}>{STATUS_LABELS[getStatus(m)]}</Badge>
                   </td>
                   <td className="px-5 py-3.5 text-right">
                     <div className="flex items-center justify-end gap-3">
                       <button
                         className="text-xs underline"
                         style={{ color: "#C2963A", textUnderlineOffset: "3px" }}
+                        onClick={() => alert(`Viewing ${m.name}'s full profile is coming soon.`)}
                       >
                         View
                       </button>
-                      {m.status === "active" && (
+                      {getStatus(m) === "active" && (
                         <button
                           className="text-xs underline"
                           style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }}
+                          onClick={() => setMemberStatus(m.id, "suspended")}
                         >
                           Suspend
                         </button>
                       )}
-                      {m.status === "suspended" && (
+                      {getStatus(m) === "suspended" && (
                         <button
                           className="text-xs underline"
                           style={{ color: "var(--color-success)", textUnderlineOffset: "3px" }}
+                          onClick={() => setMemberStatus(m.id, "active")}
                         >
                           Reinstate
                         </button>
