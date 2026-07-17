@@ -173,7 +173,7 @@ export default function HomePage() {
       {/* ══ WHY THE CIRCLE EXISTS (about-us-section-09) ══════ */}
       <section
         className="relative overflow-hidden"
-        style={{ background: SECTION2, padding: "clamp(3rem,6vw,5.5rem) 0" }}
+        style={{ background: "linear-gradient(135deg, #FFFFFF 0%, #EAF0E6 55%, #D9E4D4 100%)", padding: "clamp(3rem,6vw,5.5rem) 0" }}
       >
         <div className="container-fluid" style={{ maxWidth: 1100 }}>
           <div className="grid grid-cols-12 gap-8">
