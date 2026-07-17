@@ -10,7 +10,7 @@ const WHAT_YOULL_GET = [
   "The Circle community playbook: what thriving practices do differently",
 ];
 
-export default function ComingSoonPage() {
+export default function LeadMagnetPage() {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -267,7 +267,10 @@ export default function ComingSoonPage() {
                   </button>
 
                   <p className="text-center text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
-                    By submitting you agree to receive occasional emails from The Circle. Unsubscribe anytime.
+                    By submitting you agree to receive occasional emails from The Circle. Unsubscribe anytime. See our{" "}
+                    <Link href="/privacy" className="underline hover:text-white" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      privacy policy
+                    </Link>.
                   </p>
                 </form>
               </div>
@@ -318,7 +321,7 @@ export default function ComingSoonPage() {
                     You&apos;re invited to become a founding member.
                   </p>
                   <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
-                    Founding spots are extended personally and reviewed individually — this isn&apos;t a mass platform, it&apos;s a small group of clinicians Sarah already knows and trusts.
+                    Every application is reviewed personally by Sarah. We&apos;re intentionally keeping this a close, high-trust professional community rather than a mass platform.
                   </p>
 
                   <Link

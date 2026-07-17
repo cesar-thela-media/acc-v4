@@ -28,16 +28,18 @@ const sizeStyles: Record<ButtonSize, string> = {
   lg: "h-12 px-8 text-base",
 };
 
+// Exported so non-<button> elements (e.g. a download <a> that must stay a
+// real anchor for semantics) can reuse the exact same visual styling instead
+// of duplicating the class string.
+export function buttonClasses(variant: ButtonVariant = "primary", size: ButtonSize = "md", className = "") {
+  return `inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+}
+
 export function Button({
   variant = "primary",
   size = "md",
   className = "",
   ...props
 }: ButtonProps) {
-  return (
-    <button
-      className={`inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
-      {...props}
-    />
-  );
+  return <button className={buttonClasses(variant, size, className)} {...props} />;
 }

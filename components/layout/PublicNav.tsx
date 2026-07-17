@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/shadcn/button";
 import {
@@ -21,7 +22,6 @@ import {
 } from "@/components/ui/shadcn/sheet";
 import { ScrollArea } from "@/components/ui/shadcn/scroll-area";
 import { Separator } from "@/components/ui/shadcn/separator";
-import { cn } from "@/lib/utils";
 
 const navigationData = [
   { name: "Who We Are", href: "/who-we-are" },
@@ -30,47 +30,34 @@ const navigationData = [
 ];
 
 export function PublicNav() {
-  const [sticky, setSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const handleScroll = useCallback(() => setSticky(window.scrollY >= 50), []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
-
-  useEffect(() => setIsOpen(false), [pathname]);
+  // Close the mobile menu when the route changes — adjusting state during
+  // render instead of an effect, since this syncs with a prop-like value.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setIsOpen(false);
+  }
 
   return (
-    <header className="sticky top-0 z-40" style={{ background: "#FFFFFF" }}>
-      <div className="max-w-7xl mx-auto w-full px-4 py-4 sm:px-6">
+    <header className="sticky top-0 z-40 p-4 pt-4" style={{ background: "transparent" }}>
+      <div className="max-w-7xl mx-auto w-full">
         <nav
-          className={cn(
-            "w-full flex items-center h-fit justify-between gap-3.5 lg:gap-6 transition-all duration-500",
-            sticky
-              ? "p-2.5 bg-white/85 backdrop-blur-lg border shadow-xl rounded-full"
-              : "bg-transparent border-transparent",
-          )}
-          style={sticky ? { borderColor: "rgba(45,59,44,0.08)" } : undefined}
+          className="w-full flex items-center h-fit justify-between gap-3.5 lg:gap-6 p-2.5 rounded-full shadow-xl"
+          style={{ background: "var(--color-sage-800)" }}
         >
-          <div className="flex items-center justify-center gap-5">
+          <div className="flex items-center justify-center gap-5 pl-2">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5" aria-label="The Circle">
-              <img src="/logo-mark.png" alt="" className="h-9 w-9 object-contain" />
-              <span
-                className="text-lg"
-                style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "var(--color-sage-800)" }}
-              >
-                The Circle
-              </span>
+            <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="The Circle">
+              <Image src="/logo-mark.png" alt="" width={2000} height={732} className="h-14 w-auto object-contain" />
             </Link>
 
             <Separator
               orientation="vertical"
               className="h-4 data-[orientation=vertical]:self-center max-lg:hidden"
-              style={{ background: "rgba(45,59,44,0.15)" }}
+              style={{ background: "rgba(255,255,255,0.2)" }}
             />
 
             {/* Navigation */}
@@ -82,8 +69,8 @@ export function PublicNav() {
                     <NavigationMenuItem key={item.name}>
                       <NavigationMenuLink
                         render={<Link href={item.href} />}
-                        className="px-2 lg:px-4 py-1.5 text-base rounded-full transition tracking-normal whitespace-nowrap hover:bg-black/[0.04]"
-                        style={{ color: active ? "#1A1A1A" : "rgba(26,26,26,0.68)", fontWeight: active ? 500 : 400 }}
+                        className="px-2 lg:px-4 py-1.5 text-base rounded-full transition tracking-normal whitespace-nowrap hover:bg-white/10"
+                        style={{ color: active ? "var(--color-sage-800)" : "rgba(255,255,255,0.7)", fontWeight: active ? 500 : 400 }}
                       >
                         {item.name}
                       </NavigationMenuLink>
@@ -98,22 +85,22 @@ export function PublicNav() {
           <div className="hidden lg:flex items-center gap-2">
             <Link
               href="/sign-in"
-              className="h-10 flex items-center px-5 text-sm font-medium rounded-full transition-colors hover:bg-black/[0.04]"
-              style={{ color: "#1A1A1A" }}
+              className="h-10 flex items-center px-5 text-sm font-medium rounded-full transition-colors hover:bg-white/10"
+              style={{ color: "#fff" }}
             >
               Login
             </Link>
             <Button
               render={<Link href="/join" />}
               className="h-10 px-5 rounded-full cursor-pointer"
-              style={{ background: "var(--color-sage-800)", color: "#fff" }}
+              style={{ background: "#fff", color: "var(--color-sage-800)" }}
             >
               Join the Circle
             </Button>
           </div>
 
           {/* Mobile menu */}
-          <div className="lg:hidden">
+          <div className="lg:hidden pr-1">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger
                 render={
@@ -121,6 +108,7 @@ export function PublicNav() {
                     variant="outline"
                     size="icon"
                     className="rounded-full border p-2 h-10 w-10 cursor-pointer"
+                    style={{ borderColor: "rgba(255,255,255,0.3)", color: "#fff" }}
                   />
                 }
               >
@@ -131,9 +119,7 @@ export function PublicNav() {
                 <ScrollArea className="h-full">
                   <SheetHeader className="p-4">
                     <SheetTitle className="text-left">
-                      <span style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: 20, color: "var(--color-sage-800)" }}>
-                        The Circle
-                      </span>
+                      <Image src="/logo-mark.png" alt="The Circle" width={2000} height={732} className="h-12 w-auto object-contain" />
                     </SheetTitle>
                     <SheetClose className="absolute top-4 right-4 rounded-full bg-black text-white p-2.5 cursor-pointer">
                       <X size={16} />

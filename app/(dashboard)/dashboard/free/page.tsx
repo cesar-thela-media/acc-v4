@@ -2,9 +2,11 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { daysFromNow, formatShortWeekdayDate, nextFirstWeekdayOfMonth } from "@/lib/relativeDates";
 
-const AMBER = "#C2963A";
-const SAGE = "#2D3B2C";
+const AMBER = "var(--color-accent-highlight)";
+const SAGE = "var(--color-sage-800)";
+const THURSDAY = 4;
 
 const lockedResources = [
   { title: "CBT Session Planning Template", category: "Clinical Tools", locked: true },
@@ -13,8 +15,8 @@ const lockedResources = [
 ];
 
 const upcomingEvents = [
-  { title: "Monthly case consultation", date: "Thu, Jun 5 · 9:00–10:30am", locked: true },
-  { title: "Practice building workshop", date: "Wed, Jun 14 · 12:00–1:00pm", locked: true },
+  { title: "Monthly case consultation", date: `${formatShortWeekdayDate(nextFirstWeekdayOfMonth(THURSDAY, 0))} · 9:00–10:30am`, locked: true },
+  { title: "Practice building workshop", date: `${formatShortWeekdayDate(daysFromNow(22))} · 12:00–1:00pm`, locked: true },
 ];
 
 export default async function FreeDashboardPage() {
@@ -39,9 +41,9 @@ export default async function FreeDashboardPage() {
             You have access to The Private Practice Playbook, a practical guide for building a sustainable practice. Upgrade to unlock the full Circle.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/playbook" className="inline-flex items-center gap-2 rounded-full text-sm font-medium px-5 py-2.5 transition-opacity hover:opacity-90" style={{ background: AMBER, color: "#fff" }}>
+            <Link href="/leadmagnet" className="inline-flex items-center gap-2 rounded-full text-sm font-medium px-5 py-2.5 transition-opacity hover:opacity-90" style={{ background: AMBER, color: "#fff" }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Download your playbook
+              Get your playbook
             </Link>
             <Link href="/join" className="inline-flex items-center rounded-full text-sm font-medium px-5 py-2.5 transition-opacity hover:opacity-90" style={{ border: "1px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.8)" }}>
               Upgrade to full access →

@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Mail, Check } from "lucide-react";
 import { Separator } from "@/components/ui/shadcn/separator";
 import { Input } from "@/components/ui/shadcn/input";
 import { Button } from "@/components/ui/shadcn/button";
@@ -50,6 +52,27 @@ function SubFooter() {
 }
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  async function handleSubscribe(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("sent");
+      setEmail("");
+    } catch {
+      setStatus("error");
+    }
+  }
+
   return (
     <footer style={{ background: BG }} className="lg:pt-20 sm:pt-16 pt-8">
       <div className="max-w-7xl xl:px-16 lg:px-8 px-4 mx-auto">
@@ -58,10 +81,7 @@ export function Footer() {
             {/* Logo */}
             <div className="col-span-full lg:col-span-3">
               <Link href="/" aria-label="The Circle" className="inline-flex items-center gap-3 mb-3">
-                <img src="/logo-mark.png" alt="" className="h-14 w-14 object-contain" />
-                <span className="text-2xl" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
-                  The Circle
-                </span>
+                <Image src="/logo-mark.png" alt="" width={2000} height={732} className="h-20 w-auto object-contain" />
               </Link>
               <p className="text-sm" style={{ color: "rgba(255,255,255,0.48)" }}>
                 Deepen your Work. Find your community.
@@ -105,24 +125,35 @@ export function Footer() {
                 <h3 className="text-lg font-medium" style={{ color: "#fff" }}>
                   Subscribe to our newsletter for the latest news
                 </h3>
-                <form
-                  className="flex items-center gap-2"
-                  onSubmit={(e) => e.preventDefault()}
-                >
-                  <Input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="py-2 px-4 h-9 shadow-xs rounded-full text-sm text-white placeholder:text-white/40"
-                    style={{ borderColor: "rgba(255,255,255,0.2)" }}
-                  />
-                  <Button
-                    type="submit"
-                    className="rounded-full p-2.5 h-auto shrink-0"
-                    style={{ background: AMBER, color: "#fff" }}
-                  >
-                    <Mail width={16} height={16} />
-                  </Button>
-                </form>
+                {status === "sent" ? (
+                  <p className="text-sm flex items-center gap-2" style={{ color: "#fff" }}>
+                    <Check width={16} height={16} style={{ color: AMBER }} />
+                    You&apos;re subscribed.
+                  </p>
+                ) : (
+                  <form className="flex items-center gap-2" onSubmit={handleSubscribe}>
+                    <Input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      className="py-2 px-4 h-9 shadow-xs rounded-full text-sm text-white placeholder:text-white/40"
+                      style={{ borderColor: "rgba(255,255,255,0.2)" }}
+                    />
+                    <Button
+                      type="submit"
+                      disabled={status === "sending"}
+                      className="rounded-full p-2.5 h-auto shrink-0"
+                      style={{ background: AMBER, color: "#fff" }}
+                    >
+                      <Mail width={16} height={16} />
+                    </Button>
+                  </form>
+                )}
+                {status === "error" && (
+                  <p className="text-xs" style={{ color: "#fff" }}>Something went wrong. Please try again.</p>
+                )}
               </div>
             </div>
           </div>
@@ -136,8 +167,6 @@ export function Footer() {
               <Link href="/privacy" className="transition-colors duration-150 hover:text-white">Privacy</Link>
               <span className="size-1 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }} />
               <Link href="/terms" className="transition-colors duration-150 hover:text-white">Terms</Link>
-              <span className="size-1 rounded-full" style={{ background: "rgba(255,255,255,0.2)" }} />
-              <Link href="/coming-soon" className="transition-colors duration-150 hover:text-white">Coming Soon</Link>
             </div>
             {/* social links */}
             <div className="flex items-center gap-4">

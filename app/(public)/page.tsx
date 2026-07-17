@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Award, MapPin, Quote } from "lucide-react";
 import {
@@ -12,8 +13,6 @@ import { MembershipCarousel } from "@/components/landing/MembershipCarousel";
 
 /* ── Reference design tokens ───────────────────────────────── */
 const HERO_BG   = "#2D3B2C";   // deep forest sage — hero, CTA band, footer
-const SECTION2  = "#FFFFFF";   // white — why acc exists
-const PARCHMENT = "#F0EDE6";   // warm parchment — sections 4-5
 const AMBER     = "#C2963A";   // muted warm amber — accents, CTAs
 
 /* ── Pricing features ─────────────────────────────────────── */
@@ -221,8 +220,8 @@ export default function HomePage() {
             <div className="lg:col-span-1 lg:block hidden" />
 
             {/* Right: photo */}
-            <div className="lg:col-span-5 md:col-span-6 col-span-12 rounded-2xl overflow-hidden" data-aos="fade-in" data-delay="150">
-              <img src="/about-us.jpg" alt="" className="w-full h-full object-cover" style={{ minHeight: 320 }} />
+            <div className="relative lg:col-span-5 md:col-span-6 col-span-12 rounded-2xl overflow-hidden" data-aos="fade-in" data-delay="150" style={{ minHeight: 320 }}>
+              <Image src="/about-us.jpg" alt="Sarah Arnold, founder of The Circle, meeting with a fellow clinician" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -273,7 +272,7 @@ export default function HomePage() {
           card already eats into the "visible photo" space up top, so the extra room
           below balances how much background shows above vs. below the card. */}
       <section className="relative overflow-hidden" style={{ paddingTop: "clamp(2.5rem,5vw,4rem)", paddingBottom: "clamp(5rem,10vw,8rem)" }}>
-        <img src="/pricing-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <Image src="/pricing-bg.jpg" alt="" fill className="object-cover" />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(rgba(45,59,44,0.90), rgba(45,59,44,0.90))" }} />
         <div className="container-fluid relative z-10">
           {/* Centered header */}
@@ -348,7 +347,7 @@ export default function HomePage() {
           back. One light section instead — CTA's heading just loses its dark bg
           and goes to dark-on-light text, matching Testimonials' existing palette. */}
       <section className="relative overflow-hidden text-center" style={{ paddingTop: "clamp(2.5rem,5vw,4rem)" }}>
-        <img src="/testimonials-cta-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <Image src="/testimonials-cta-bg.jpg" alt="" fill className="object-cover" />
         <div className="absolute inset-0 pointer-events-none" style={{ background: "rgba(240,237,230,0.90)" }} />
 
         <div className="container-fluid relative z-10">
@@ -392,7 +391,7 @@ export default function HomePage() {
                 {placeholderTestimonials.map((t, i) => (
                   <CarouselItem key={i}>
                     <div className="grid grid-cols-12 gap-6 items-center">
-                      <div className="lg:col-span-8 col-span-12 flex sm:flex-row flex-col sm:gap-10 gap-6 lg:pe-12">
+                      <div className="lg:col-span-7 col-span-12 flex sm:flex-row flex-col sm:gap-10 gap-6 lg:pe-12">
                         <div className="shrink-0 flex items-start">
                           <Quote size={32} style={{ color: "rgba(194,150,58,0.4)" }} />
                         </div>
@@ -406,9 +405,9 @@ export default function HomePage() {
                           </div>
                         </div>
                       </div>
-                      <div className="md:col-span-4 col-span-12">
-                        <div className="rounded-xl overflow-hidden">
-                          <img src={t.image} alt="" className="w-full h-full object-cover" style={{ minHeight: 220 }} />
+                      <div className="md:col-span-5 col-span-12">
+                        <div className="relative rounded-xl overflow-hidden" style={{ minHeight: 360 }}>
+                          <Image src={t.image} alt={`${t.author}, ${t.role}`} fill className="object-cover" />
                         </div>
                       </div>
                     </div>
@@ -457,10 +456,11 @@ export default function HomePage() {
                 key={i}
                 className={`flex-1 min-w-[100px] md:min-w-[160px] lg:min-w-[200px] relative overflow-hidden ${image.height}`}
               >
-                <img
+                <Image
                   src={image.src}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 duration-200"
+                  fill
+                  className="object-cover grayscale hover:grayscale-0 duration-200"
                 />
               </div>
             ))}

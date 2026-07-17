@@ -1,12 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import { EllipsisVertical, FileText, BookOpen, ClipboardList, PlayCircle, type LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Input, Textarea } from "@/components/ui/Input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/shadcn/dropdown-menu";
 
 const CATEGORIES = ["All", "Clinical Tools", "Handouts", "Business", "Self-Care"];
 const RESOURCE_TYPES = ["PDF", "Guide", "Worksheet", "Video"];
+
+const TYPE_ICONS: Record<string, LucideIcon> = {
+  PDF: FileText,
+  Guide: BookOpen,
+  Worksheet: ClipboardList,
+  Video: PlayCircle,
+};
 
 type SortKey = "title" | "category" | "type" | "published" | "downloads";
 type SortDir = "asc" | "desc";
@@ -19,7 +33,7 @@ function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
   );
 }
 
-const RESOURCES = [
+export const RESOURCES = [
   { id: 1, title: "CBT Session Planning Template", category: "Clinical Tools", type: "PDF", published: "Apr 18, 2026", publishedSort: "2026-04-18", downloads: 14 },
   { id: 2, title: "Psychoeducation: Anxiety Handout", category: "Handouts", type: "PDF", published: "Apr 15, 2026", publishedSort: "2026-04-15", downloads: 22 },
   { id: 3, title: "Fee Setting for Private Practice", category: "Business", type: "Guide", published: "Apr 10, 2026", publishedSort: "2026-04-10", downloads: 19 },
@@ -209,30 +223,48 @@ export default function AdminResourcesPage() {
 
       {/* Mobile cards */}
       <div className="md:hidden flex flex-col gap-3">
-        {sorted.map((r) => (
-          <div
-            key={r.id}
-            className="rounded-2xl border bg-white p-4 flex flex-col gap-3"
-            style={{ borderColor: "rgba(194,150,58,0.12)" }}
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{r.title}</p>
-                <p className="text-xs mt-1" style={{ color: "var(--color-text-tertiary)" }}>{r.published}</p>
+        {sorted.map((r) => {
+          const TypeIcon = TYPE_ICONS[r.type] ?? FileText;
+          return (
+            <div
+              key={r.id}
+              className="rounded-2xl border bg-white p-4 flex flex-col gap-3"
+              style={{ borderColor: "rgba(194,150,58,0.12)" }}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-3">
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: "rgba(194,150,58,0.10)", color: "#C2963A" }}
+                  >
+                    <TypeIcon size={16} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{r.title}</p>
+                    <p className="text-xs mt-1" style={{ color: "var(--color-text-tertiary)" }}>{r.published}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Badge>{r.category}</Badge>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="rounded-full hover:bg-black/5 p-1.5 cursor-pointer outline-none">
+                      <EllipsisVertical size={16} style={{ color: "var(--color-text-tertiary)" }} />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => alert(`Editing "${r.title}" is coming soon.`)}>Edit</DropdownMenuItem>
+                      <DropdownMenuItem variant="destructive" onClick={() => handleDelete(r.id)}>Delete</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </div>
-              <Badge>{r.category}</Badge>
+              <div className="flex items-center gap-3 flex-wrap text-xs" style={{ color: "var(--color-text-tertiary)" }}>
+                <span>{r.type}</span>
+                <span>•</span>
+                <span>{r.downloads} downloads</span>
+              </div>
             </div>
-            <div className="flex items-center gap-3 flex-wrap text-xs" style={{ color: "var(--color-text-tertiary)" }}>
-              <span>{r.type}</span>
-              <span>•</span>
-              <span>{r.downloads} downloads</span>
-            </div>
-            <div className="flex flex-wrap items-center gap-4">
-              <button className="text-xs underline" style={{ color: "#C2963A", textUnderlineOffset: "3px" }} onClick={() => alert(`Editing "${r.title}" is coming soon.`)}>Edit</button>
-              <button className="text-xs underline" style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }} onClick={() => handleDelete(r.id)}>Delete</button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (
@@ -299,27 +331,47 @@ export default function AdminResourcesPage() {
               </tr>
             </thead>
             <tbody>
-              {sorted.map((r, i) => (
-                <tr
-                  key={r.id}
-                  className="transition-colors duration-150"
-                  style={{ borderBottom: i < sorted.length - 1 ? "1px solid rgba(194,150,58,0.08)" : "none" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLTableRowElement).style.background = "rgba(194,150,58,0.04)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLTableRowElement).style.background = ""; }}
-                >
-                  <td className="px-5 py-3.5 font-medium" style={{ color: "var(--color-text-primary)" }}>{r.title}</td>
-                  <td className="px-5 py-3.5"><Badge>{r.category}</Badge></td>
-                  <td className="px-5 py-3.5 text-xs" style={{ color: "var(--color-text-tertiary)" }}>{r.type}</td>
-                  <td className="px-5 py-3.5" style={{ color: "var(--color-text-tertiary)" }}>{r.published}</td>
-                  <td className="px-5 py-3.5" style={{ color: "var(--color-text-secondary)" }}>{r.downloads}</td>
-                  <td className="px-5 py-3.5 text-right">
-                    <div className="flex items-center justify-end gap-3">
-                      <button className="text-xs underline" style={{ color: "#C2963A", textUnderlineOffset: "3px" }} onClick={() => alert(`Editing "${r.title}" is coming soon.`)}>Edit</button>
-                      <button className="text-xs underline" style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }} onClick={() => handleDelete(r.id)}>Delete</button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+              {sorted.map((r, i) => {
+                const TypeIcon = TYPE_ICONS[r.type] ?? FileText;
+                return (
+                  <tr
+                    key={r.id}
+                    className="transition-colors duration-150"
+                    style={{ borderBottom: i < sorted.length - 1 ? "1px solid rgba(194,150,58,0.08)" : "none" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLTableRowElement).style.background = "rgba(194,150,58,0.04)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLTableRowElement).style.background = ""; }}
+                  >
+                    <td className="px-5 py-3.5">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                          style={{ background: "rgba(194,150,58,0.10)", color: "#C2963A" }}
+                        >
+                          <TypeIcon size={15} />
+                        </div>
+                        <p className="font-medium" style={{ color: "var(--color-text-primary)" }}>{r.title}</p>
+                      </div>
+                    </td>
+                    <td className="px-5 py-3.5"><Badge>{r.category}</Badge></td>
+                    <td className="px-5 py-3.5 text-xs" style={{ color: "var(--color-text-tertiary)" }}>{r.type}</td>
+                    <td className="px-5 py-3.5" style={{ color: "var(--color-text-tertiary)" }}>{r.published}</td>
+                    <td className="px-5 py-3.5" style={{ color: "var(--color-text-secondary)" }}>{r.downloads}</td>
+                    <td className="px-5 py-3.5 text-right">
+                      <div className="flex items-center justify-end">
+                        <DropdownMenu>
+                          <DropdownMenuTrigger className="rounded-full hover:bg-black/5 p-1.5 cursor-pointer outline-none">
+                            <EllipsisVertical size={16} style={{ color: "var(--color-text-tertiary)" }} />
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuItem onClick={() => alert(`Editing "${r.title}" is coming soon.`)}>Edit</DropdownMenuItem>
+                            <DropdownMenuItem variant="destructive" onClick={() => handleDelete(r.id)}>Delete</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

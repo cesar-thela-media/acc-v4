@@ -3,7 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AosInit } from "@/components/AosInit";
-import { hasClerkCredentials } from "@/lib/env";
+import { appUrl, hasClerkCredentials } from "@/lib/env";
 
 /* Playfair Display — high-contrast editorial display serif with beautiful calligraphic italic.
    Closest Google Fonts match to Tiempos Fine / Freight Display Light style.
@@ -25,6 +25,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(appUrl),
   title: "The Circle",
   description:
     "The Circle, a membership community for licensed clinicians in Austin, TX. Deepen your work. Find your community.",

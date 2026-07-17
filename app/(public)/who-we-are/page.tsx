@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Award, MapPin, Building2, ArrowUpRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
@@ -135,12 +136,18 @@ export default function WhoWeArePage() {
 
             {/* Right: photo (9:16 portrait crop) + floating link card (no invented stat) */}
             <div className="lg:col-span-5 md:col-span-6 col-span-12 relative">
-              <img
-                src="/sarah-arnold.jpeg"
-                alt="Sarah Arnold, LPC-S"
-                className="w-full h-auto object-cover rounded-2xl mx-auto"
-                style={{ aspectRatio: "9 / 16", objectPosition: "center top", maxWidth: 420 }}
-              />
+              <div
+                className="relative w-full rounded-2xl overflow-hidden mx-auto"
+                style={{ aspectRatio: "9 / 16", maxWidth: 420 }}
+              >
+                <Image
+                  src="/sarah-arnold.jpeg"
+                  alt="Sarah Arnold, LPC-S"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "center top" }}
+                />
+              </div>
               <a
                 href="https://www.restoredfamily.com"
                 target="_blank"
@@ -232,7 +239,7 @@ export default function WhoWeArePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value) => (
               <Card key={value.title} className="p-0 w-full gap-0 border-0 overflow-hidden" style={{ background: "#fff" }}>
-                <img src={value.img} alt="" width={500} height={220} className="w-full object-cover" style={{ aspectRatio: "500 / 220" }} />
+                <Image src={value.img} alt={value.title} width={500} height={220} className="w-full object-cover" style={{ aspectRatio: "500 / 220" }} />
                 <CardContent className="p-6 pt-5">
                   <h3 className="text-lg font-semibold leading-snug" style={{ color: SAGE_800 }}>{value.title}</h3>
                   <p className="text-sm font-medium mt-2" style={{ color: "var(--color-text-secondary)" }}>{value.body}</p>

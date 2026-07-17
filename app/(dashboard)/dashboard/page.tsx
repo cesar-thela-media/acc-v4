@@ -4,23 +4,26 @@ import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
 import Link from "next/link";
 import { hasClerkCredentials } from "@/lib/env";
+import { daysFromNow, formatShortDate, formatShortWeekdayDate, nextFirstWeekdayOfMonth } from "@/lib/relativeDates";
+
+const THURSDAY = 4;
 
 const upcomingEvents = [
   {
     title: "Monthly case consultation",
-    date: "Thu, May 1 · 9:00–10:30am",
+    date: `${formatShortWeekdayDate(nextFirstWeekdayOfMonth(THURSDAY, 0))} · 9:00–10:30am`,
     format: "Virtual",
     rsvp: true,
   },
   {
     title: "Practice building workshop",
-    date: "Wed, May 14 · 12:00–1:00pm",
+    date: `${formatShortWeekdayDate(daysFromNow(22))} · 12:00–1:00pm`,
     format: "Virtual",
     rsvp: false,
   },
   {
     title: "Trauma-informed care CEU",
-    date: "Fri, May 23 · 10:00am–12:00pm",
+    date: `${formatShortWeekdayDate(daysFromNow(31))} · 10:00am–12:00pm`,
     format: "Virtual",
     rsvp: false,
   },
@@ -188,7 +191,7 @@ export default async function DashboardPage() {
             Active membership
           </p>
           <p className="text-xs mt-0.5" style={{ color: "var(--color-text-tertiary)" }}>
-            $79/month · Renews May 21, 2026
+            $79/month · Renews {formatShortDate(daysFromNow(18))}
           </p>
         </div>
         <Link

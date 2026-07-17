@@ -1,7 +1,21 @@
+import { daysFromNow, formatLongDate, nextFirstWeekdayOfMonth } from "@/lib/relativeDates";
+
+const THURSDAY = 4;
+
+// Two upcoming "first Thursday of the month" consultation dates, guaranteed
+// to be a full calendar month apart regardless of whether this month's has
+// already passed (nextFirstWeekdayOfMonth(_, 0) may itself roll to next month).
+const firstConsultation = nextFirstWeekdayOfMonth(THURSDAY, 0);
+const monthsUntilFirst =
+  (firstConsultation.getFullYear() - new Date().getFullYear()) * 12 +
+  (firstConsultation.getMonth() - new Date().getMonth());
+const secondConsultation = nextFirstWeekdayOfMonth(THURSDAY, monthsUntilFirst + 1);
+
 export interface CircleEvent {
   id: number;
   title: string;
   date: string;
+  startTime: string; // "9:00" 24h-ish label used to build the .ics file
   time: string;
   format: string;
   category: string;
@@ -9,13 +23,16 @@ export interface CircleEvent {
   ceus: number | null;
   rsvp: boolean;
   spots: number | null;
+  startHour: number; // for .ics generation
+  durationMinutes: number;
 }
 
 export const EVENTS: CircleEvent[] = [
   {
     id: 1,
     title: "Monthly case consultation",
-    date: "Thursday, May 1, 2026",
+    date: formatLongDate(firstConsultation),
+    startTime: "9:00am",
     time: "9:00 – 10:30am",
     format: "Virtual (Zoom)",
     category: "Consultation",
@@ -23,11 +40,14 @@ export const EVENTS: CircleEvent[] = [
     ceus: 1.5,
     rsvp: true,
     spots: null,
+    startHour: 9,
+    durationMinutes: 90,
   },
   {
     id: 2,
     title: "Practice building workshop: Setting your fee",
-    date: "Wednesday, May 14, 2026",
+    date: formatLongDate(daysFromNow(22)),
+    startTime: "12:00pm",
     time: "12:00 – 1:00pm",
     format: "Virtual (Zoom)",
     category: "Workshop",
@@ -35,11 +55,14 @@ export const EVENTS: CircleEvent[] = [
     ceus: null,
     rsvp: false,
     spots: 20,
+    startHour: 12,
+    durationMinutes: 60,
   },
   {
     id: 3,
     title: "Trauma-informed care: CEU training",
-    date: "Friday, May 23, 2026",
+    date: formatLongDate(daysFromNow(31)),
+    startTime: "10:00am",
     time: "10:00am – 12:00pm",
     format: "Virtual (Zoom)",
     category: "CEU",
@@ -47,11 +70,14 @@ export const EVENTS: CircleEvent[] = [
     ceus: 2.0,
     rsvp: false,
     spots: 30,
+    startHour: 10,
+    durationMinutes: 120,
   },
   {
     id: 4,
     title: "Monthly case consultation",
-    date: "Thursday, June 5, 2026",
+    date: formatLongDate(secondConsultation),
+    startTime: "9:00am",
     time: "9:00 – 10:30am",
     format: "Virtual (Zoom)",
     category: "Consultation",
@@ -59,11 +85,14 @@ export const EVENTS: CircleEvent[] = [
     ceus: 1.5,
     rsvp: false,
     spots: null,
+    startHour: 9,
+    durationMinutes: 90,
   },
   {
     id: 5,
     title: "Burnout prevention: clinician self-care",
-    date: "Tuesday, June 17, 2026",
+    date: formatLongDate(daysFromNow(56)),
+    startTime: "1:00pm",
     time: "1:00 – 2:30pm",
     format: "Virtual (Zoom)",
     category: "Self-Care",
@@ -71,5 +100,7 @@ export const EVENTS: CircleEvent[] = [
     ceus: null,
     rsvp: false,
     spots: 25,
+    startHour: 13,
+    durationMinutes: 90,
   },
 ];

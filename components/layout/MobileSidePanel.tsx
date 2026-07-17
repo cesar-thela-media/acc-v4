@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode, useEffect } from "react";
+import { X } from "lucide-react";
 
 interface MobileSidePanelProps {
   open: boolean;
@@ -68,11 +69,11 @@ export function MobileSidePanel({
           <button
             type="button"
             onClick={onClose}
-            className="text-2xl leading-none transition-opacity hover:opacity-70"
+            className="flex items-center justify-center transition-opacity hover:opacity-70"
             style={{ color: closeColor }}
             aria-label="Close menu"
           >
-            ✕
+            <X size={20} />
           </button>
         </div>
 

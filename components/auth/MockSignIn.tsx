@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/shadcn/card";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/shadcn/field";
@@ -63,7 +64,7 @@ export function MockSignIn({ redirectTo = "/dashboard" }: Props) {
 
   return (
     <section className="relative min-h-screen">
-      <img src="/signin-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+      <Image src="/signin-bg.jpg" alt="" fill priority className="object-cover" />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "linear-gradient(to right, rgba(45,59,44,0.75) 0%, rgba(45,59,44,0.35) 55%, rgba(45,59,44,0.15) 100%)" }}
@@ -73,7 +74,7 @@ export function MockSignIn({ redirectTo = "/dashboard" }: Props) {
           <Card className="w-full h-full max-w-md px-6 py-8 sm:px-8 sm:py-12 border-none shadow-xl gap-8 rounded-3xl" style={{ background: "#fff" }}>
             <CardHeader className="p-0 flex gap-6 flex-col">
               <Link href="/" aria-label="The Circle">
-                <img src="/logo-mark.png" alt="" className="h-10 w-10 object-contain" />
+                <Image src="/logo-mark.png" alt="" width={2000} height={732} className="h-14 w-auto object-contain" />
               </Link>
               <div className="flex gap-2 flex-col">
                 <CardTitle className="text-2xl font-semibold" style={{ color: SAGE_800 }}>

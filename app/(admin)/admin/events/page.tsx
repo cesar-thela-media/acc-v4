@@ -1,11 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { EllipsisVertical } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Input, Textarea } from "@/components/ui/Input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/shadcn/dropdown-menu";
+import { daysFromNow, formatAbbrevDate, nextFirstWeekdayOfMonth } from "@/lib/relativeDates";
 
 const CATEGORIES = ["Consultation", "Workshop", "CEU", "Self-Care"];
+const THURSDAY = 4;
+
+// Two upcoming "first Thursday of the month" consultation dates, a full
+// calendar month apart (per the client's literal FAQ wording for this event).
+const firstConsultation = nextFirstWeekdayOfMonth(THURSDAY, 0);
+const monthsUntilFirst =
+  (firstConsultation.getFullYear() - new Date().getFullYear()) * 12 +
+  (firstConsultation.getMonth() - new Date().getMonth());
+const secondConsultation = nextFirstWeekdayOfMonth(THURSDAY, monthsUntilFirst + 1);
 
 type SortKey = "title" | "date" | "category" | "rsvps";
 type SortDir = "asc" | "desc";
@@ -18,7 +35,7 @@ function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
   );
 }
 
-type EventEntry = {
+export type EventEntry = {
   id: number;
   title: string;
   date: string;
@@ -30,12 +47,12 @@ type EventEntry = {
   spots: number | null;
 };
 
-const INITIAL_EVENTS: EventEntry[] = [
-  { id: 1, title: "Monthly case consultation", date: "May 1, 2026", time: "9:00 – 10:30am", format: "Virtual (Zoom)", category: "Consultation", ceus: 1.5, rsvpCount: 9, spots: null },
-  { id: 2, title: "Practice building workshop: Setting your fee", date: "May 14, 2026", time: "12:00 – 1:00pm", format: "Virtual (Zoom)", category: "Workshop", ceus: null, rsvpCount: 4, spots: 20 },
-  { id: 3, title: "Trauma-informed care: CEU training", date: "May 23, 2026", time: "10:00am – 12:00pm", format: "Virtual (Zoom)", category: "CEU", ceus: 2.0, rsvpCount: 11, spots: 30 },
-  { id: 4, title: "Monthly case consultation", date: "Jun 5, 2026", time: "9:00 – 10:30am", format: "Virtual (Zoom)", category: "Consultation", ceus: 1.5, rsvpCount: 0, spots: null },
-  { id: 5, title: "Burnout prevention: clinician self-care", date: "Jun 17, 2026", time: "1:00 – 2:30pm", format: "Virtual (Zoom)", category: "Self-Care", ceus: null, rsvpCount: 2, spots: 25 },
+export const INITIAL_EVENTS: EventEntry[] = [
+  { id: 1, title: "Monthly case consultation", date: formatAbbrevDate(firstConsultation), time: "9:00 – 10:30am", format: "Virtual (Zoom)", category: "Consultation", ceus: 1.5, rsvpCount: 9, spots: null },
+  { id: 2, title: "Practice building workshop: Setting your fee", date: formatAbbrevDate(daysFromNow(22)), time: "12:00 – 1:00pm", format: "Virtual (Zoom)", category: "Workshop", ceus: null, rsvpCount: 4, spots: 20 },
+  { id: 3, title: "Trauma-informed care: CEU training", date: formatAbbrevDate(daysFromNow(31)), time: "10:00am – 12:00pm", format: "Virtual (Zoom)", category: "CEU", ceus: 2.0, rsvpCount: 11, spots: 30 },
+  { id: 4, title: "Monthly case consultation", date: formatAbbrevDate(secondConsultation), time: "9:00 – 10:30am", format: "Virtual (Zoom)", category: "Consultation", ceus: 1.5, rsvpCount: 0, spots: null },
+  { id: 5, title: "Burnout prevention: clinician self-care", date: formatAbbrevDate(daysFromNow(56)), time: "1:00 – 2:30pm", format: "Virtual (Zoom)", category: "Self-Care", ceus: null, rsvpCount: 2, spots: 25 },
 ];
 
 const CATEGORY_VARIANTS: Record<string, "default" | "accent" | "success" | "warning" | "highlight"> = {
@@ -138,11 +155,6 @@ export default function AdminEventsPage() {
     setShowForm(false);
     setEditId(null);
     setForm(BLANK_FORM);
-  }
-
-  function handleSort(key: SortKey, dir: SortDir) {
-    setSortKey(key);
-    setSortDir(dir);
   }
 
   return (
@@ -285,7 +297,18 @@ export default function AdminEventsPage() {
                   <p className="text-sm font-semibold" style={{ color: "var(--color-text-primary)" }}>{ev.title}</p>
                   <p className="text-xs mt-1" style={{ color: "var(--color-text-tertiary)" }}>{ev.format}</p>
                 </div>
-                <Badge variant={CATEGORY_VARIANTS[ev.category] ?? "default"}>{ev.category}</Badge>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Badge variant={CATEGORY_VARIANTS[ev.category] ?? "default"}>{ev.category}</Badge>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="rounded-full hover:bg-black/5 p-1.5 cursor-pointer outline-none">
+                      <EllipsisVertical size={16} style={{ color: "var(--color-text-tertiary)" }} />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={() => openEdit(ev)}>Edit</DropdownMenuItem>
+                      <DropdownMenuItem variant="destructive" onClick={() => handleDelete(ev.id)}>Delete</DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </div>
               <div className="text-sm flex flex-col gap-1" style={{ color: "var(--color-text-secondary)" }}>
                 <p>{ev.date}</p>
@@ -296,22 +319,6 @@ export default function AdminEventsPage() {
                 <span className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>
                   {ev.rsvpCount}{ev.spots ? ` / ${ev.spots}` : ""} RSVPs
                 </span>
-              </div>
-              <div className="flex flex-wrap items-center gap-4">
-                <button
-                  className="text-xs underline"
-                  style={{ color: "#C2963A", textUnderlineOffset: "3px" }}
-                  onClick={() => openEdit(ev)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="text-xs underline"
-                  style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }}
-                  onClick={() => handleDelete(ev.id)}
-                >
-                  Delete
-                </button>
               </div>
             </div>
           ))}
@@ -386,21 +393,16 @@ export default function AdminEventsPage() {
                     {ev.rsvpCount}{ev.spots ? ` / ${ev.spots}` : ""}
                   </td>
                   <td className="px-5 py-3.5 text-right">
-                    <div className="flex items-center justify-end gap-3">
-                      <button
-                        className="text-xs underline"
-                        style={{ color: "#C2963A", textUnderlineOffset: "3px" }}
-                        onClick={() => openEdit(ev)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="text-xs underline"
-                        style={{ color: "var(--color-error)", textUnderlineOffset: "3px" }}
-                        onClick={() => handleDelete(ev.id)}
-                      >
-                        Delete
-                      </button>
+                    <div className="flex items-center justify-end">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger className="rounded-full hover:bg-black/5 p-1.5 cursor-pointer outline-none">
+                          <EllipsisVertical size={16} style={{ color: "var(--color-text-tertiary)" }} />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem onClick={() => openEdit(ev)}>Edit</DropdownMenuItem>
+                          <DropdownMenuItem variant="destructive" onClick={() => handleDelete(ev.id)}>Delete</DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </td>
                 </tr>

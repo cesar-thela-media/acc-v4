@@ -349,7 +349,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
             {"\n"}Playbook
           </Text>
           <Text style={s.coverSubtitle}>
-            Four frameworks used by Austin's most sustainable independent practices: fee-setting, referral building, burnout prevention, and community.
+            Four frameworks used by Austin&apos;s most sustainable independent practices: fee-setting, referral building, burnout prevention, and community.
           </Text>
           <View style={s.coverDivider} />
           <Text style={s.coverByline}>
@@ -366,7 +366,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
 
       {/* ── TABLE OF CONTENTS ── */}
       <Page size="A4" style={s.page}>
-        <Text style={s.tocTitle}>What's inside</Text>
+        <Text style={s.tocTitle}>What&apos;s inside</Text>
         {[
           ["01", "The Fee-Setting Framework", "3"],
           ["02", "The Referral Network Blueprint", "6"],
@@ -381,7 +381,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
         ))}
         <View style={s.callout}>
           <Text style={s.calloutText}>
-            "The isolation of private practice is the single biggest threat to clinician longevity, not caseload, not documentation, not billing. It's being alone with hard work." (Sarah Arnold, LPC-S)
+            &quot;The isolation of private practice is the single biggest threat to clinician longevity, not caseload, not documentation, not billing. It&apos;s being alone with hard work.&quot; (Sarah Arnold, LPC-S)
           </Text>
         </View>
         <Footer page={2} />
@@ -392,11 +392,11 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
         <View style={s.sectionHeader}>
           <Text style={s.sectionNum}>Section 01</Text>
           <Text style={s.sectionTitle}>The Fee-Setting Framework</Text>
-          <Text style={s.sectionTagline}>Stop undercharging, and stop apologizing for what you're worth.</Text>
+          <Text style={s.sectionTagline}>Stop undercharging, and stop apologizing for what you&apos;re worth.</Text>
         </View>
 
         <Text style={s.p}>
-          Most therapists set their fees too low. Not because they don't know their value, but because they've been conditioned to apologize for it. This section gives you a systematic way to set fees that reflect the true cost of your work and hold them.
+          Most therapists set their fees too low. Not because they don&apos;t know their value, but because they&apos;ve been conditioned to apologize for it. This section gives you a systematic way to set fees that reflect the true cost of your work and hold them.
         </Text>
 
         <Text style={s.h2}>Step 1: Calculate your true hourly cost</Text>
@@ -409,13 +409,13 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
 
         <Text style={s.h2}>Step 2: Know your local market ceiling</Text>
         <Text style={s.p}>
-          In the Austin metro, licensed therapist rates currently range from $140–$250/hr for individual therapy, with specialists (EMDR, IFS, trauma) regularly billing $175–$275. If you're below $150, you're likely underpriced relative to your training and licensure.
+          In the Austin metro, licensed therapist rates currently range from $140–$250/hr for individual therapy, with specialists (EMDR, IFS, trauma) regularly billing $175–$275. If you&apos;re below $150, you&apos;re likely underpriced relative to your training and licensure.
         </Text>
 
         <View style={s.goldBox}>
           <Text style={s.goldBoxTitle}>The $30 Raise Rule</Text>
           <Text style={s.goldBoxText}>
-            If no prospective client has pushed back on your fee in the last 6 months, your rate is too low. Raise it by $30 for all new clients. Give existing clients 60 days' notice. You will not lose them all, and the ones who leave at $30 were not your clients anyway.
+            If no prospective client has pushed back on your fee in the last 6 months, your rate is too low. Raise it by $30 for all new clients. Give existing clients 60 days&apos; notice. You will not lose them all, and the ones who leave at $30 were not your clients anyway.
           </Text>
         </View>
         <Footer page={3} />
@@ -437,8 +437,8 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
         </Text>
         <View style={s.callout}>
           <Text style={s.calloutText}>
-            ✗ "I know it's a lot... my rate is $175... but I do have some sliding scale if that's a problem."{"\n\n"}
-            ✓ "My rate is $175 per session. Do you have questions about that before we continue?"
+            ✗ &quot;I know it&apos;s a lot... my rate is $175... but I do have some sliding scale if that&apos;s a problem.&quot;{"\n\n"}
+            ✓ &quot;My rate is $175 per session. Do you have questions about that before we continue?&quot;
           </Text>
         </View>
         <Text style={s.p}>
@@ -447,7 +447,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
 
         <Text style={s.h3}>When to raise existing client rates</Text>
         <Text style={s.p}>
-          The answer is: regularly. Annual increases of $10–$20 are expected, professional, and appropriate. Give written notice 60 days in advance. A brief, warm letter works well: "As of [date], my rate for new and existing clients will be $[amount]. I value our work together and want to let you know well in advance."
+          The answer is: regularly. Annual increases of $10–$20 are expected, professional, and appropriate. Give written notice 60 days in advance. A brief, warm letter works well: &quot;As of [date], my rate for new and existing clients will be $[amount]. I value our work together and want to let you know well in advance.&quot;
         </Text>
         <Footer page={4} />
       </Page>
@@ -481,7 +481,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
         <View style={s.goldBox}>
           <Text style={s.goldBoxTitle}>The Best Referral You Can Give</Text>
           <Text style={s.goldBoxText}>
-            Never refer a client to someone you don't actually know. When you receive a referral from an unknown source, call to introduce yourself before the client arrives. The 5-minute call becomes the foundation of a Ring 2 relationship.
+            Never refer a client to someone you don&apos;t actually know. When you receive a referral from an unknown source, call to introduce yourself before the client arrives. The 5-minute call becomes the foundation of a Ring 2 relationship.
           </Text>
         </View>
         <Footer page={6} />
@@ -502,7 +502,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
 
         <Text style={s.h2}>The referral pipeline mindset</Text>
         <Text style={s.p}>
-          Your referral network is not a backup plan. It's an asset. Clinicians with strong Ring 1 networks:
+          Your referral network is not a backup plan. It&apos;s an asset. Clinicians with strong Ring 1 networks:
         </Text>
         <NumItem n={1} text="Maintain fuller caseloads because trusted referrals convert at 3–4x the rate of cold inquiries." />
         <NumItem n={2} text="Give better care because they can quickly place clients who need a different fit." />
@@ -510,7 +510,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
 
         <View style={s.callout}>
           <Text style={s.calloutText}>
-            "The clinicians I see burn out fastest are the ones trying to be everything to every client. A strong referral network is what lets you specialize, and specialization is what lets you do your best work." (Sarah Arnold)
+            &quot;The clinicians I see burn out fastest are the ones trying to be everything to every client. A strong referral network is what lets you specialize, and specialization is what lets you do your best work.&quot; (Sarah Arnold)
           </Text>
         </View>
         <Footer page={7} />
@@ -528,7 +528,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
           Burnout in therapists rarely arrives as a single dramatic event. It accumulates as small erosions in boundary, motivation, and presence that, over months, become chronic. The checklist below is designed for early detection, not crisis response.
         </Text>
         <Text style={s.p}>
-          Check any item you've experienced more than twice in the past 30 days. Three or more checked items is a signal worth taking seriously.
+          Check any item you&apos;ve experienced more than twice in the past 30 days. Three or more checked items is a signal worth taking seriously.
         </Text>
 
         <Text style={s.h2}>Clinical signs</Text>
@@ -561,7 +561,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
 
         <Text style={s.h3}>3–5 items checked</Text>
         <Text style={s.p}>
-          This is a signal. Don't wait. Take one concrete action this week: reduce caseload by one client, add a supervision appointment, book a personal therapy session, or restructure one persistent boundary violation.
+          This is a signal. Don&apos;t wait. Take one concrete action this week: reduce caseload by one client, add a supervision appointment, book a personal therapy session, or restructure one persistent boundary violation.
         </Text>
 
         <Text style={s.h3}>6+ items checked</Text>
@@ -572,7 +572,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
         <View style={s.goldBox}>
           <Text style={s.goldBoxTitle}>The Most Protective Structure Known</Text>
           <Text style={s.goldBoxText}>
-            Research consistently shows that peer consultation, regular, structured, honest clinical consultation with colleagues, is the single most protective factor against burnout in licensed therapists. Not self-care in the conventional sense. Community. That's what The Circle is built for.
+            Research consistently shows that peer consultation, regular, structured, honest clinical consultation with colleagues, is the single most protective factor against burnout in licensed therapists. Not self-care in the conventional sense. Community. That&apos;s what The Circle is built for.
           </Text>
         </View>
 
@@ -593,7 +593,7 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
         </View>
 
         <Text style={s.p}>
-          After ten years in private practice and six years running peer consultation groups, Sarah Arnold identified a consistent pattern: the therapists who built sustainable, fulfilling practices weren't the most experienced, the most credentialed, or the best at marketing. They were the ones who stayed connected.
+          Through years running peer consultation groups, Sarah Arnold identified a consistent pattern: the therapists who built sustainable, fulfilling practices weren&apos;t the most experienced, the most credentialed, or the best at marketing. They were the ones who stayed connected.
         </Text>
 
         <Text style={s.h2}>What thriving practices have in common</Text>
@@ -624,13 +624,13 @@ export function PlaybookDocument({ firstName }: { firstName: string }): ReactEle
 
         <Text style={s.h2}>Your next step</Text>
         <Text style={s.p}>
-          We're currently accepting founding members, a cohort of 40 therapists who will shape the community from its first year. Founding members lock in the lowest membership rate The Circle will ever offer, receive priority access to all programming, and have direct input with Sarah on what gets built.
+          We&apos;re currently accepting founding members, therapists who will help shape the community from its first year. Founding members lock in the lowest membership rate The Circle will ever offer, receive priority access to all programming, and have direct input with Sarah on what gets built.
         </Text>
 
         <View style={s.goldBox}>
           <Text style={s.goldBoxTitle}>Ready to apply?</Text>
           <Text style={s.goldBoxText}>
-            Applications are reviewed weekly. Visit {appUrl.replace(/^https?:\/\//, "")}/join to apply. It takes about 10 minutes and there's no commitment required to apply.{"\n\n"}
+            Applications are reviewed weekly. Visit {appUrl.replace(/^https?:\/\//, "")}/join to apply. It takes about 10 minutes and there&apos;s no commitment required to apply.{"\n\n"}
             Questions? Email Sarah directly at{" "}
             <Link src="mailto:sarah@restoredfamily.com" style={{ color: GOLD }}>
               sarah@restoredfamily.com

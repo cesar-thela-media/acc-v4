@@ -84,6 +84,7 @@ model User {
   applications  Application[]
   rsvps         EventRsvp[]
   certificates  Certificate[]
+  networkActions NetworkAction[]
 
   @@map("user")
 }
@@ -151,12 +152,18 @@ model ClinicianProfile {
   emailPublic      String?
   website          String?
   bookingUrl       String?   // Calendly or similar
+  city             String?   // "Austin, TX" — displayed publicly
+
+  // Credentials
+  licenseNumber    String?
+  supervisorName   String?   // supervising clinician, if pre-independent-licensure
 
   // Practice details
   clientTypes      String[]  // individual, couples, family, teen
   formats          String[]  // virtual, in-person, both
   languages        String[]
   areasServed      String[]
+  officeLocation   String?   // free-text neighborhood/area when formats includes in-person
 
   // Visibility
   acceptingClients Boolean   @default(true)
@@ -358,16 +365,42 @@ model EventRsvp {
 }
 
 // ─── Lead Magnet ──────────────────────────────────────────────────────────────
-// Tracks playbook downloads from the /coming-soon tripwire page
+// Tracks lead-magnet opt-ins and newsletter signups. `source` distinguishes
+// which form the row came from ("playbook", "newsletter", etc.) — one table
+// instead of a separate model per form since the shape is identical.
 
 model Lead {
   id          String   @id @default(cuid())
-  firstName   String
+  firstName   String?
   email       String   @unique
-  source      String   @default("playbook") // which lead magnet
+  source      String   @default("playbook") // "playbook", "newsletter", etc.
   convertedAt DateTime? // set when lead becomes an Application
   createdAt   DateTime @default(now())
 
   @@index([email])
   @@map("lead")
+}
+
+// ─── Network Actions ──────────────────────────────────────────────────────────
+// A referral or intro-message request sent from one member to another via the
+// Referral Network page. fromUserId is nullable for the same demo-mode reason
+// as Application/Certificate — no real User row exists until Clerk is wired up.
+
+enum NetworkActionType {
+  refer
+  message
+}
+
+model NetworkAction {
+  id           String            @id @default(cuid())
+  type         NetworkActionType
+  fromUserId   String?
+  toMemberName String            // target member's display name (matches mock/member directory entry)
+  note         String?           @db.Text
+  createdAt    DateTime          @default(now())
+
+  fromUser     User?             @relation(fields: [fromUserId], references: [id], onDelete: SetNull)
+
+  @@index([toMemberName])
+  @@map("network_action")
 }

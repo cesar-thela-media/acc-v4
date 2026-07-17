@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { MobileSidePanel } from "@/components/layout/MobileSidePanel";
 
+const AMBER = "var(--color-accent-highlight)";
+
 const RESOURCES = [
   { title: "CBT Session Planning Template", category: "Clinical Tools", type: "PDF", date: "Apr 18, 2026", description: "A structured template for planning CBT sessions across presenting concerns." },
   { title: "Psychoeducation: Anxiety Handout", category: "Handouts", type: "PDF", date: "Apr 15, 2026", description: "Client-facing psychoeducation on the anxiety cycle, suitable for most adult clients." },
@@ -106,10 +108,10 @@ export default function ResourcesPage() {
                 onClick={() => setCategory(item)}
                 className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                 style={{
-                  background: active ? "#C2963A" : "#fff",
+                  background: active ? AMBER : "#fff",
                   color: active ? "#fff" : "var(--color-sage-700)",
                   border: `1px solid ${
-                    active ? "#C2963A" : "rgba(194,150,58,0.18)"
+                    active ? AMBER : "rgba(194,150,58,0.18)"
                   }`,
                 }}
               >
@@ -137,10 +139,10 @@ export default function ResourcesPage() {
                 onClick={() => setType(item)}
                 className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                 style={{
-                  background: active ? "#C2963A" : "#fff",
+                  background: active ? AMBER : "#fff",
                   color: active ? "#fff" : "var(--color-sage-700)",
                   border: `1px solid ${
-                    active ? "#C2963A" : "rgba(194,150,58,0.18)"
+                    active ? AMBER : "rgba(194,150,58,0.18)"
                   }`,
                 }}
               >
@@ -203,6 +205,15 @@ export default function ResourcesPage() {
         </div>
       </div>
 
+      <Card className="flex flex-col gap-1">
+        <p className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+          File hosting isn&apos;t connected yet.
+        </p>
+        <p className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>
+          Downloads and previews will work here once each resource has a real uploaded file behind it.
+        </p>
+      </Card>
+
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
         <div className="flex-1">
           <Input
@@ -222,7 +233,7 @@ export default function ResourcesPage() {
             type="button"
             onClick={() => setMobileFiltersOpen(true)}
             className="lg:hidden px-5 py-3 rounded-full text-sm font-medium"
-            style={{ background: "#C2963A", color: "#fff" }}
+            style={{ background: AMBER, color: "#fff" }}
           >
             Filters
           </button>
@@ -273,8 +284,8 @@ export default function ResourcesPage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                <Button size="sm" onClick={() => alert('Download started.')}>Download</Button>
-                <Button variant="secondary" size="sm" onClick={() => alert('Preview coming soon.')}>Preview</Button>
+                <Button size="sm" disabled title="File hosting isn't connected yet.">Download</Button>
+                <Button variant="secondary" size="sm" disabled title="File hosting isn't connected yet.">Preview</Button>
               </div>
             </div>
           </Card>
@@ -308,12 +319,20 @@ export default function ResourcesPage() {
                   <div className="flex items-center justify-between gap-3 mt-auto">
                     <span className="text-xs" style={{ color: "var(--color-text-tertiary)" }}>{resource.date}</span>
                     <div className="flex items-center gap-3">
-                      <button onClick={() => alert('Preview coming soon.')} className="text-xs font-medium underline" style={{ color: "var(--color-sage-700)", textUnderlineOffset: "3px" }}>
+                      <span
+                        className="text-xs font-medium"
+                        style={{ color: "var(--color-text-tertiary)", cursor: "not-allowed" }}
+                        title="File hosting isn't connected yet."
+                      >
                         Preview
-                      </button>
-                      <button onClick={() => alert('Download started.')} className="text-xs font-medium underline" style={{ color: "var(--color-sage-700)", textUnderlineOffset: "3px" }}>
+                      </span>
+                      <span
+                        className="text-xs font-medium"
+                        style={{ color: "var(--color-text-tertiary)", cursor: "not-allowed" }}
+                        title="File hosting isn't connected yet."
+                      >
                         Download
-                      </button>
+                      </span>
                     </div>
                   </div>
                 </Card>
@@ -355,7 +374,7 @@ export default function ResourcesPage() {
               type="button"
               onClick={() => setMobileFiltersOpen(false)}
               className="w-full py-3 rounded-full text-sm font-medium"
-              style={{ background: "#C2963A", color: "#fff" }}
+              style={{ background: AMBER, color: "#fff" }}
             >
               Show {filtered.length} result{filtered.length !== 1 ? "s" : ""}
             </button>

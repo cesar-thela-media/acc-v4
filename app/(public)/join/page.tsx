@@ -71,12 +71,45 @@ export default function JoinPage() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [stepError, setStepError] = useState("");
 
   function set(field: keyof FormData, value: string) {
     setForm((f) => ({ ...f, [field]: value }));
   }
 
+  function validateStep(current: number): string {
+    if (current === 0) {
+      if (!form.firstName.trim() || !form.lastName.trim()) return "Please enter your first and last name.";
+      if (!form.email.trim()) return "Please enter your email address.";
+      if (!form.phone.trim()) return "Please enter your phone number.";
+      if (!form.licenseType) return "Please select your license type.";
+      if (!form.licenseNumber.trim()) return "Please enter your license number.";
+      if (!form.yearsLicensed.trim()) return "Please enter how many years you've been licensed.";
+    }
+    if (current === 1) {
+      if (!form.practiceCity.trim()) return "Please enter your city or area.";
+      if (!form.format) return "Please select a practice format.";
+      if (!form.bio.trim()) return "Please write a brief bio.";
+    }
+    return "";
+  }
+
+  function goToStep(next: number) {
+    const error = validateStep(step);
+    if (error) {
+      setStepError(error);
+      return;
+    }
+    setStepError("");
+    setStep(next);
+  }
+
   async function handleSubmit() {
+    const error = validateStep(0) || validateStep(1);
+    if (error) {
+      setSubmitError(error);
+      return;
+    }
     setSubmitting(true);
     setSubmitError("");
     try {
@@ -275,8 +308,11 @@ export default function JoinPage() {
               onChange={(e) => set("yearsLicensed", e.target.value)}
               placeholder="3"
             />
+            {stepError && step === 0 && (
+              <p className="text-sm text-center" style={{ color: "var(--color-error)" }}>{stepError}</p>
+            )}
             <Button
-              onClick={() => setStep(1)}
+              onClick={() => goToStep(1)}
               className="w-full mt-2"
             >
               Continue →
@@ -411,11 +447,14 @@ export default function JoinPage() {
               onChange={(e) => set("whyCircle", e.target.value)}
               placeholder="What are you hoping to get from this community?"
             />
+            {stepError && step === 1 && (
+              <p className="text-sm text-center" style={{ color: "var(--color-error)" }}>{stepError}</p>
+            )}
             <div className="flex flex-col sm:flex-row gap-3 mt-2">
-              <Button variant="secondary" onClick={() => setStep(0)} className="flex-1">
+              <Button variant="secondary" onClick={() => { setStepError(""); setStep(0); }} className="flex-1">
                 ← Back
               </Button>
-              <Button onClick={() => setStep(2)} className="flex-1">
+              <Button onClick={() => goToStep(2)} className="flex-1">
                 Continue →
               </Button>
             </div>

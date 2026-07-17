@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { CalendlyEmbed } from "@/components/CalendlyEmbed";
 import { EVENTS } from "@/lib/events";
+import { downloadIcsEvent } from "@/lib/ics";
 
 const categoryColor: Record<string, "default" | "success" | "warning" | "accent" | "highlight"> = {
   Consultation: "default",
@@ -93,7 +94,19 @@ export function EventsClient({ hasCertificates }: { hasCertificates: boolean }) 
                     >
                       {isRsvpd ? "Cancel RSVP" : "RSVP"}
                     </Button>
-                    <Button variant="ghost" size="sm" onClick={() => alert('Calendar invite coming soon.')}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() =>
+                        downloadIcsEvent({
+                          title: ev.title,
+                          description: ev.description,
+                          dateLabel: ev.date,
+                          startHour: ev.startHour,
+                          durationMinutes: ev.durationMinutes,
+                        })
+                      }
+                    >
                       Add to calendar
                     </Button>
                     {hasCertificates && isRsvpd && ev.ceus && (

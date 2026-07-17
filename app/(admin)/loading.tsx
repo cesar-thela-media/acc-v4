@@ -1,4 +1,4 @@
-import { StatSkeleton, TableSkeleton, CardSkeleton } from "@/components/ui/Skeleton";
+import { StatSkeleton, CardSkeleton } from "@/components/ui/Skeleton";
 
 export default function AdminLoading() {
   return (

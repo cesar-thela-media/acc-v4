@@ -1,11 +1,9 @@
 "use client";
 
 import { Badge } from "@/components/ui/Badge";
+import { Button, buttonClasses } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { EVENTS } from "@/lib/events";
-
-const secondaryButtonClass =
-  "inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed bg-transparent text-[var(--color-sage-700)] border border-[var(--color-sage-700)] hover:bg-[var(--color-sage-50)] hover:border-[var(--color-sage-800)] hover:text-[var(--color-sage-800)] h-8 px-4 text-sm";
 
 export function FilesClient({ hasCertificates }: { hasCertificates: boolean }) {
   const ceuEvents = EVENTS.filter((ev) => ev.ceus);
@@ -63,14 +61,14 @@ export function FilesClient({ hasCertificates }: { hasCertificates: boolean }) {
               {hasCertificates ? (
                 <a
                   href={`/api/certificate?workshop=${encodeURIComponent(ev.title)}&ceus=${ev.ceus}`}
-                  className={`sm:shrink-0 ${secondaryButtonClass}`}
+                  className={`sm:shrink-0 ${buttonClasses("secondary", "sm")}`}
                 >
                   Download certificate
                 </a>
               ) : (
-                <span className={`sm:shrink-0 ${secondaryButtonClass}`} style={{ opacity: 0.5, cursor: "not-allowed" }}>
+                <Button variant="secondary" size="sm" disabled className="sm:shrink-0" title="Certificate generation isn't configured yet.">
                   Download certificate
-                </span>
+                </Button>
               )}
             </Card>
           ))}

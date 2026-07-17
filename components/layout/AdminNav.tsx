@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
 import { MobileSidePanel } from "@/components/layout/MobileSidePanel";
 import { SignOutAction } from "@/components/auth/SignOutAction";
 
@@ -26,9 +28,14 @@ export function AdminNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
+  // Close the mobile menu when the route changes — adjusting state during
+  // render (React's documented pattern) instead of an effect, since this is
+  // synchronizing with a prop-like value (pathname), not an external system.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setMobileOpen(false);
-  }, [pathname]);
+  }
 
   return (
     <>
@@ -40,15 +47,9 @@ export function AdminNav() {
           backdropFilter: "blur(16px)",
         }}
       >
-        <div>
-          <p className="text-[11px] font-medium uppercase tracking-[0.24em]" style={{ color: "rgba(255,255,255,0.48)" }}>
-            The Circle Admin
-          </p>
-          <Link href="/admin" aria-label="The Circle" className="flex items-center gap-2 mt-0.5">
-            <img src="/logo-mark.png" alt="" className="h-7 w-7 object-contain" />
-            <span className="text-base" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
-              The Circle
-            </span>
+        <div className="shrink-0">
+          <Link href="/admin" aria-label="The Circle" className="flex items-center gap-2">
+            <Image src="/logo-mark.png" alt="" width={2000} height={732} className="h-12 w-auto object-contain" />
           </Link>
         </div>
 
@@ -59,7 +60,7 @@ export function AdminNav() {
           style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}
           aria-label="Open admin menu"
         >
-          ☰
+          <Menu size={18} />
         </button>
       </div>
 
@@ -71,17 +72,8 @@ export function AdminNav() {
         }}
       >
         <div className="px-1 mb-6">
-          <p
-            className="text-[11px] font-medium uppercase tracking-[0.24em] mb-1"
-            style={{ color: "rgba(255,255,255,0.40)" }}
-          >
-            The Circle Admin
-          </p>
-          <Link href="/admin" aria-label="The Circle" className="flex items-center gap-2">
-            <img src="/logo-mark.png" alt="" className="h-8 w-8 object-contain" />
-            <span className="text-lg" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
-              The Circle
-            </span>
+          <Link href="/admin" aria-label="The Circle" className="flex items-center justify-center gap-2">
+            <Image src="/logo-mark.png" alt="" width={2000} height={732} className="h-14 w-auto object-contain" />
           </Link>
         </div>
 
@@ -124,19 +116,7 @@ export function AdminNav() {
         background="#2D3B2C"
         borderColor="rgba(255,255,255,0.08)"
         closeColor="rgba(255,255,255,0.72)"
-        title={
-          <div>
-            <p className="text-[11px] font-medium uppercase tracking-[0.24em] mb-2" style={{ color: "rgba(255,255,255,0.40)" }}>
-              The Circle Admin
-            </p>
-            <span
-              className="text-base"
-              style={{ fontFamily: "var(--font-serif), Georgia, serif", fontWeight: 400, color: "#fff" }}
-            >
-              The Circle
-            </span>
-          </div>
-        }
+        title={<Image src="/logo-mark.png" alt="The Circle" width={2000} height={732} className="h-12 w-auto object-contain" />}
       >
         <nav className="flex flex-col gap-2">
           {navLinks.map((link) => {

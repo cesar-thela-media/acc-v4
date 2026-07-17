@@ -7,7 +7,7 @@ import { hasClerkCredentials, hasStripeSandboxConfig } from "@/lib/env";
 import { findSandboxCustomerByEmail, getStripe } from "@/lib/stripe";
 
 function formatMoney(amount?: number | null, currency = "usd") {
-  if (amount == null) return "$79.00";
+  if (amount == null) return "Not available yet";
 
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -98,7 +98,7 @@ export default async function BillingPage() {
               Full access to community resources, events, and the member directory, powered by Stripe test mode while sandbox credentials are in use.
             </p>
           </div>
-          <Badge variant={toBadgeVariant(subscription?.status, )}>{toLabel(subscription?.status, Boolean(customer))}</Badge>
+          <Badge variant={toBadgeVariant(subscription?.status)}>{toLabel(subscription?.status, Boolean(customer))}</Badge>
         </div>
 
         <div

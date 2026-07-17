@@ -6,7 +6,23 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { Toggle } from "@/components/ui/Toggle";
 import { MobileSidePanel } from "@/components/layout/MobileSidePanel";
+
+const AMBER = "var(--color-accent-highlight)";
+
+async function sendNetworkAction(type: "refer" | "message", memberName: string) {
+  try {
+    const res = await fetch("/api/network/action", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type, memberName }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
 
 const MEMBERS = [
   { name: "Dr. Maya Okonkwo", credentials: "LCSW", specialties: ["Trauma", "Grief", "EMDR"], city: "Austin, TX", format: "Virtual only", accepting: true, responseTime: "Within 24 hours", referralsThisMonth: 4, fit: "Complex trauma, grief, identity transitions" },
@@ -34,6 +50,12 @@ export default function NetworkPage() {
   const [acceptingOnly, setAcceptingOnly] = useState(false);
   const [sort, setSort] = useState<SortOption>("recommended");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [actionStatus, setActionStatus] = useState<Record<string, "refer" | "message">>({});
+
+  async function handleAction(type: "refer" | "message", memberName: string) {
+    setActionStatus((prev) => ({ ...prev, [memberName]: type }));
+    await sendNetworkAction(type, memberName);
+  }
 
   const specialties = useMemo(
     () => ["All", ...Array.from(new Set(MEMBERS.flatMap((member) => member.specialties))).sort()],
@@ -88,9 +110,9 @@ export default function NetworkPage() {
                 onClick={() => setSelectedSpecialty(specialty)}
                 className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                 style={{
-                  background: active ? "#C2963A" : "#fff",
+                  background: active ? AMBER : "#fff",
                   color: active ? "#fff" : "var(--color-sage-700)",
-                  border: `1px solid ${active ? "#C2963A" : "rgba(194,150,58,0.18)"}`,
+                  border: `1px solid ${active ? AMBER : "rgba(194,150,58,0.18)"}`,
                 }}
               >
                 {specialty}
@@ -114,9 +136,9 @@ export default function NetworkPage() {
                 onClick={() => setSort(option.value)}
                 className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                 style={{
-                  background: active ? "#C2963A" : "#fff",
+                  background: active ? AMBER : "#fff",
                   color: active ? "#fff" : "var(--color-sage-700)",
-                  border: `1px solid ${active ? "#C2963A" : "rgba(194,150,58,0.18)"}`,
+                  border: `1px solid ${active ? AMBER : "rgba(194,150,58,0.18)"}`,
                 }}
               >
                 {option.label}
@@ -126,21 +148,7 @@ export default function NetworkPage() {
         </div>
       </div>
 
-      <label className="flex items-center justify-between gap-3 cursor-pointer">
-        <span className="text-sm" style={{ color: "var(--color-text-secondary)" }}>
-          Accepting clients only
-        </span>
-        <div
-          onClick={() => setAcceptingOnly((value) => !value)}
-          className="w-10 h-6 rounded-full transition-colors flex items-center px-0.5 cursor-pointer"
-          style={{ background: acceptingOnly ? "#C2963A" : "var(--color-cream-400)" }}
-        >
-          <div
-            className="w-5 h-5 rounded-full bg-white shadow transition-transform"
-            style={{ transform: acceptingOnly ? "translateX(16px)" : "translateX(0)" }}
-          />
-        </div>
-      </label>
+      <Toggle checked={acceptingOnly} onChange={setAcceptingOnly} label="Accepting clients only" />
     </>
   );
 
@@ -176,7 +184,7 @@ export default function NetworkPage() {
             type="button"
             onClick={() => setMobileFiltersOpen(true)}
             className="lg:hidden px-5 py-3 rounded-full text-sm font-medium"
-            style={{ background: "#C2963A", color: "#fff" }}
+            style={{ background: AMBER, color: "#fff" }}
           >
             Filters
           </button>
@@ -251,7 +259,7 @@ export default function NetworkPage() {
                       onClick={() => setSort(option.value)}
                       className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                       style={{
-                        background: active ? "#C2963A" : "var(--color-sage-50)",
+                        background: active ? AMBER : "var(--color-sage-50)",
                         color: active ? "#fff" : "var(--color-sage-700)",
                         border: active ? "none" : "1px solid rgba(194,150,58,0.18)",
                       }}
@@ -350,9 +358,17 @@ export default function NetworkPage() {
                       ))}
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                      <Button size="sm" onClick={() => alert('Referral form coming soon.')}>Refer client</Button>
-                      <Button variant="secondary" size="sm" onClick={() => alert('Message feature coming soon.')}>Message intro</Button>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-auto">
+                      {actionStatus[member.name] ? (
+                        <p className="text-xs font-medium" style={{ color: "var(--color-success)" }}>
+                          {actionStatus[member.name] === "refer" ? "Referral request sent." : "Message request sent."}
+                        </p>
+                      ) : (
+                        <>
+                          <Button size="sm" onClick={() => handleAction("refer", member.name)}>Refer client</Button>
+                          <Button variant="secondary" size="sm" onClick={() => handleAction("message", member.name)}>Message intro</Button>
+                        </>
+                      )}
                     </div>
                   </Card>
                 ))}
@@ -394,7 +410,7 @@ export default function NetworkPage() {
               type="button"
               onClick={() => setMobileFiltersOpen(false)}
               className="w-full py-3 rounded-full text-sm font-medium"
-              style={{ background: "#C2963A", color: "#fff" }}
+              style={{ background: AMBER, color: "#fff" }}
             >
               Show {filteredMembers.length} member{filteredMembers.length !== 1 ? "s" : ""}
             </button>

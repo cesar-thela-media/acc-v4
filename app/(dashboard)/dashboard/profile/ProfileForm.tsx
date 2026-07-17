@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Input, Textarea } from "@/components/ui/Input";
+import { Toggle } from "@/components/ui/Toggle";
 
 const LICENSE_TYPES = ["LPC", "LCSW", "LMFT", "LPC-S", "PhD", "PsyD", "Other"];
 const SPECIALTIES = [
@@ -24,7 +25,14 @@ export function ProfileForm({
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState("jane@example.com");
+  const [city, setCity] = useState("Austin, TX");
   const [licenseType, setLicenseType] = useState("LPC");
+  const [licenseNumber, setLicenseNumber] = useState("LPC-80042");
+  const [supervisor, setSupervisor] = useState("");
+  const [bio, setBio] = useState(
+    "I'm a licensed professional counselor in Austin, TX with a focus on trauma and anxiety. I work primarily with adults using EMDR and somatic approaches."
+  );
   const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>(["Anxiety", "Trauma", "EMDR"]);
   const [format, setFormat] = useState("Both");
   const [officeLocation, setOfficeLocation] = useState("");
@@ -59,7 +67,20 @@ export function ProfileForm({
       const res = await fetch("/api/profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstName, lastName }),
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          city,
+          licenseType,
+          licenseNumber,
+          supervisor,
+          bio,
+          specialties: selectedSpecialties,
+          format,
+          officeLocation,
+          accepting,
+        }),
       });
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
@@ -103,6 +124,9 @@ export function ProfileForm({
               style={{ background: photoPreview ? "transparent" : "var(--color-sage-100)", color: "var(--color-sage-500)" }}
             >
               {photoPreview ? (
+                // next/image's optimizer doesn't handle data: URLs (a local, unsaved
+                // file preview) — a plain <img> is the correct choice here.
+                // eslint-disable-next-line @next/next/no-img-element
                 <img src={photoPreview} alt="Profile preview" className="w-full h-full object-cover" />
               ) : (
                 (firstName || "?").charAt(0).toUpperCase()
@@ -136,8 +160,8 @@ export function ProfileForm({
             <Input label="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} name="firstName" />
             <Input label="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} name="lastName" />
           </div>
-          <Input label="Email address" type="email" defaultValue="jane@example.com" name="email" />
-          <Input label="City, State" defaultValue="Austin, TX" name="city" hint="Displayed publicly on your profile." />
+          <Input label="Email address" type="email" value={email} onChange={(e) => setEmail(e.target.value)} name="email" />
+          <Input label="City, State" value={city} onChange={(e) => setCity(e.target.value)} name="city" hint="Displayed publicly on your profile." />
         </section>
 
         <hr style={{ borderColor: "rgba(194,150,58,0.12)" }} />
@@ -155,16 +179,16 @@ export function ProfileForm({
                   onClick={() => setLicenseType(l)}
                   className="px-4 py-1.5 rounded-full text-xs font-medium transition-colors"
                   style={{
-                    background: licenseType === l ? "#C2963A" : "#fff",
+                    background: licenseType === l ? "var(--color-accent-highlight)" : "#fff",
                     color: licenseType === l ? "#fff" : "var(--color-sage-700)",
-                    border: `1px solid ${licenseType === l ? "#C2963A" : "rgba(194,150,58,0.18)"}`,
+                    border: `1px solid ${licenseType === l ? "var(--color-accent-highlight)" : "rgba(194,150,58,0.18)"}`,
                   }}
                 >{l}</button>
               ))}
             </div>
           </div>
-          <Input label="License number" defaultValue="LPC-80042" name="licenseNumber" />
-          <Input label="Supervising clinician (if applicable)" placeholder="Name, credentials" name="supervisor" />
+          <Input label="License number" value={licenseNumber} onChange={(e) => setLicenseNumber(e.target.value)} name="licenseNumber" />
+          <Input label="Supervising clinician (if applicable)" placeholder="Name, credentials" value={supervisor} onChange={(e) => setSupervisor(e.target.value)} name="supervisor" />
         </section>
 
         <hr style={{ borderColor: "rgba(194,150,58,0.12)" }} />
@@ -177,7 +201,8 @@ export function ProfileForm({
             name="bio"
             rows={5}
             hint="Shown on your public directory listing. Write in first person, for a clinical audience."
-            defaultValue="I'm a licensed professional counselor in Austin, TX with a focus on trauma and anxiety. I work primarily with adults using EMDR and somatic approaches."
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
           />
           <div>
             <label className="block text-xs font-medium mb-2" style={{ color: "var(--color-text-secondary)" }}>
@@ -193,9 +218,9 @@ export function ProfileForm({
                     onClick={() => toggleSpecialty(s)}
                     className="px-3 py-1 rounded-full text-xs font-medium transition-colors"
                     style={{
-                      background: sel ? "#C2963A" : "#fff",
+                      background: sel ? "var(--color-accent-highlight)" : "#fff",
                       color: sel ? "#fff" : "var(--color-sage-700)",
-                      border: `1px solid ${sel ? "#C2963A" : "rgba(194,150,58,0.18)"}`,
+                      border: `1px solid ${sel ? "var(--color-accent-highlight)" : "rgba(194,150,58,0.18)"}`,
                     }}
                   >{s}</button>
                 );
@@ -219,9 +244,9 @@ export function ProfileForm({
                   onClick={() => setFormat(f)}
                   className="px-4 py-1.5 rounded-full text-xs font-medium transition-colors"
                   style={{
-                    background: format === f ? "#C2963A" : "#fff",
+                    background: format === f ? "var(--color-accent-highlight)" : "#fff",
                     color: format === f ? "#fff" : "var(--color-sage-700)",
-                    border: `1px solid ${format === f ? "#C2963A" : "rgba(194,150,58,0.18)"}`,
+                    border: `1px solid ${format === f ? "var(--color-accent-highlight)" : "rgba(194,150,58,0.18)"}`,
                   }}
                 >{f}</button>
               ))}
@@ -236,26 +261,7 @@ export function ProfileForm({
               hint="Shown on your public directory listing so clients know where you practice."
             />
           )}
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              role="switch"
-              aria-checked={accepting}
-              onClick={() => setAccepting((v) => !v)}
-              className="relative w-10 h-6 rounded-full transition-colors"
-              style={{ background: accepting ? "#C2963A" : "var(--color-cream-400)" }}
-            >
-              <span
-                className="absolute top-1 left-1 w-4 h-4 rounded-full bg-white transition-transform"
-                style={{ transform: accepting ? "translateX(16px)" : "translateX(0)" }}
-              />
-            </button>
-            <label className="text-sm cursor-pointer" style={{ color: "var(--color-text-secondary)" }}
-              onClick={() => setAccepting((v) => !v)}
-            >
-              Currently accepting new clients
-            </label>
-          </div>
+          <Toggle checked={accepting} onChange={setAccepting} label="Currently accepting new clients" />
         </section>
 
         {/* Submit */}
@@ -269,7 +275,7 @@ export function ProfileForm({
             </p>
           )}
           {error && (
-            <p className="text-sm font-medium" style={{ color: "var(--color-error, #B3261E)" }}>
+            <p className="text-sm font-medium" style={{ color: "var(--color-error)" }}>
               {error}
             </p>
           )}

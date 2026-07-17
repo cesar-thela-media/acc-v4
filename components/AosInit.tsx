@@ -8,10 +8,9 @@ export function AosInit() {
 
   useEffect(() => {
     let observer: IntersectionObserver;
-    let raf: number;
 
     // rAF lets the new route's DOM fully paint before we query
-    raf = requestAnimationFrame(() => {
+    const raf = requestAnimationFrame(() => {
       const elements = document.querySelectorAll<Element>("[data-aos]:not(.aos-visible)");
 
       observer = new IntersectionObserver(

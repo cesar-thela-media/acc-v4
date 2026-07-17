@@ -7,6 +7,7 @@
 // Membership Includes content instead of the vendor's travel-photo demo data.
 
 import * as React from "react";
+import Image from "next/image";
 import {
   motion,
   useMotionValue,
@@ -55,6 +56,10 @@ export function MembershipCarousel({ slides }: { slides: MembershipSlide[] }) {
   const total = slides.length;
 
   React.useEffect(() => {
+    // Reading the real width only after mount (rather than a lazy useState
+    // initializer) keeps the first client render identical to the
+    // server-rendered HTML, avoiding a hydration mismatch.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setWindowWidth(window.innerWidth);
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
@@ -156,10 +161,11 @@ function MembershipCard({ slide, index, total, progress, config }: CardProps) {
         "w-52 h-64 sm:w-64 sm:h-88 lg:w-80 lg:h-104"
       )}
     >
-      <img
+      <Image
         src={slide.image}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-transform duration-700 group-hover:scale-110"
+        alt={slide.title}
+        fill
+        className="object-cover pointer-events-none transition-transform duration-700 group-hover:scale-110"
       />
 
       <motion.div style={{ opacity: dimOpacity }} className="absolute inset-0 bg-black pointer-events-none" />
