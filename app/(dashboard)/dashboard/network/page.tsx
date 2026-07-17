@@ -206,9 +206,6 @@ export default function NetworkPage() {
         <div className="flex-1 flex flex-col gap-6">
           <Card className="grid grid-cols-1 md:grid-cols-[1.15fr,0.85fr] gap-6 md:gap-8">
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "var(--color-sage-600)" }}>
-                Referral momentum
-              </p>
               <h2 className="section-title-strong" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--color-sage-900)" }}>
                 Start with members who are active and accepting right now.
               </h2>

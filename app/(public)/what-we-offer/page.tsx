@@ -80,9 +80,9 @@ export default function WhatWeOfferPage() {
               >
                 Membership gives you full access to clinical support, professional development, and community.
               </h1>
-              <ul className="flex flex-col gap-4 items-center">
+              <ul className="flex flex-col gap-4 w-full text-left">
                 {offerDetails.map((detail) => (
-                  <li key={detail} className="max-w-md">
+                  <li key={detail}>
                     <span className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{detail}</span>
                   </li>
                 ))}
@@ -130,8 +130,8 @@ export default function WhatWeOfferPage() {
           <div className="mb-10 text-center">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-4" style={{ color: AMBER }}>FAQ</p>
             <h2
-              className="leading-tight max-w-lg mx-auto"
-              style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(2rem, 4.2vw, 3rem)", fontWeight: 400, color: SAGE_800 }}
+              className="leading-tight whitespace-nowrap"
+              style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(1.35rem, 4.2vw, 3rem)", fontWeight: 400, color: SAGE_800 }}
             >
               You probably have questions.
             </h2>
@@ -139,12 +139,12 @@ export default function WhatWeOfferPage() {
           <div className="flex md:flex-row flex-col md:gap-10 gap-6">
             {/* Left: real contact card, no fabricated team avatars */}
             <div className="max-w-sm w-full">
-              <div className="h-full md:px-8 px-6 md:py-10 py-8 rounded-2xl flex flex-col justify-between gap-6" style={{ border: "1px solid rgba(194,150,58,0.18)", background: PARCHMENT }}>
+              <div className="h-full md:px-8 px-6 md:py-10 py-8 rounded-2xl flex flex-col gap-4" style={{ border: "1px solid rgba(194,150,58,0.18)", background: PARCHMENT }}>
                 <h4 className="text-2xl font-medium" style={{ color: SAGE_800 }}>
                   Still have questions?
                 </h4>
                 <Button
-                  render={<a href="mailto:sarah@restoredfamily.com" />}
+                  render={<a href="https://mail.google.com/mail/?view=cm&fs=1&to=sarah@restoredfamily.com" target="_blank" rel="noopener noreferrer" />}
                   className="flex gap-2 items-center w-full rounded-full min-h-12 cursor-pointer"
                   style={{ background: AMBER, color: "#fff" }}
                 >

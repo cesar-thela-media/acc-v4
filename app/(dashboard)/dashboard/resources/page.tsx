@@ -244,9 +244,6 @@ export default function ResourcesPage() {
 
           <Card className="grid grid-cols-1 md:grid-cols-[1.2fr,0.8fr] gap-6 md:gap-8">
             <div className="flex flex-col gap-3">
-              <p className="text-xs font-medium uppercase tracking-widest" style={{ color: "var(--color-sage-600)" }}>
-                Featured this week
-              </p>
               <h2
                 className="section-title-strong"
                 style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--color-sage-900)" }}

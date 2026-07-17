@@ -165,13 +165,6 @@ export default function HomePage() {
               >
                 See what&apos;s included →
               </Link>
-              <Link
-                href="/sign-in"
-                className="text-sm font-medium transition-opacity hover:opacity-70"
-                style={{ color: "rgba(255,255,255,0.55)" }}
-              >
-                Sign In →
-              </Link>
             </div>
           </div>
         </div>

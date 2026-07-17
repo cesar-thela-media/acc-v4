@@ -35,30 +35,28 @@ export const metadata: Metadata = {
 export default function WhoWeArePage() {
   return (
     <>
-      {/* Page heading — client's exact requested heading, no sub-text beneath it */}
-      <section style={{ background: "#fff", padding: "clamp(3rem,6vw,4.5rem) 1.5rem 0" }}>
-        <div className="container-fluid max-w-3xl mx-auto text-center">
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5" style={{ color: AMBER }}>
-            Who we are
-          </p>
-          <h1
-            className="leading-tight"
-            style={{
-              fontFamily: "var(--font-serif), Georgia, serif",
-              fontWeight: 400,
-              fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
-              color: SAGE_800,
-            }}
-          >
-            A professional home and community for therapists.
-          </h1>
-        </div>
-      </section>
-
       {/* Founder — feature-21's 6-1-5 split-with-floating-card layout. Now the
-          first section on the page (moved ahead of Origin). */}
+          first section on the page (moved ahead of Origin). Page heading folded
+          into the top of this section instead of its own separate block. */}
       <section style={{ background: SAGE_600, padding: "clamp(4rem,8vw,6rem) 0" }}>
         <div className="container-fluid">
+          <div className="text-center mb-12 md:mb-16">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5" style={{ color: AMBER }}>
+              Who we are
+            </p>
+            <h1
+              className="leading-tight"
+              style={{
+                fontFamily: "var(--font-serif), Georgia, serif",
+                fontWeight: 400,
+                fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
+                color: "#fff",
+              }}
+            >
+              A professional home and community for therapists.
+            </h1>
+          </div>
+
           <div className="grid grid-cols-12 gap-8 items-start">
             {/* Left: content */}
             <div className="md:col-span-6 col-span-12 flex flex-col gap-8">
@@ -183,7 +181,7 @@ export default function WhoWeArePage() {
             Why The Circle exists.
           </h2>
           <div
-            className="flex flex-col gap-6 text-lg leading-[1.6] text-center"
+            className="flex flex-col gap-6 text-lg leading-[1.6] text-center px-4 sm:px-8"
             style={{ color: "var(--color-text-secondary)" }}
           >
             <p>
