@@ -19,6 +19,7 @@ const pricingFeatures = ["Monthly case consultation", "CEU trainings", "Clinical
 
 const offerDetails = [
   "A structured consultation group meets the first Thursday of every month from 9:00 to 10:30am. Bring your difficult cases, process with trusted peers, and leave with a new perspective.",
+  "Access to continuing education content aligned with your licensure requirements. Curated for practicing clinicians and designed for professional growth.",
   "Your profile in the public directory, searchable by specialty, modality, location, and availability. A trusted source for referrals from clients and colleagues.",
   "Mindfulness practices and burnout prevention structures designed specifically for therapists carrying heavy caseloads. Because your sustainability matters too.",
 ];
@@ -33,7 +34,7 @@ const faqs = [
     a: "No. While The Circle is based in Austin, we provide connection and support for clinicians all across Texas.",
   },
   {
-    q: "How does consultation work?",
+    q: "How does the consultation group work?",
     a: "The monthly group meets virtually on the first Thursday of each month, 9:00 to 10:30am. Members may present cases for discussion, and various topics will be covered for CEUs. The group is kept intentionally small for the quality of discussion.",
   },
   {
@@ -68,8 +69,8 @@ export default function WhatWeOfferPage() {
       <section style={{ background: SAGE_600, padding: "clamp(3rem,6vw,5rem) 0" }}>
         <div className="container-fluid">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch max-w-5xl mx-auto">
-            {/* Left: offer detail, plain on the green section (no card) */}
-            <div className="flex flex-col justify-center">
+            {/* Left: offer detail, plain on the green section (no card), center-aligned per client request */}
+            <div className="flex flex-col justify-center items-center text-center">
               <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5" style={{ color: AMBER }}>
                 What we offer
               </p>
@@ -79,10 +80,9 @@ export default function WhatWeOfferPage() {
               >
                 Membership gives you full access to clinical support, professional development, and community.
               </h1>
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-4 items-center">
                 {offerDetails.map((detail) => (
-                  <li key={detail} className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full block shrink-0" style={{ background: AMBER, marginTop: 8 }} />
+                  <li key={detail} className="max-w-md">
                     <span className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{detail}</span>
                   </li>
                 ))}
@@ -164,7 +164,7 @@ export default function WhatWeOfferPage() {
                   style={{ border: "1px solid rgba(194,150,58,0.18)" }}
                 >
                   <AccordionTrigger className="p-0 md:text-lg text-base font-semibold hover:no-underline **:data-[slot=accordion-trigger-icon]:hidden cursor-pointer" style={{ color: SAGE_800 }}>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 items-center min-h-12">
                       <span style={{ color: AMBER }}>{String(index + 1).padStart(2, "0")}</span>
                       {faq.q}
                     </div>

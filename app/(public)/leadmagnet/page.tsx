@@ -3,12 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const SPOTS_REMAINING = 16; // update manually or pull from DB
-
 const WHAT_YOULL_GET = [
   "A proven fee-setting framework: stop undercharging for good",
   "The referral network blueprint: build trust before you need it",
-  "Burnout early-warning checklist: 12 signs most clinicians miss",
+  "Burnout early-warning checklist for private practice clinicians",
   "The Circle community playbook: what thriving practices do differently",
 ];
 
@@ -167,23 +165,6 @@ export default function ComingSoonPage() {
               ))}
             </ul>
 
-            {/* Social proof */}
-            <div className="flex items-center gap-3">
-              <div className="flex -space-x-2">
-                {["MO", "JW", "SR"].map((init) => (
-                  <div
-                    key={init}
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold"
-                    style={{ background: "var(--color-sage-600)", color: "rgba(255,255,255,0.8)", border: "2px solid var(--color-sage-800)" }}
-                  >
-                    {init}
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-                Trusted by 40+ licensed therapists in Austin
-              </p>
-            </div>
           </div>
 
           {/* ── Right: form or thank-you ── */}
@@ -337,35 +318,8 @@ export default function ComingSoonPage() {
                     You&apos;re invited to become a founding member.
                   </p>
                   <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
-                    The Circle is launching with a founding cohort of 40 therapists who shape the community from day one, with locked-in founding pricing, priority access, and direct input with Sarah.
+                    Founding spots are extended personally and reviewed individually — this isn&apos;t a mass platform, it&apos;s a small group of clinicians Sarah already knows and trusts.
                   </p>
-
-                  {/* Urgency bar */}
-                  <div
-                    className="rounded-xl p-4 flex flex-col gap-2"
-                    style={{ background: "rgba(194,150,58,0.85)", border: "1px solid rgba(27,27,27,0.08)" }}
-                  >
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>
-                        Founding spots remaining
-                      </span>
-                      <span className="text-sm font-bold" style={{ color: "#fff" }}>
-                        {SPOTS_REMAINING} of 40
-                      </span>
-                    </div>
-                    <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(0,0,0,0.15)" }}>
-                      <div
-                        className="h-full rounded-full"
-                        style={{
-                          width: `${((40 - SPOTS_REMAINING) / 40) * 100}%`,
-                          background: "#fff",
-                        }}
-                      />
-                    </div>
-                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>
-                      {40 - SPOTS_REMAINING} therapists have already applied
-                    </p>
-                  </div>
 
                   <Link
                     href="/join"

@@ -116,7 +116,7 @@ function buildDeliveryEmail(firstName: string) {
                 Thanks for downloading <strong style="color:#1B1B1B;">The Private Practice Playbook</strong>. The PDF is attached to this email, and you can open it now or save it for later.
               </p>
               <p style="margin:0 0 16px;font-size:15px;color:#444841;line-height:1.65;">
-                Inside you'll find four frameworks for building a sustainable practice: fee-setting, referral networks, burnout prevention, and community. I wrote it based on ten years in private practice and the patterns I see in the clinicians who thrive long-term.
+                Inside you'll find four frameworks for building a sustainable practice: fee-setting, referral networks, burnout prevention, and community. I wrote it based on the patterns I see in the clinicians who thrive long-term.
               </p>
               <p style="margin:0 0 28px;font-size:15px;color:#444841;line-height:1.65;">
                 I'd love to know which section lands most for you. Reply to this email anytime.
@@ -127,7 +127,7 @@ function buildDeliveryEmail(firstName: string) {
               <p style="margin:0 0 12px;font-size:13px;color:#5A7060;font-weight:600;letter-spacing:1px;text-transform:uppercase;">One more thing</p>
               <p style="margin:0 0 16px;font-size:15px;color:#1B1B1B;font-weight:500;">We're accepting founding members right now.</p>
               <p style="margin:0 0 20px;font-size:14px;color:#444841;line-height:1.65;">
-                The Circle is a virtual membership network for licensed therapists with monthly case consultation, a vetted referral network, clinical resources, and CEU trainings each month. We're launching with a founding cohort of 40 therapists.
+                The Circle is a virtual membership network for licensed therapists with monthly case consultation, a vetted referral network, clinical resources, and CEU trainings each month. We're launching with a founding cohort of therapists.
               </p>
               <a href="${appUrl}/join"
                  style="display:inline-block;background:#4A5D4E;color:#ffffff;text-decoration:none;padding:14px 28px;border-radius:100px;font-size:14px;font-weight:600;">

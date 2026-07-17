@@ -35,6 +35,26 @@ export const metadata: Metadata = {
 export default function WhoWeArePage() {
   return (
     <>
+      {/* Page heading — client's exact requested heading, no sub-text beneath it */}
+      <section style={{ background: "#fff", padding: "clamp(3rem,6vw,4.5rem) 1.5rem 0" }}>
+        <div className="container-fluid max-w-3xl mx-auto text-center">
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5" style={{ color: AMBER }}>
+            Who we are
+          </p>
+          <h1
+            className="leading-tight"
+            style={{
+              fontFamily: "var(--font-serif), Georgia, serif",
+              fontWeight: 400,
+              fontSize: "clamp(2.2rem, 5vw, 3.5rem)",
+              color: SAGE_800,
+            }}
+          >
+            A professional home and community for therapists.
+          </h1>
+        </div>
+      </section>
+
       {/* Founder — feature-21's 6-1-5 split-with-floating-card layout. Now the
           first section on the page (moved ahead of Origin). */}
       <section style={{ background: SAGE_600, padding: "clamp(4rem,8vw,6rem) 0" }}>

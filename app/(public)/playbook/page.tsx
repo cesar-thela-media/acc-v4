@@ -7,7 +7,7 @@ const SAGE = "#2D3B2C";
 const benefits = [
   { title: "Set your fees with confidence", body: "Stop undercharging. A proven framework to calculate what your practice is worth and communicate it clearly." },
   { title: "Build a referral engine", body: "The three-ring referral model that keeps your caseload full without marketing yourself into burnout." },
-  { title: "Spot burnout before it spots you", body: "12 early-warning signs most clinicians miss, and the protective structures that actually work." },
+  { title: "Spot burnout before it spots you", body: "Early-warning signs most clinicians miss, and the protective structures that actually work." },
   { title: "Find your clinical community", body: "What thriving private practices do differently. The isolation tax is real. Here's how to stop paying it." },
 ];
 
@@ -116,7 +116,7 @@ export default function PlaybookPage() {
               color: "#fff",
             }}
           >
-            Ready to stop practicing alone?
+            Get your free playbook.
           </h2>
           <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>
             Sign in to download your free playbook and explore what The Circle has to offer.

@@ -342,7 +342,7 @@ export default function HomePage() {
                 className="block text-center w-full rounded-lg text-sm font-medium"
                 style={{ background: AMBER, color: "#fff", padding: "0.7rem 1.5rem" }}
               >
-                Apply for membership
+                Join the Circle
               </Link>
             </div>
           </div>
@@ -364,7 +364,7 @@ export default function HomePage() {
               className="inline-flex items-center rounded-full text-[11px] font-medium uppercase tracking-[0.2em]"
               style={{ border: "1px dashed rgba(194,150,58,0.5)", color: AMBER, padding: "0.35rem 0.9rem" }}
             >
-              Optional — Preview
+              Optional / Preview
             </span>
           </div>
           <div className="text-center mb-10" data-aos="fade-in-up" data-delay="80">
