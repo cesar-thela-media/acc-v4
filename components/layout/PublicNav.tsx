@@ -2,115 +2,66 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/shadcn/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuPortal,
-  DropdownMenuTrigger,
-} from "@/components/ui/shadcn/dropdown-menu";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/shadcn/navigation-menu";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/shadcn/sheet";
+import { ScrollArea } from "@/components/ui/shadcn/scroll-area";
 import { Separator } from "@/components/ui/shadcn/separator";
 import { cn } from "@/lib/utils";
 
-type NavigationSection = {
-  name: string;
-  href: string;
-  isActive?: boolean;
-};
-
-const navigationData: NavigationSection[] = [
+const navigationData = [
   { name: "Who We Are", href: "/who-we-are" },
   { name: "What We Offer", href: "/what-we-offer" },
   { name: "Find a Clinician", href: "/find-a-clinician" },
 ];
 
-const NavLink = ({
-  item,
-  onClick,
-}: {
-  item: NavigationSection;
-  onClick?: () => void;
-}) => {
-  return (
-    <li
-      className={cn(
-        "group flex items-center transition-all duration-500 ease-in-out w-fit",
-        item.isActive ? "gap-3" : "gap-0 hover:gap-3",
-      )}
-    >
-      <div
-        className={cn(
-          "overflow-hidden transition-all duration-500 ease-in-out flex items-center",
-          item.isActive
-            ? "max-w-6 opacity-100"
-            : "max-w-0 opacity-0 group-hover:max-w-6 group-hover:opacity-100",
-        )}
-      >
-        <div className="w-6 h-0.5 rounded-full bg-foreground" />
-      </div>
-      <Link
-        href={item.href}
-        onClick={onClick}
-        className={cn(
-          "text-2xl sm:text-3xl sm:leading-10 leading-8 font-medium transition-colors duration-300",
-          item.isActive ? "text-foreground" : "text-foreground/80",
-        )}
-      >
-        {item.name}
-      </Link>
-    </li>
-  );
-};
-
-const JoinButton = ({ onClick }: { onClick?: () => void }) => (
-  <Button
-    render={<Link href="/join" onClick={onClick} />}
-    className="relative overflow-hidden group h-auto rounded-full px-5 py-2.5 cursor-pointer border border-sage-800 bg-sage-800 text-white shadow-none transition-all duration-300"
-  >
-    <span className="absolute left-1/2 -translate-x-1/2 top-full -translate-y-1/2 w-10 h-10 bg-white rounded-full scale-0 transition-transform duration-700 ease-in-out group-hover:scale-[18]" />
-    <span className="relative z-10 group-hover:text-sage-800 transition-colors duration-300">
-      Join the Circle
-    </span>
-  </Button>
-);
-
 export function PublicNav() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [sticky, setSticky] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  const handleScroll = useCallback(() => setSticky(window.scrollY >= 50), []);
 
-  const navItems = navigationData.map((item) => ({
-    ...item,
-    isActive: pathname === item.href,
-  }));
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  useEffect(() => setIsOpen(false), [pathname]);
 
   return (
-    <header
-      className="sticky top-0 z-40 backdrop-blur-2xl"
-      style={{ background: "var(--color-parchment)" }}
-    >
-      <div className="max-w-7xl mx-auto xl:px-16 lg:px-8 px-4 py-4 w-full">
-        <nav className="flex items-center justify-between">
-          <div className="flex items-center ">
-            <Link href="/" className="flex items-center gap-3" aria-label="The Circle">
-              <img
-                src="/logo-mark.png"
-                alt=""
-                className="h-10 w-10 object-contain"
-              />
+    <header className="sticky top-0 z-40" style={{ background: "#FFFFFF" }}>
+      <div className="max-w-7xl mx-auto w-full px-4 py-4 sm:px-6">
+        <nav
+          className={cn(
+            "w-full flex items-center h-fit justify-between gap-3.5 lg:gap-6 transition-all duration-500",
+            sticky
+              ? "p-2.5 bg-white/85 backdrop-blur-lg border shadow-xl rounded-full"
+              : "bg-transparent border-transparent",
+          )}
+          style={sticky ? { borderColor: "rgba(45,59,44,0.08)" } : undefined}
+        >
+          <div className="flex items-center justify-center gap-5">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2.5" aria-label="The Circle">
+              <img src="/logo-mark.png" alt="" className="h-9 w-9 object-contain" />
               <span
-                className="text-xl text-sage-800"
-                style={{ fontFamily: "var(--font-serif), Georgia, serif" }}
+                className="text-lg"
+                style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "var(--color-sage-800)" }}
               >
                 The Circle
               </span>
@@ -118,93 +69,114 @@ export function PublicNav() {
 
             <Separator
               orientation="vertical"
-              className="max-lg:hidden h-6 self-center! mx-5"
+              className="h-4 data-[orientation=vertical]:self-center max-lg:hidden"
+              style={{ background: "rgba(45,59,44,0.15)" }}
             />
 
+            {/* Navigation */}
             <NavigationMenu className="max-lg:hidden">
-              <NavigationMenuList className="gap-6">
-                {navItems.map((navItem) => (
-                  <NavigationMenuItem key={navItem.name}>
-                    <NavigationMenuLink
-                      render={<Link href={navItem.href} />}
-                      className={cn(
-                        "p-0 text-base text-foreground hover:text-foreground/80 font-normal hover:bg-transparent focus:bg-transparent data-active:bg-transparent data-[state=open]:bg-transparent",
-                        navItem.isActive && "font-medium",
-                      )}
-                    >
-                      {navItem.name}
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
+              <NavigationMenuList className="flex gap-0.5">
+                {navigationData.map((item) => {
+                  const active = pathname === item.href;
+                  return (
+                    <NavigationMenuItem key={item.name}>
+                      <NavigationMenuLink
+                        render={<Link href={item.href} />}
+                        className="px-2 lg:px-4 py-1.5 text-base rounded-full transition tracking-normal whitespace-nowrap hover:bg-black/[0.04]"
+                        style={{ color: active ? "#1A1A1A" : "rgba(26,26,26,0.68)", fontWeight: active ? 500 : 400 }}
+                      >
+                        {item.name}
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  );
+                })}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
 
-          <div className="max-lg:hidden flex items-center gap-2">
-            <Link href="/sign-in" className="flex items-center gap-2 py-2.5 px-5">
-              <span>Login</span>
+          {/* Right actions */}
+          <div className="hidden lg:flex items-center gap-2">
+            <Link
+              href="/sign-in"
+              className="h-10 flex items-center px-5 text-sm font-medium rounded-full transition-colors hover:bg-black/[0.04]"
+              style={{ color: "#1A1A1A" }}
+            >
+              Login
             </Link>
-            <JoinButton />
+            <Button
+              render={<Link href="/join" />}
+              className="h-10 px-5 rounded-full cursor-pointer"
+              style={{ background: "var(--color-sage-800)", color: "#fff" }}
+            >
+              Join the Circle
+            </Button>
           </div>
 
-          {/* Mobile Menu */}
-          <div className="lg:hidden relative">
-              <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
-                <AnimatePresence>
-                  {menuOpen && (
-                    <DropdownMenuPortal>
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={() => setMenuOpen(false)}
-                        className="fixed inset-0 z-40 backdrop-blur-sm"
-                      />
-                    </DropdownMenuPortal>
-                  )}
-                </AnimatePresence>
-                <DropdownMenuTrigger className="rounded-full h-auto p-2.5 gap-2 border border-border cursor-pointer">
-                      <Menu className="w-4 h-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  sideOffset={10}
-                  className="min-w-xs sm:min-w-sm bg-background py-8 px-6 shadow-2xl rounded-3xl border border-border -mt-12 z-50"
-                >
-                  <div className="flex flex-col gap-6">
-                    {/* Header */}
-                    <div className="flex items-center justify-between">
-                      <p className="text-lg font-medium text-foreground">
-                        Menu
-                      </p>
-                      <Button variant="outline" onClick={() => setMenuOpen(false)} className="cursor-pointer rounded-full">
-                        <X size={20} />
-                      </Button>
+          {/* Mobile menu */}
+          <div className="lg:hidden">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full border p-2 h-10 w-10 cursor-pointer"
+                  />
+                }
+              >
+                <Menu size={20} />
+                <span className="sr-only">Toggle menu</span>
+              </SheetTrigger>
+              <SheetContent showCloseButton={false} side="right" className="min-w-80 p-0">
+                <ScrollArea className="h-full">
+                  <SheetHeader className="p-4">
+                    <SheetTitle className="text-left">
+                      <span style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: 20, color: "var(--color-sage-800)" }}>
+                        The Circle
+                      </span>
+                    </SheetTitle>
+                    <SheetClose className="absolute top-4 right-4 rounded-full bg-black text-white p-2.5 cursor-pointer">
+                      <X size={16} />
+                    </SheetClose>
+                  </SheetHeader>
+                  <div className="px-4 py-2">
+                    <div className="flex flex-col gap-1.5">
+                      {navigationData.map((item) => {
+                        const active = pathname === item.href;
+                        return (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            onClick={() => setIsOpen(false)}
+                            className="text-base rounded-lg px-2 py-1 transition-colors hover:bg-black/5"
+                            style={{ color: active ? "var(--color-sage-800)" : "rgba(26,26,26,0.8)", fontWeight: active ? 600 : 400 }}
+                          >
+                            {item.name}
+                          </Link>
+                        );
+                      })}
                     </div>
-                    <hr className="border-border" />
-                    {/* Navigation */}
-                    <ul className="flex flex-col gap-3.5 pb-4">
-                      {navItems.map((item, index) => (
-                        <NavLink
-                          key={index}
-                          item={item}
-                          onClick={() => setMenuOpen(false)}
-                        />
-                      ))}
-                    </ul>
-                    <div className="flex flex-col gap-2">
+                    <div className="mt-4 flex flex-col gap-2">
                       <Link
                         href="/sign-in"
-                        onClick={() => setMenuOpen(false)}
-                        className="flex items-center gap-2 py-2.5"
+                        onClick={() => setIsOpen(false)}
+                        className="text-center py-2.5 rounded-full text-sm border"
+                        style={{ borderColor: "rgba(45,59,44,0.2)", color: "#1A1A1A" }}
                       >
-                        <span>Login</span>
+                        Login
                       </Link>
-                      <JoinButton onClick={() => setMenuOpen(false)} />
+                      <Button
+                        render={<Link href="/join" onClick={() => setIsOpen(false)} />}
+                        className="w-full rounded-full h-10 cursor-pointer"
+                        style={{ background: "var(--color-sage-800)", color: "#fff" }}
+                      >
+                        Join the Circle
+                      </Button>
                     </div>
                   </div>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                </ScrollArea>
+              </SheetContent>
+            </Sheet>
           </div>
         </nav>
       </div>

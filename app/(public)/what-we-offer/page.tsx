@@ -1,9 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Mail, PlusIcon, MinusIcon } from "lucide-react";
+import { Separator } from "@/components/ui/shadcn/separator";
+import { Button } from "@/components/ui/shadcn/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/shadcn/accordion";
 
 const SAGE_800 = "#2D3B2C";
+const SAGE_600 = "#4A5E48";
 const AMBER = "#C2963A";
 const PARCHMENT = "#F0EDE6";
+
+const pricingFeatures = ["Monthly case consultation", "CEU trainings", "Clinical resource library", "Public directory listing", "Referral network", "Practice guidance", "Coaching with Sarah", "Burnout resources"];
+
+const offerDetails = [
+  "A structured consultation group meets the first Thursday of every month from 9:00 to 10:30am. Bring your difficult cases, process with trusted peers, and leave with a new perspective.",
+  "Your profile in the public directory, searchable by specialty, modality, location, and availability. A trusted source for referrals from clients and colleagues.",
+  "Mindfulness practices and burnout prevention structures designed specifically for therapists carrying heavy caseloads. Because your sustainability matters too.",
+];
 
 const faqs = [
   {
@@ -15,7 +33,7 @@ const faqs = [
     a: "No. While The Circle is based in Austin, we provide connection and support for clinicians all across Texas.",
   },
   {
-    q: "How does the consultation group work?",
+    q: "How does consultation work?",
     a: "The monthly group meets virtually on the first Thursday of each month, 9:00 to 10:30am. Members may present cases for discussion, and various topics will be covered for CEUs. The group is kept intentionally small for the quality of discussion.",
   },
   {
@@ -28,6 +46,15 @@ const faqs = [
   },
 ];
 
+function AmberCheck() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, marginTop: 1 }}>
+      <circle cx="8" cy="8" r="8" fill={AMBER} />
+      <path d="M4.5 8l2.5 2.5 4.5-5" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export const metadata: Metadata = {
   title: "What We Offer | The Circle",
   description:
@@ -37,126 +64,122 @@ export const metadata: Metadata = {
 export default function WhatWeOfferPage() {
   return (
     <>
-      {/* Hero — emotional pull */}
-      <section style={{ background: SAGE_800, padding: "clamp(3rem,6vw,5rem) 0" }}>
-        <div className="container-fluid text-center max-w-3xl mx-auto">
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5" style={{ color: AMBER }}>
-            What we offer
-          </p>
-          <h1
-            className="leading-tight mb-5"
-            style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(2rem, 4.5vw, 3.5rem)", fontWeight: 400, color: "#fff" }}
-          >
-            Membership gives you full access to clinical support, professional development, and community.
-          </h1>
-        </div>
-      </section>
-
-      {/* Benefits — grouped by Clinical / Professional / Support */}
-      <section style={{ background: PARCHMENT, padding: "clamp(2.5rem,5vw,4rem) 0" }}>
-        <div className="container-fluid max-w-5xl mx-auto flex flex-col gap-12">
-          <div>
-            <p className="text-center text-[11px] font-medium uppercase tracking-[0.28em] mb-6" style={{ color: AMBER }}>
-              Clinical
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { title: "Monthly case consultation", body: "A structured consultation group meets the first Thursday of every month from 9:00 to 10:30am. Bring your difficult cases, process with trusted peers, and leave with a new perspective." },
-                { title: "Continuing education (CEUs)", body: "Access to continuing education content aligned with your licensure requirements. Curated for practicing clinicians and designed for professional growth." },
-                { title: "Resource library", body: "A growing library of clinical tools, assessment instruments, psychoeducation handouts, treatment frameworks, and business templates, organized and searchable." },
-              ].map((item) => (
-                <div key={item.title} className="rounded-2xl p-7 text-center" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}>
-                  <h3 className="text-base font-semibold mb-2 leading-snug" style={{ color: SAGE_800 }}>{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{item.body}</p>
-                </div>
-              ))}
+      {/* Two-column: offer summary + pricing-14's actual card */}
+      <section style={{ background: SAGE_600, padding: "clamp(3rem,6vw,5rem) 0" }}>
+        <div className="container-fluid">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch max-w-5xl mx-auto">
+            {/* Left: offer detail, plain on the green section (no card) */}
+            <div className="flex flex-col justify-center">
+              <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5" style={{ color: AMBER }}>
+                What we offer
+              </p>
+              <h1
+                className="leading-tight mb-6"
+                style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(1.8rem, 3.2vw, 2.5rem)", fontWeight: 400, color: "#fff" }}
+              >
+                Membership gives you full access to clinical support, professional development, and community.
+              </h1>
+              <ul className="flex flex-col gap-4">
+                {offerDetails.map((detail) => (
+                  <li key={detail} className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full block shrink-0" style={{ background: AMBER, marginTop: 8 }} />
+                    <span className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{detail}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
 
-          <div>
-            <p className="text-center text-[11px] font-medium uppercase tracking-[0.28em] mb-6" style={{ color: AMBER }}>
-              Professional
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { title: "Clinician directory listing", body: "Your profile in the public directory, searchable by specialty, modality, location, and availability. A trusted source for referrals from clients and colleagues." },
-                { title: "Referral network", body: "A private network of vetted clinicians. Send and receive referrals confidently, knowing every member has been part of the same professional community." },
-                { title: "Practice and marketing guidance", body: "Structured guidance on building a sustainable private practice: fee setting, marketing, business systems, and more." },
-              ].map((item) => (
-                <div key={item.title} className="rounded-2xl p-7 text-center" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}>
-                  <h3 className="text-base font-semibold mb-2 leading-snug" style={{ color: SAGE_800 }}>{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{item.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <p className="text-center text-[11px] font-medium uppercase tracking-[0.28em] mb-6" style={{ color: AMBER }}>
-              Support
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-              {[
-                { title: "Burnout prevention", body: "Mindfulness practices and burnout prevention structures designed specifically for therapists carrying heavy caseloads. Because your sustainability matters too." },
-                { title: "Discounted coaching with Sarah", body: "Members receive discounted access to individual coaching sessions with Sarah Arnold, LPC-S for clinical consultation, practice development, or both." },
-              ].map((item) => (
-                <div key={item.title} className="rounded-2xl p-7 text-center" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)", boxShadow: "0 2px 12px rgba(45,59,44,0.05)" }}>
-                  <h3 className="text-base font-semibold mb-2 leading-snug" style={{ color: SAGE_800 }}>{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{item.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing — compact */}
-      <section style={{ background: SAGE_800, padding: "clamp(2.5rem,5vw,4rem) 0" }}>
-        <div className="container-fluid text-center max-w-xl mx-auto">
-          <h2 className="mb-4" style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(1.6rem, 3vw, 2rem)", fontWeight: 400, color: "#fff" }}>
-            One membership. Everything included.
-          </h2>
-          <div className="flex items-baseline justify-center gap-2 mb-6">
-            <span style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(3rem, 6vw, 4rem)", fontWeight: 400, color: "#fff", lineHeight: 1 }}>$79</span>
-            <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 14 }}>/month</span>
-          </div>
-          <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-sm mb-8 max-w-md mx-auto">
-            {["Monthly case consultation","CEU trainings","Clinical resource library","Public directory listing","Referral network","Practice guidance","Coaching with Sarah","Burnout resources"].map((f) => (
-              <div key={f} className="flex items-center gap-2">
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="rgba(194,150,58,0.5)" strokeWidth="1.2"/><path d="M5 8l2 2 4-4" stroke="#C2963A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                <span style={{ color: "rgba(255,255,255,0.7)", textAlign: "left" }}>{f}</span>
+            {/* Right card — pricing-14's actual card, this page's own price content — stays white */}
+            <div
+              className="rounded-2xl flex flex-col gap-8"
+              style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.22)", padding: "2rem" }}
+            >
+              <div className="flex items-baseline justify-center gap-1">
+                <span style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(3rem, 6vw, 4rem)", fontWeight: 400, letterSpacing: "-0.03em", lineHeight: 1, color: SAGE_800 }}>
+                  $79
+                </span>
+                <span style={{ fontSize: 14, color: "#7A7A6E" }}>/ month</span>
               </div>
-            ))}
+
+              <Separator style={{ background: "rgba(194,150,58,0.2)" }} />
+
+              <ul className="flex flex-col gap-4 items-center">
+                {pricingFeatures.map((feature) => (
+                  <li key={feature} className="flex items-center gap-3">
+                    <AmberCheck />
+                    <span style={{ fontSize: 14, color: "#3D4A3B" }}>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Link
+                href="/join"
+                className="block text-center w-full rounded-lg text-sm font-medium"
+                style={{ background: AMBER, color: "#fff", padding: "0.7rem 1.5rem" }}
+              >
+                Apply for membership
+              </Link>
+            </div>
           </div>
-          <Link href="/join" className="inline-flex items-center justify-center rounded-full text-sm font-medium px-8 py-3.5 transition-opacity hover:opacity-90" style={{ background: AMBER, color: "#fff" }}>
-            Apply for membership
-          </Link>
         </div>
       </section>
 
-      {/* FAQs */}
-      <section style={{ background: PARCHMENT, padding: "clamp(2.5rem,5vw,4rem) 0" }}>
-        <div className="container-fluid max-w-2xl mx-auto">
-          <div className="text-center mb-10">
-            <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-3" style={{ color: AMBER }}>FAQ</p>
-            <h2 className="leading-tight" style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(1.6rem, 3vw, 2rem)", fontWeight: 400, color: SAGE_800 }}>
+      {/* FAQ — faq-04's structure */}
+      <section style={{ background: "#fff", padding: "clamp(3rem,6vw,5rem) 0" }}>
+        <div className="container-fluid max-w-5xl mx-auto">
+          <div className="mb-10 text-center">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-4" style={{ color: AMBER }}>FAQ</p>
+            <h2
+              className="leading-tight max-w-lg mx-auto"
+              style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(2rem, 4.2vw, 3rem)", fontWeight: 400, color: SAGE_800 }}
+            >
               You probably have questions.
             </h2>
           </div>
-          <div className="flex flex-col gap-3">
-            {faqs.map((faq) => (
-              <details key={faq.q} className="rounded-2xl p-5 group" style={{ background: "#fff", border: "1px solid rgba(194,150,58,0.12)" }}>
-                <summary className="text-sm font-semibold cursor-pointer list-none flex items-center justify-between" style={{ color: SAGE_800 }}>
-                  {faq.q}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="transition-transform group-open:rotate-45"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                </summary>
-                <p className="text-sm leading-relaxed mt-3" style={{ color: "var(--color-text-secondary)" }}>{faq.a}</p>
-              </details>
-            ))}
+          <div className="flex md:flex-row flex-col md:gap-10 gap-6">
+            {/* Left: real contact card, no fabricated team avatars */}
+            <div className="max-w-sm w-full">
+              <div className="h-full md:px-8 px-6 md:py-10 py-8 rounded-2xl flex flex-col justify-between gap-6" style={{ border: "1px solid rgba(194,150,58,0.18)", background: PARCHMENT }}>
+                <h4 className="text-2xl font-medium" style={{ color: SAGE_800 }}>
+                  Still have questions?
+                </h4>
+                <Button
+                  render={<a href="mailto:sarah@restoredfamily.com" />}
+                  className="flex gap-2 items-center w-full rounded-full min-h-12 cursor-pointer"
+                  style={{ background: AMBER, color: "#fff" }}
+                >
+                  <Mail className="size-4.5" />
+                  Email Sarah
+                </Button>
+              </div>
+            </div>
+
+            {/* Right: real 5-item accordion */}
+            <Accordion className="w-full flex flex-col gap-4">
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={faq.q}
+                  value={`item-${index}`}
+                  className="md:px-8 px-4 py-5 rounded-2xl flex flex-col gap-3"
+                  style={{ border: "1px solid rgba(194,150,58,0.18)" }}
+                >
+                  <AccordionTrigger className="p-0 md:text-lg text-base font-semibold hover:no-underline **:data-[slot=accordion-trigger-icon]:hidden cursor-pointer" style={{ color: SAGE_800 }}>
+                    <div className="flex gap-4">
+                      <span style={{ color: AMBER }}>{String(index + 1).padStart(2, "0")}</span>
+                      {faq.q}
+                    </div>
+                    <PlusIcon className="w-5 h-5 shrink-0 transition-transform duration-200 group-aria-expanded/accordion-trigger:hidden" />
+                    <MinusIcon className="w-5 h-5 shrink-0 transition-transform duration-200 hidden group-aria-expanded/accordion-trigger:inline" />
+                  </AccordionTrigger>
+                  <AccordionContent className="p-0 text-base" style={{ color: "var(--color-text-secondary)" }}>
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
     </>
   );
 }
-

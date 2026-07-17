@@ -22,7 +22,7 @@ export default async function FreeDashboardPage() {
   const name = jar.get("acc_demo_name")?.value?.replace(/^(Dr\.|Mr\.|Mrs\.|Ms\.)\s+/i, "").split(" ")[0] || "there";
 
   return (
-    <div className="flex flex-col gap-8 max-w-4xl">
+    <div className="flex flex-col gap-8 max-w-6xl mx-auto">
       {/* Tier badge */}
       <div className="flex items-center gap-3">
         <Badge variant="default">Free tier</Badge>

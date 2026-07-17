@@ -8,11 +8,11 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ background: "#F0EDE6" }}>
       <SignIn
         path="/sign-in"
         routing="path"
-        signUpUrl="/sign-up"
+        signUpUrl="/join"
         fallbackRedirectUrl="/dashboard"
         appearance={{
           variables: {

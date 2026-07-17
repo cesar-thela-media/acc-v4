@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { hasRobollyConfig } from "@/lib/env";
-import { getCurrentMemberName } from "@/lib/auth";
+import { getCurrentMemberName, getCurrentViewer } from "@/lib/auth";
 import { renderCertificatePdf } from "@/lib/robolly";
+import { prisma } from "@/lib/prisma";
 
 // Next.js App Router default runtime is Node.js and required for fetch → Buffer here
 export const runtime = "nodejs";
@@ -26,6 +27,24 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     console.error("[certificate] Robolly render failed:", err);
     return NextResponse.json({ error: "Failed to generate certificate. Please try again." }, { status: 502 });
+  }
+
+  // Record that this certificate was issued. Best-effort: no DATABASE_URL is
+  // configured yet in most environments, and the PDF is the actual deliverable
+  // either way, so a DB failure here must never block the download.
+  try {
+    const { user, primaryEmail } = await getCurrentViewer();
+    await prisma.certificate.create({
+      data: {
+        userId: user?.id,
+        recipientName: name,
+        recipientEmail: primaryEmail ?? undefined,
+        workshop,
+        ceHours,
+      },
+    });
+  } catch (err) {
+    console.error("[certificate] Failed to record issuance (continuing anyway):", err);
   }
 
   return new NextResponse(new Uint8Array(pdfBuffer), {

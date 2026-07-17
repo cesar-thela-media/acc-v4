@@ -3,8 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/shadcn/card";
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/shadcn/field";
+import { Input } from "@/components/ui/shadcn/input";
+import { Button } from "@/components/ui/shadcn/button";
+import { UserRound } from "lucide-react";
 
-const PARCHMENT = "#F0EDE6";
 const SAGE_800 = "#2D3B2C";
 const AMBER = "#C2963A";
 
@@ -58,134 +62,107 @@ export function MockSignIn({ redirectTo = "/dashboard" }: Props) {
   }
 
   return (
-    <div
-      className="w-full max-w-md rounded-2xl p-8 flex flex-col gap-6"
-      style={{
-        background: "#fff",
-        border: "1px solid rgba(194,150,58,0.15)",
-        boxShadow: "0 4px 24px rgba(45,59,44,0.10)",
-      }}
-    >
-      {/* Demo badge */}
+    <section className="relative min-h-screen">
+      <img src="/signin-bg.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
       <div
-        className="inline-flex self-start items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium uppercase tracking-[0.2em]"
-        style={{ background: "rgba(194,150,58,0.10)", color: AMBER }}
-      >
-        Demo mode
-      </div>
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "linear-gradient(to right, rgba(45,59,44,0.75) 0%, rgba(45,59,44,0.35) 55%, rgba(45,59,44,0.15) 100%)" }}
+      />
+      <div className="relative flex items-end sm:items-center justify-center lg:justify-start min-h-screen">
+        <div className="max-w-7xl p-4 lg:px-8 xl:px-16 lg:py-20 sm:py-16 py-8 mx-auto w-full">
+          <Card className="w-full h-full max-w-md px-6 py-8 sm:px-8 sm:py-12 border-none shadow-xl gap-8 rounded-3xl" style={{ background: "#fff" }}>
+            <CardHeader className="p-0 flex gap-6 flex-col">
+              <Link href="/" aria-label="The Circle">
+                <img src="/logo-mark.png" alt="" className="h-10 w-10 object-contain" />
+              </Link>
+              <div className="flex gap-2 flex-col">
+                <CardTitle className="text-2xl font-semibold" style={{ color: SAGE_800 }}>
+                  Sign in to The Circle
+                </CardTitle>
+                <CardDescription className="text-sm font-normal">
+                  Clerk auth isn&apos;t configured. Enter any name and email to access the member dashboard.
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="p-0">
+              <form onSubmit={handleSubmit}>
+                <FieldGroup className="gap-6">
+                  <div className="flex flex-col gap-4">
+                    <Field className="gap-1.5">
+                      <FieldLabel htmlFor="name" className="text-sm font-normal" style={{ color: "var(--color-text-secondary)" }}>
+                        Full name
+                      </FieldLabel>
+                      <Input
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Jane Smith"
+                        required
+                        className="h-9 shadow-xs"
+                      />
+                    </Field>
+                    <Field className="gap-1.5">
+                      <FieldLabel htmlFor="email" className="text-sm font-normal" style={{ color: "var(--color-text-secondary)" }}>
+                        Email address
+                      </FieldLabel>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="jane@example.com"
+                        required
+                        className="h-9 shadow-xs"
+                      />
+                    </Field>
+                  </div>
 
-      <div>
-        <h1
-          style={{
-            fontFamily: "var(--font-serif), Georgia, serif",
-            fontSize: "clamp(1.8rem, 3vw, 2.25rem)",
-            fontWeight: 400,
-            letterSpacing: "-0.018em",
-            lineHeight: 1.18,
-            color: SAGE_800,
-            marginBottom: "0.5rem",
-          }}
-        >
-          Sign in to The Circle
-        </h1>
-        <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-          Clerk auth isn&apos;t configured. Enter any name and email to access the member dashboard.
-        </p>
-      </div>
+                  {error && <p className="text-sm" style={{ color: "var(--color-error)" }}>{error}</p>}
 
-      {/* One-click demo login */}
-      <button
-        type="button"
-        onClick={demoLogin}
-        disabled={loading}
-        className="w-full rounded-full text-sm font-medium py-3 transition-all hover:scale-[1.02] disabled:opacity-60 flex items-center justify-center gap-2"
-        style={{
-          background: SAGE_800,
-          color: "#fff",
-        }}
-      >
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-          <circle cx="12" cy="12" r="3" />
-        </svg>
-        {loading ? "Signing you in…" : "Log in as Demo User"}
-      </button>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={loading}
+                    className="w-full rounded-lg h-10 cursor-pointer"
+                    style={{ background: AMBER, color: "#fff" }}
+                  >
+                    {loading ? "Signing in…" : "Sign in"}
+                  </Button>
 
-      <Link
-        href="/dashboard/free"
-        className="w-full rounded-full text-sm font-medium py-3 transition-all hover:opacity-80 flex items-center justify-center gap-2 text-center"
-        style={{ border: "1px solid rgba(194,150,58,0.22)", color: AMBER }}
-      >
-        Preview free tier →
-      </Link>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={loading}
+                    onClick={demoLogin}
+                    className="w-full rounded-lg h-9 gap-2 cursor-pointer"
+                  >
+                    <UserRound className="size-4" />
+                    {loading ? "Signing you in…" : "Log in as Demo User"}
+                  </Button>
 
-      <div className="flex items-center gap-3">
-        <div className="flex-1" style={{ height: "0.5px", background: "rgba(194,150,58,0.18)" }} />
-        <span className="text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: "var(--color-text-tertiary)" }}>or</span>
-        <div className="flex-1" style={{ height: "0.5px", background: "rgba(194,150,58,0.18)" }} />
-      </div>
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--color-text-primary)" }}>
-            Full name
-          </label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Jane Smith"
-            required
-            className="w-full rounded-xl px-4 py-2.5 text-sm outline-none transition-all"
-            style={{
-              border: "1px solid rgba(194,150,58,0.22)",
-              background: "#fff",
-              color: "var(--color-text-primary)",
-            }}
-            onFocus={(e) => { e.currentTarget.style.borderColor = AMBER; }}
-            onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(194,150,58,0.22)"; }}
-          />
+                  <Link
+                    href="/dashboard/free"
+                    className="text-center text-sm font-medium"
+                    style={{ color: SAGE_800 }}
+                  >
+                    Preview free tier →
+                  </Link>
+                </FieldGroup>
+              </form>
+              <p className="text-center text-sm mt-6" style={{ color: "var(--color-text-secondary)" }}>
+                Don&apos;t have an account?{" "}
+                <Link href="/join" className="font-medium underline" style={{ color: AMBER }}>
+                  Join The Circle
+                </Link>
+              </p>
+              <p className="text-xs text-center mt-4" style={{ color: "var(--color-text-tertiary)" }}>
+                To enable real auth, add <code className="font-mono">NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</code> and{" "}
+                <code className="font-mono">CLERK_SECRET_KEY</code> to your environment.
+              </p>
+            </CardContent>
+          </Card>
         </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1.5" style={{ color: "var(--color-text-primary)" }}>
-            Email address
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="jane@example.com"
-            required
-            className="w-full rounded-xl px-4 py-2.5 text-sm outline-none transition-all"
-            style={{
-              border: "1px solid rgba(194,150,58,0.22)",
-              background: "#fff",
-              color: "var(--color-text-primary)",
-            }}
-            onFocus={(e) => { e.currentTarget.style.borderColor = AMBER; }}
-            onBlur={(e) => { e.currentTarget.style.borderColor = "rgba(194,150,58,0.22)"; }}
-          />
-        </div>
-
-        {error && (
-          <p className="text-sm" style={{ color: "var(--color-error)" }}>{error}</p>
-        )}
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-full text-sm font-medium py-3 transition-opacity hover:opacity-90 disabled:opacity-60"
-          style={{ background: AMBER, color: "#fff" }}
-        >
-          {loading ? "Signing in…" : "Sign in →"}
-        </button>
-      </form>
-
-      <p className="text-xs text-center" style={{ color: "var(--color-text-tertiary)" }}>
-        To enable real auth, add <code className="font-mono">NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY</code> and{" "}
-        <code className="font-mono">CLERK_SECRET_KEY</code> to your environment.
-      </p>
-    </div>
+      </div>
+    </section>
   );
 }

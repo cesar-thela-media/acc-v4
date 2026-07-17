@@ -26,9 +26,17 @@ const navLinks = [
   { href: "/dashboard/billing", label: "Billing", icon: icons.Billing },
 ];
 
+// Free-tier preview only gets the one page it actually has — every other
+// section is paid-only, so showing them in nav would look like a paid member.
+const freeNavLinks = [
+  { href: "/dashboard/free", label: "Overview", icon: icons.Overview },
+];
+
 export function DashboardNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isFreeTier = pathname?.startsWith("/dashboard/free");
+  const activeNavLinks = isFreeTier ? freeNavLinks : navLinks;
 
   useEffect(() => {
     setMobileOpen(false);
@@ -45,15 +53,14 @@ export function DashboardNav() {
         }}
       >
         <Link
-          href="/dashboard"
-          className="shrink-0"
+          href={isFreeTier ? "/dashboard/free" : "/dashboard"}
+          className="shrink-0 flex items-center gap-2"
           aria-label="The Circle"
         >
-          <img
-            src="/logo.png"
-            alt="The Circle"
-            className="h-20 w-auto"
-          />
+          <img src="/logo-mark.png" alt="" className="h-8 w-8 object-contain" />
+          <span className="text-base" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
+            The Circle
+          </span>
         </Link>
 
         <button
@@ -75,19 +82,18 @@ export function DashboardNav() {
         }}
       >
         <Link
-          href="/dashboard"
-          className="mb-6 flex justify-center"
+          href={isFreeTier ? "/dashboard/free" : "/dashboard"}
+          className="mb-6 flex items-center justify-center gap-2"
           aria-label="The Circle"
         >
-          <img
-            src="/logo.png"
-            alt="The Circle"
-            className="h-28 w-auto"
-          />
+          <img src="/logo-mark.png" alt="" className="h-9 w-9 object-contain" />
+          <span className="text-lg" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
+            The Circle
+          </span>
         </Link>
 
         <nav className="flex flex-col gap-1">
-          {navLinks.map((link) => {
+          {activeNavLinks.map((link) => {
             const active = pathname === link.href;
             return (
               <Link
@@ -135,7 +141,7 @@ export function DashboardNav() {
         }
       >
         <nav className="flex flex-col gap-2">
-          {navLinks.map((link) => {
+          {activeNavLinks.map((link) => {
             const active = pathname === link.href;
             return (
               <Link

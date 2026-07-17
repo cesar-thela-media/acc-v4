@@ -44,12 +44,11 @@ export function AdminNav() {
           <p className="text-[11px] font-medium uppercase tracking-[0.24em]" style={{ color: "rgba(255,255,255,0.48)" }}>
             The Circle Admin
           </p>
-          <Link href="/admin" aria-label="The Circle">
-            <img
-              src="/logo.png"
-              alt="The Circle"
-              className="h-16 w-auto mt-0.5"
-            />
+          <Link href="/admin" aria-label="The Circle" className="flex items-center gap-2 mt-0.5">
+            <img src="/logo-mark.png" alt="" className="h-7 w-7 object-contain" />
+            <span className="text-base" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
+              The Circle
+            </span>
           </Link>
         </div>
 
@@ -78,12 +77,11 @@ export function AdminNav() {
           >
             The Circle Admin
           </p>
-          <Link href="/admin" aria-label="The Circle">
-            <img
-              src="/logo.png"
-              alt="The Circle"
-              className="h-20 w-auto"
-            />
+          <Link href="/admin" aria-label="The Circle" className="flex items-center gap-2">
+            <img src="/logo-mark.png" alt="" className="h-8 w-8 object-contain" />
+            <span className="text-lg" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
+              The Circle
+            </span>
           </Link>
         </div>
 

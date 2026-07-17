@@ -83,6 +83,7 @@ model User {
   subscription  Subscription?
   applications  Application[]
   rsvps         EventRsvp[]
+  certificates  Certificate[]
 
   @@map("user")
 }
@@ -267,6 +268,26 @@ model Application {
   @@index([status])
   @@index([email])
   @@map("application")
+}
+
+// ─── Certificates ─────────────────────────────────────────────────────────────
+// One row per CEU certificate issued via /api/certificate (Robolly render).
+// userId is nullable because demo-mode viewers aren't backed by a real User row.
+
+model Certificate {
+  id             String    @id @default(cuid())
+  userId         String?
+  recipientName  String
+  recipientEmail String?
+  workshop       String?
+  ceHours        String?
+  issuedAt       DateTime  @default(now())
+  expiresAt      DateTime?
+
+  user           User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([recipientEmail])
+  @@map("certificate")
 }
 
 // ─── Resources ────────────────────────────────────────────────────────────────

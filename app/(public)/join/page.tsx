@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Input, Textarea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { Separator } from "@/components/ui/shadcn/separator";
 
 const STEPS = ["About you", "Your practice", "Confirm"];
 
@@ -109,14 +110,19 @@ export default function JoinPage() {
   if (submitted) {
     return (
       <div
-        className="min-h-screen flex items-center justify-center pt-20 md:pt-16 px-5 md:px-6"
-        style={{ background: "var(--color-cream-100)" }}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-16 px-5 md:px-6"
+        style={{ background: "#2D3B2C" }}
       >
-        <div className="max-w-md text-center">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 60% 50% at 50% 40%, rgba(194,150,58,0.14) 0%, transparent 65%)" }}
+        />
+        <div className="relative max-w-md text-center">
           <div
             className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-8 text-2xl"
             style={{
-              background: "var(--color-sage-800)",
+              background: "#C2963A",
               color: "#fff",
             }}
           >
@@ -127,13 +133,14 @@ export default function JoinPage() {
             style={{
               fontFamily: "var(--font-serif), Georgia, serif",
               fontWeight: 400,
+              color: "#fff",
             }}
           >
             Application received.
           </h1>
           <p
             className="text-sm leading-relaxed"
-            style={{ color: "var(--color-text-secondary)" }}
+            style={{ color: "rgba(255,255,255,0.65)" }}
           >
             Thank you, {form.firstName}. Sarah reviews every application
             personally and will be in touch within a few business days.
@@ -145,37 +152,22 @@ export default function JoinPage() {
 
   return (
     <div
-      className="min-h-screen pt-24 md:pt-28 pb-10 md:pb-12"
-      style={{ background: "var(--color-cream-100)" }}
+      className="relative min-h-screen pt-16 md:pt-20 pb-10 md:pb-12 overflow-hidden"
+      style={{ background: "#2D3B2C" }}
     >
-      <div className="max-w-2xl mx-auto px-5 md:px-8">
-        <div className="text-center mb-10">
-          <p
-            className="text-[11px] font-semibold uppercase tracking-[0.28em] mb-4"
-            style={{ color: "var(--color-accent-highlight)" }}
-          >
-            Membership application
-          </p>
-          <h1
-            className="mb-4 leading-tight"
-            style={{
-              fontFamily: "var(--font-serif), Georgia, serif",
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 400,
-              color: "var(--color-sage-900)",
-            }}
-          >
-            Join The Circle.
-          </h1>
-          <p className="text-sm leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-            A professional community for licensed therapists. Sarah reviews every application personally.
-          </p>
-        </div>
-
-        <div
-          className="rounded-2xl p-6 sm:p-8"
-          style={{ background: "#fff", border: "1px solid rgba(197,200,190,0.7)" }}
-        >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 30%, rgba(194,150,58,0.14) 0%, transparent 65%)" }}
+      />
+      <div className="relative max-w-7xl mx-auto px-5 lg:px-16 xl:px-16">
+        <div className="flex lg:flex-row flex-col items-start justify-center gap-10 lg:gap-16">
+          {/* Left: application form only (wider — the wizard needs more room than login-06's narrow column) */}
+          <div className="w-full lg:flex-[1.4] sm:py-8 py-4">
+            <div
+              className="relative rounded-2xl p-6 sm:p-8"
+              style={{ background: "#fff", border: "1px solid rgba(197,200,190,0.7)" }}
+            >
         {/* Step indicator */}
         <div className="flex items-center justify-center gap-2 mb-10">
           {STEPS.map((label, i) => (
@@ -500,6 +492,32 @@ export default function JoinPage() {
           </div>
         )}
         </div>
+            </div>
+          </div>
+
+          <Separator orientation="vertical" className="hidden lg:block self-stretch" style={{ background: "rgba(255,255,255,0.12)" }} />
+          <Separator orientation="horizontal" className="lg:hidden w-full" style={{ background: "rgba(255,255,255,0.12)" }} />
+
+          {/* Right: "Join The Circle" heading — moved here so the left column is form-only */}
+          <div className="w-full lg:max-w-sm sm:px-0 sm:py-8 py-4 lg:pt-32">
+            <div className="flex flex-col gap-4">
+              <p
+                className="text-[11px] font-semibold uppercase tracking-[0.28em]"
+                style={{ color: "#C2963A" }}
+              >
+                Membership application
+              </p>
+              <h2
+                className="leading-tight"
+                style={{ fontFamily: "var(--font-serif), Georgia, serif", fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 400, color: "#fff" }}
+              >
+                Join The Circle.
+              </h2>
+              <p className="text-base" style={{ color: "rgba(255,255,255,0.55)" }}>
+                A professional community for licensed therapists. Sarah reviews every application personally.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -33,8 +33,11 @@ export default function InvitePage() {
       {/* Header */}
       <header className="relative z-10 px-5 md:px-6 pt-6 md:pt-8">
         <div className="max-w-3xl mx-auto flex items-center justify-center">
-          <Link href="/" aria-label="The Circle" className="no-underline">
-            <img src="/logo.png" alt="The Circle" className="h-24 w-auto" />
+          <Link href="/" aria-label="The Circle" className="no-underline flex items-center gap-3">
+            <img src="/logo-mark.png" alt="" className="h-12 w-12 object-contain" />
+            <span className="text-2xl" style={{ fontFamily: "var(--font-serif), Georgia, serif", color: "#fff" }}>
+              The Circle
+            </span>
           </Link>
         </div>
       </header>
