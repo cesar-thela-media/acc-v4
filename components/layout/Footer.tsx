@@ -29,23 +29,23 @@ const LinkedinIcon = () => (
   </svg>
 );
 
-/** Decorative brand wordmark strip — real text, not a fixed vector path (footer-04's own
- * vanilla SubFooter draws "SHADCNSPACE" as immutable SVG path data; that can't be
- * re-labeled, so this is rebuilt as actual text reading "The Circle" instead). */
+/** Decorative brand wordmark — full legal/brand name, scaled so it wraps on narrow screens. */
 function SubFooter() {
   return (
-    <div className="w-full overflow-hidden py-6" style={{ opacity: 0.08 }}>
+    <div className="w-full overflow-hidden py-6 px-4" style={{ opacity: 0.1 }}>
       <p
-        className="w-full text-center whitespace-nowrap select-none"
+        className="w-full text-center select-none"
         style={{
           fontFamily: "var(--font-serif), Georgia, serif",
-          fontSize: "clamp(3.5rem, 14vw, 11rem)",
+          fontSize: "clamp(1.35rem, 5.5vw, 4.5rem)",
           fontWeight: 400,
-          lineHeight: 1,
+          lineHeight: 1.15,
           color: "#fff",
+          wordBreak: "break-word",
+          hyphens: "auto",
         }}
       >
-        The Circle
+        Austin Clinician Circle
       </p>
     </div>
   );

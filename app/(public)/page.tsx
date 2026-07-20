@@ -37,10 +37,10 @@ const membershipItems = [
 ];
 
 /* ── CTA filmstrip (cta-12) ───────────────────────────────── */
+/* cta-3 reserved for Who We Are end CTA — do not reuse paths across major slots. */
 const ctaImages = [
   { src: "/cta-1.jpg", height: "h-[154px] md:h-[214px]" },
   { src: "/cta-2.jpg", height: "h-[244px] md:h-[324px]" },
-  { src: "/cta-3.jpg", height: "h-[188px] md:h-[268px]" },
   { src: "/cta-4.jpg", height: "h-[176px] md:h-[226px]" },
   { src: "/cta-5.jpg", height: "h-[230px] md:h-[300px]" },
   { src: "/cta-6.jpg", height: "h-[154px] md:h-[214px]" },
@@ -172,12 +172,26 @@ export default function HomePage() {
       {/* ══ WHY THE CIRCLE EXISTS (about-us-section-09) ══════ */}
       <section
         className="relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #FFFFFF 0%, #EAF0E6 55%, #D9E4D4 100%)", padding: "clamp(3rem,6vw,5.5rem) 0" }}
+        style={{ background: "#F7F5F0", padding: "clamp(3rem,6vw,5.5rem) 0" }}
       >
-        <div className="container-fluid" style={{ maxWidth: 1100 }}>
-          <div className="grid grid-cols-12 gap-8">
+        {/* Stronger top-left quarter-circle gradient (distinct from Membership includes). */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute"
+          style={{
+            top: "-22%",
+            left: "-14%",
+            width: "min(58vw, 520px)",
+            height: "min(58vw, 520px)",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 38% 38%, rgba(194,150,58,0.48) 0%, rgba(194,150,58,0.22) 38%, rgba(74,94,72,0.12) 58%, transparent 72%)",
+          }}
+        />
+        <div className="container-fluid relative z-10" style={{ maxWidth: 1100 }}>
+          <div className="grid grid-cols-12 gap-8 items-stretch">
             {/* Left: content */}
-            <div className="md:col-span-6 col-span-12" data-aos="fade-in-up">
+            <div className="md:col-span-6 col-span-12 flex flex-col justify-center" data-aos="fade-in-up">
               <p className="uppercase tracking-[0.28em] font-medium text-[11px] mb-5" style={{ color: `rgba(194,150,58,0.85)` }}>
                 Why The Circle exists
               </p>
@@ -219,9 +233,20 @@ export default function HomePage() {
             {/* Spacer column (matches about-us-09's own 6-1-5 split) */}
             <div className="lg:col-span-1 lg:block hidden" />
 
-            {/* Right: photo */}
-            <div className="relative lg:col-span-5 md:col-span-6 col-span-12 rounded-2xl overflow-hidden" data-aos="fade-in" data-delay="150" style={{ minHeight: 320 }}>
-              <Image src="/about-us.jpg" alt="Sarah Arnold, founder of The Circle, meeting with a fellow clinician" fill className="object-cover" />
+            {/* Right: taller photo — unique path (not reused on who-we-are believe cards) */}
+            <div
+              className="relative lg:col-span-5 md:col-span-6 col-span-12 rounded-2xl overflow-hidden"
+              data-aos="fade-in"
+              data-delay="150"
+              style={{ minHeight: "clamp(420px, 62vh, 560px)" }}
+            >
+              <Image
+                src="/about-us.jpg"
+                alt="Sarah Arnold, founder of The Circle, meeting with a fellow clinician"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
             </div>
           </div>
         </div>
@@ -231,8 +256,37 @@ export default function HomePage() {
       {/* Hero-section pattern: white outer section with padding, one big
           rounded card inside holding all the section's real content. */}
       <section className="p-4" style={{ background: "#fff" }}>
-        <div className="relative overflow-hidden rounded-3xl" style={{ background: "#4A5E48", padding: "clamp(2.5rem,5vw,4rem) 0" }}>
-        <div className="container-fluid">
+        <div
+          className="relative overflow-hidden rounded-3xl"
+          style={{ background: "#4A5E48", padding: "clamp(2.5rem,5vw,4rem) 0" }}
+        >
+        {/* Distinct placement: bottom-right amber bloom + soft top-right wash (not top-left twin). */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute"
+          style={{
+            bottom: "-28%",
+            right: "-16%",
+            width: "min(62vw, 540px)",
+            height: "min(62vw, 540px)",
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle at 55% 55%, rgba(194,150,58,0.5) 0%, rgba(232,213,163,0.2) 40%, transparent 70%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute"
+          style={{
+            top: "-10%",
+            right: "18%",
+            width: "min(36vw, 280px)",
+            height: "min(36vw, 280px)",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 68%)",
+          }}
+        />
+        <div className="container-fluid relative z-10">
           <div className="text-center mb-10" data-aos="fade-in-up">
             <p className="uppercase tracking-[0.28em] font-medium text-[11px] mb-4" style={{ color: AMBER }}>
               Membership includes
@@ -273,7 +327,20 @@ export default function HomePage() {
           below balances how much background shows above vs. below the card. */}
       <section className="relative overflow-hidden" style={{ paddingTop: "clamp(2.5rem,5vw,4rem)", paddingBottom: "clamp(5rem,10vw,8rem)" }}>
         <Image src="/pricing-bg.jpg" alt="" fill className="object-cover" />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(rgba(45,59,44,0.90), rgba(45,59,44,0.90))" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(rgba(45,59,44,0.88), rgba(45,59,44,0.92))" }} />
+        {/* Abstract decorative layer — bottom ~40% under text/card UI */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[1]"
+          style={{ height: "42%" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG layer */}
+          <img
+            src="/membership-abstract.svg"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-bottom"
+          />
+        </div>
         <div className="container-fluid relative z-10">
           {/* Centered header */}
           <div className="text-center mb-8" data-aos="fade-in-up">
@@ -406,8 +473,22 @@ export default function HomePage() {
                         </div>
                       </div>
                       <div className="md:col-span-5 col-span-12">
-                        <div className="relative rounded-xl overflow-hidden" style={{ minHeight: 360 }}>
-                          <Image src={t.image} alt={`${t.author}, ${t.role}`} fill className="object-cover" />
+                        <div
+                          className="relative rounded-2xl overflow-hidden mx-auto"
+                          style={{
+                            minHeight: "clamp(420px, 55vh, 520px)",
+                            width: "100%",
+                            maxWidth: 420,
+                            aspectRatio: "3 / 4",
+                          }}
+                        >
+                          <Image
+                            src={t.image}
+                            alt={`${t.author}, ${t.role}`}
+                            fill
+                            className="object-cover object-top"
+                            sizes="(max-width: 768px) 100vw, 420px"
+                          />
                         </div>
                       </div>
                     </div>

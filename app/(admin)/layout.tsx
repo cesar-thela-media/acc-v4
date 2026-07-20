@@ -27,7 +27,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen md:h-screen md:overflow-hidden" style={{ background: "var(--color-cream-100)" }}>
       <AdminNav />
-      <main className="flex-1 min-w-0 overflow-visible md:h-screen md:overflow-y-auto pt-20 md:pt-0" style={{ background: "var(--color-cream-100)", color: "var(--color-text-primary)" }}>
+      <main className="flex-1 min-w-0 overflow-visible md:h-screen md:overflow-y-auto pt-14" style={{ background: "var(--color-cream-100)", color: "var(--color-text-primary)" }}>
         <div className="container-fluid py-8 md:py-10">{children}</div>
       </main>
     </div>

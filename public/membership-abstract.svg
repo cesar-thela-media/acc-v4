@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" fill="none" aria-hidden="true">
+  <!-- Soft abstract shapes for Membership/pricing bottom layer -->
+  <defs>
+    <radialGradient id="g1" cx="30%" cy="80%" r="55%">
+      <stop offset="0%" stop-color="#C2963A" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#8FA88A" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#C2963A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g2" cx="78%" cy="70%" r="48%">
+      <stop offset="0%" stop-color="#E8D5A3" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#4A5E48" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#2D3B2C" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="g3" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C2963A" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="280" cy="420" rx="420" ry="220" fill="url(#g1)"/>
+  <ellipse cx="920" cy="380" rx="360" ry="200" fill="url(#g2)"/>
+  <path d="M0 320 C200 260 380 400 560 300 C740 200 900 340 1200 260 L1200 480 L0 480 Z" fill="url(#g3)" opacity="0.85"/>
+  <circle cx="160" cy="360" r="90" fill="#C2963A" opacity="0.12"/>
+  <circle cx="1040" cy="300" r="120" fill="#E8D5A3" opacity="0.14"/>
+  <path d="M480 400 C560 300 680 300 760 380 C700 420 560 440 480 400Z" fill="#ffffff" opacity="0.06"/>
+</svg>

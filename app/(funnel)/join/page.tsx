@@ -149,7 +149,7 @@ export default function JoinPage() {
         <div
           aria-hidden="true"
           className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 60% 50% at 50% 40%, rgba(194,150,58,0.14) 0%, transparent 65%)" }}
+          style={{ background: "radial-gradient(ellipse 80% 60% at 50% 38%, rgba(194,150,58,0.42) 0%, rgba(194,150,58,0.18) 45%, transparent 74%)" }}
         />
         <div className="relative max-w-md text-center">
           <div
@@ -191,7 +191,7 @@ export default function JoinPage() {
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 30%, rgba(194,150,58,0.14) 0%, transparent 65%)" }}
+        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 28%, rgba(194,150,58,0.42) 0%, rgba(194,150,58,0.18) 45%, transparent 74%)" }}
       />
       <div className="relative max-w-7xl mx-auto px-5 lg:px-16 xl:px-16">
         <div className="flex lg:flex-row flex-col items-start justify-center gap-10 lg:gap-16">

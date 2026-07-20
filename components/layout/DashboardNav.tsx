@@ -7,6 +7,12 @@ import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { MobileSidePanel } from "@/components/layout/MobileSidePanel";
 import { SignOutAction } from "@/components/auth/SignOutAction";
+import {
+  isExactOrChildPath,
+  isFreeTierPath,
+  partitionShellLinks,
+  shellActiveStyle,
+} from "@/lib/navShell";
 
 const icons: Record<string, React.ReactNode> = {
   Overview:   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>,
@@ -18,93 +24,152 @@ const icons: Record<string, React.ReactNode> = {
   Billing:    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>,
 };
 
-const navLinks = [
+const featureLinks = [
   { href: "/dashboard", label: "Overview", icon: icons.Overview },
   { href: "/dashboard/resources", label: "Resources", icon: icons.Resources },
   { href: "/dashboard/files", label: "Files", icon: icons.Files },
   { href: "/dashboard/events", label: "Events", icon: icons.Events },
   { href: "/dashboard/network", label: "Network", icon: icons.Network },
+];
+
+const settingsLinks = [
   { href: "/dashboard/profile", label: "Profile", icon: icons.Profile },
   { href: "/dashboard/billing", label: "Billing", icon: icons.Billing },
 ];
 
-// Free-tier preview only gets the one page it actually has — every other
-// section is paid-only, so showing them in nav would look like a paid member.
-const freeNavLinks = [
+const freeFeatureLinks = [
   { href: "/dashboard/free", label: "Overview", icon: icons.Overview },
 ];
+
+const SETTINGS_HREFS = settingsLinks.map((l) => l.href);
 
 export function DashboardNav() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isFreeTier = pathname?.startsWith("/dashboard/free");
-  const activeNavLinks = isFreeTier ? freeNavLinks : navLinks;
+  const [profileOpen, setProfileOpen] = useState(false);
+  const isFreeTier = isFreeTierPath(pathname);
+  const homeHref = isFreeTier ? "/dashboard/free" : "/dashboard";
+  const sidebarFeatures = isFreeTier ? freeFeatureLinks : featureLinks;
+  const { features: mobileFeatures, settings: mobileSettings } = partitionShellLinks(
+    isFreeTier ? freeFeatureLinks : [...featureLinks, ...settingsLinks],
+    SETTINGS_HREFS,
+  );
 
-  // Close the mobile menu when the route changes — adjusting state during
-  // render instead of an effect, since this syncs with a prop-like value.
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
     setMobileOpen(false);
+    setProfileOpen(false);
   }
 
   return (
     <>
-      <div
-        className="md:hidden fixed top-0 left-0 right-0 z-40 py-3 px-4 flex items-center justify-between"
+      {/* Top app bar — brand logo lives here (not in the sidebar) */}
+      <header
+        className="fixed top-0 left-0 right-0 z-40 h-14 flex items-center justify-between gap-3 px-4"
         style={{
-          background: "rgba(45,59,44,0.96)",
-          borderBottom: "1px solid rgba(255,255,255,0.12)",
-          backdropFilter: "blur(16px)",
+          background: "rgba(45,59,44,0.97)",
+          borderBottom: "1px solid rgba(255,255,255,0.10)",
         }}
       >
-        <Link
-          href={isFreeTier ? "/dashboard/free" : "/dashboard"}
-          className="shrink-0 flex items-center gap-2"
-          aria-label="The Circle"
-        >
-          <Image src="/logo-mark.png" alt="" width={2000} height={732} className="h-12 w-auto object-contain" />
+        <Link href={homeHref} className="shrink-0 flex items-center gap-2" aria-label="The Circle">
+          <Image
+            src="/logo-mark.png"
+            alt=""
+            width={160}
+            height={58}
+            className="h-10 w-auto object-contain"
+            priority
+          />
         </Link>
+        <p className="hidden md:block text-sm font-medium mr-auto" style={{ color: "rgba(255,255,255,0.72)" }}>
+          Member dashboard
+        </p>
 
-        <button
-          type="button"
-          onClick={() => setMobileOpen(true)}
-          className="flex items-center justify-center w-10 h-10 rounded-full"
-          style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}
-          aria-label="Open dashboard menu"
-        >
-          <Menu size={18} />
-        </button>
-      </div>
+        <div className="flex items-center gap-2 ml-auto">
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setProfileOpen((o) => !o)}
+              className="flex items-center gap-2 rounded-xl px-2 py-1.5 text-sm"
+              style={{ background: "rgba(255,255,255,0.08)", color: "#fff" }}
+              aria-expanded={profileOpen}
+              aria-haspopup="menu"
+              aria-label="Account menu"
+            >
+              <span
+                className="w-8 h-8 rounded-xl flex items-center justify-center text-xs font-semibold"
+                style={{ background: "rgba(194,150,58,0.35)", color: "#fff" }}
+              >
+                ME
+              </span>
+              <span className="hidden sm:inline">Account</span>
+            </button>
+            {profileOpen && (
+              <div
+                role="menu"
+                className="absolute right-0 mt-2 w-48 rounded-xl py-1 z-50"
+                style={{
+                  background: "#2D3B2C",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+                }}
+              >
+                {(isFreeTier ? [] : settingsLinks).map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    role="menuitem"
+                    onClick={() => setProfileOpen(false)}
+                    className="block px-3 py-2 text-sm hover:bg-white/10"
+                    style={{ color: isExactOrChildPath(pathname, link.href) ? "#fff" : "rgba(255,255,255,0.78)" }}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <div className="px-1 py-1" style={{ borderTop: "1px solid rgba(255,255,255,0.10)" }}>
+                  <SignOutAction
+                    className="flex w-full items-center gap-2 px-2 py-2 rounded-lg text-sm hover:bg-white/10"
+                    style={{ color: "rgba(255,255,255,0.68)" }}
+                    onSignedOut={() => setProfileOpen(false)}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
 
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl"
+            style={{ background: "rgba(255,255,255,0.1)", color: "#fff" }}
+            aria-label="Open dashboard menu"
+          >
+            <Menu size={18} />
+          </button>
+        </div>
+      </header>
+
+      {/* Feature sidebar — offerings only; logo is on the top navbar */}
       <aside
-        className="hidden md:flex w-56 shrink-0 h-screen overflow-hidden flex-col py-6 px-3"
+        className="hidden md:flex fixed top-14 left-0 bottom-0 w-56 z-30 flex-col py-4 px-3"
         style={{
           background: "var(--color-sage-800)",
           borderRight: "1px solid rgba(255, 255, 255, 0.10)",
         }}
       >
-        <Link
-          href={isFreeTier ? "/dashboard/free" : "/dashboard"}
-          className="mb-6 flex items-center justify-center gap-2"
-          aria-label="The Circle"
-        >
-          <Image src="/logo-mark.png" alt="" width={2000} height={732} className="h-14 w-auto object-contain" />
-        </Link>
-
-        <nav className="flex flex-col gap-1">
-          {activeNavLinks.map((link) => {
-            const active = pathname === link.href;
+        <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "rgba(255,255,255,0.4)" }}>
+          Features
+        </p>
+        <nav className="flex flex-col gap-0.5">
+          {sidebarFeatures.map((link) => {
+            const active = isExactOrChildPath(pathname, link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300"
-                style={{
-                  background: active ? "rgba(194,150,58,0.18)" : "transparent",
-                  color: active ? "#C2963A" : "rgba(255,255,255,0.78)",
-                  borderLeft: active ? "3px solid #C2963A" : "3px solid transparent",
-                }}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150"
+                style={shellActiveStyle(active)}
               >
                 <span className="text-base leading-none">{link.icon}</span>
                 {link.label}
@@ -112,39 +177,31 @@ export function DashboardNav() {
             );
           })}
         </nav>
-
-        <div
-          className="mt-auto pt-6"
-          style={{ borderTop: "1px solid rgba(255, 255, 255, 0.12)" }}
-        >
-          <SignOutAction
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium w-full transition-all duration-300 hover:bg-white/10"
-            style={{ color: "rgba(255,255,255,0.68)" }}
-          />
-        </div>
       </aside>
+
+      {/* Spacer so main content clears fixed sidebar on desktop */}
+      <div className="hidden md:block w-56 shrink-0" aria-hidden="true" />
 
       <MobileSidePanel
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         background="var(--color-sage-800)"
         borderColor="rgba(255,255,255,0.10)"
-        title={<Image src="/logo-mark.png" alt="The Circle" width={2000} height={732} className="h-12 w-auto object-contain" />}
+        title={<Image src="/logo-mark.png" alt="The Circle" width={160} height={58} className="h-12 w-auto object-contain" />}
       >
-        <nav className="flex flex-col gap-2">
-          {activeNavLinks.map((link) => {
-            const active = pathname === link.href;
+        <p className="px-4 mb-2 text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "rgba(255,255,255,0.4)" }}>
+          Features
+        </p>
+        <nav className="flex flex-col gap-1">
+          {mobileFeatures.map((link) => {
+            const active = isExactOrChildPath(pathname, link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-300"
-                style={{
-                  background: active ? "rgba(194,150,58,0.18)" : "transparent",
-                  color: active ? "#C2963A" : "rgba(255,255,255,0.78)",
-                  borderLeft: active ? "3px solid #C2963A" : "3px solid transparent",
-                }}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150"
+                style={shellActiveStyle(active)}
               >
                 <span className="text-base leading-none">{link.icon}</span>
                 {link.label}
@@ -152,10 +209,33 @@ export function DashboardNav() {
             );
           })}
         </nav>
-
+        {mobileSettings.length > 0 && (
+          <>
+            <p className="px-4 mt-6 mb-2 text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color: "rgba(255,255,255,0.4)" }}>
+              Account
+            </p>
+            <nav className="flex flex-col gap-1">
+              {mobileSettings.map((link) => {
+                const active = isExactOrChildPath(pathname, link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150"
+                    style={shellActiveStyle(active)}
+                  >
+                    <span className="text-base leading-none">{link.icon}</span>
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </>
+        )}
         <div className="mt-auto pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.12)" }}>
           <SignOutAction
-            className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium w-full transition-all duration-300 hover:bg-white/10"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium w-full transition-colors duration-150 hover:bg-white/10"
             style={{ color: "rgba(255,255,255,0.72)" }}
             onSignedOut={() => setMobileOpen(false)}
           />

@@ -44,14 +44,19 @@ export function PublicNav() {
   return (
     <header className="sticky top-0 z-40 p-4 pt-4" style={{ background: "transparent" }}>
       <div className="max-w-7xl mx-auto w-full">
+        {/* Bezel rectangle (phone-like corners) — not a stadium/pill (rounded-full). */}
         <nav
-          className="w-full flex items-center h-fit justify-between gap-3.5 lg:gap-6 p-2.5 rounded-full shadow-xl"
-          style={{ background: "var(--color-sage-800)" }}
+          className="w-full flex items-center h-fit justify-between gap-3.5 lg:gap-6 p-2.5 rounded-2xl shadow-xl"
+          style={{
+            background: "var(--color-sage-800)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            boxShadow: "0 8px 28px rgba(26,26,26,0.18), inset 0 1px 0 rgba(255,255,255,0.08)",
+          }}
         >
           <div className="flex items-center justify-center gap-5 pl-2">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="The Circle">
-              <Image src="/logo-mark.png" alt="" width={2000} height={732} className="h-14 w-auto object-contain" />
+              <Image src="/logo-mark.png" alt="" width={160} height={58} className="h-14 w-auto object-contain" priority />
             </Link>
 
             <Separator
@@ -69,8 +74,13 @@ export function PublicNav() {
                     <NavigationMenuItem key={item.name}>
                       <NavigationMenuLink
                         render={<Link href={item.href} />}
-                        className="px-2 lg:px-4 py-1.5 text-base rounded-full transition tracking-normal whitespace-nowrap hover:bg-white/10"
-                        style={{ color: active ? "var(--color-sage-800)" : "rgba(255,255,255,0.7)", fontWeight: active ? 500 : 400 }}
+                        className="px-2 lg:px-4 py-1.5 text-base rounded-xl transition tracking-normal whitespace-nowrap hover:bg-white/10"
+                        style={{
+                          /* Active must stay light on sage-800 — sage-on-sage made links invisible. */
+                          color: active ? "#fff" : "rgba(255,255,255,0.72)",
+                          fontWeight: active ? 600 : 400,
+                          background: active ? "rgba(255,255,255,0.12)" : "transparent",
+                        }}
                       >
                         {item.name}
                       </NavigationMenuLink>
@@ -85,14 +95,15 @@ export function PublicNav() {
           <div className="hidden lg:flex items-center gap-2">
             <Link
               href="/sign-in"
-              className="h-10 flex items-center px-5 text-sm font-medium rounded-full transition-colors hover:bg-white/10"
+              className="h-10 flex items-center px-5 text-sm font-medium rounded-xl transition-colors hover:bg-white/10"
               style={{ color: "#fff" }}
             >
-              Login
+              Log in
             </Link>
             <Button
               render={<Link href="/join" />}
-              className="h-10 px-5 rounded-full cursor-pointer"
+              nativeButton={false}
+              className="h-10 px-5 rounded-xl cursor-pointer"
               style={{ background: "#fff", color: "var(--color-sage-800)" }}
             >
               Join the Circle
@@ -107,7 +118,7 @@ export function PublicNav() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full border p-2 h-10 w-10 cursor-pointer"
+                    className="rounded-xl border p-2 h-10 w-10 cursor-pointer"
                     style={{ borderColor: "rgba(255,255,255,0.3)", color: "#fff" }}
                   />
                 }
@@ -119,9 +130,9 @@ export function PublicNav() {
                 <ScrollArea className="h-full">
                   <SheetHeader className="p-4">
                     <SheetTitle className="text-left">
-                      <Image src="/logo-mark.png" alt="The Circle" width={2000} height={732} className="h-12 w-auto object-contain" />
+                      <Image src="/logo-mark.png" alt="The Circle" width={160} height={58} className="h-12 w-auto object-contain" />
                     </SheetTitle>
-                    <SheetClose className="absolute top-4 right-4 rounded-full bg-black text-white p-2.5 cursor-pointer">
+                    <SheetClose className="absolute top-4 right-4 rounded-xl bg-black text-white p-2.5 cursor-pointer">
                       <X size={16} />
                     </SheetClose>
                   </SheetHeader>
@@ -146,14 +157,15 @@ export function PublicNav() {
                       <Link
                         href="/sign-in"
                         onClick={() => setIsOpen(false)}
-                        className="text-center py-2.5 rounded-full text-sm border"
+                        className="text-center py-2.5 rounded-xl text-sm border"
                         style={{ borderColor: "rgba(45,59,44,0.2)", color: "#1A1A1A" }}
                       >
-                        Login
+                        Log in
                       </Link>
                       <Button
                         render={<Link href="/join" onClick={() => setIsOpen(false)} />}
-                        className="w-full rounded-full h-10 cursor-pointer"
+                        nativeButton={false}
+                        className="w-full rounded-xl h-10 cursor-pointer"
                         style={{ background: "var(--color-sage-800)", color: "#fff" }}
                       >
                         Join the Circle

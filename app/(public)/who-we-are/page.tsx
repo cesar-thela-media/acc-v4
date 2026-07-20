@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Award, MapPin, Building2, ArrowUpRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/shadcn/card";
 
-const PARCHMENT = "#F0EDE6";
-const SAGE_800 = "#2D3B2C";
-const SAGE_600 = "#4A5E48";
+/** Page color language: lighter mid-sage (matches founder block), not deep charcoal. */
+const PAGE_SAGE = "#4A5E48";
+const PAGE_SAGE_SOFT = "#5A6E58";
+const PAGE_CREAM = "#E8EDE4";
 const AMBER = "#C2963A";
+const SAGE_800 = "#2D3B2C";
 
 const values = [
   {
@@ -39,7 +40,7 @@ export default function WhoWeArePage() {
       {/* Founder — feature-21's 6-1-5 split-with-floating-card layout. Now the
           first section on the page (moved ahead of Origin). Page heading folded
           into the top of this section instead of its own separate block. */}
-      <section style={{ background: SAGE_600, padding: "clamp(4rem,8vw,6rem) 0" }}>
+      <section style={{ background: PAGE_SAGE, padding: "clamp(4rem,8vw,6rem) 0" }}>
         <div className="container-fluid">
           <div className="text-center mb-12 md:mb-16">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5" style={{ color: AMBER }}>
@@ -165,11 +166,9 @@ export default function WhoWeArePage() {
         </div>
       </section>
 
-      {/* Origin — restyled per the Restored Family "Our Story"/"The Beginning" reference:
-          larger serif heading, more generous body type. Title (eyebrow + heading)
-          is centered; body copy stays left-aligned for readability. */}
-      <section style={{ background: "#fff", padding: "clamp(4.5rem,9vw,7rem) 1.5rem" }}>
-        <div className="container-fluid max-w-3xl mx-auto">
+      {/* Origin — wider measure so body reads ~3–4 lines at desktop (not over-narrow). */}
+      <section style={{ background: PAGE_CREAM, padding: "clamp(4.5rem,9vw,7rem) 1.5rem" }}>
+        <div className="container-fluid max-w-4xl mx-auto">
           <p
             className="text-[11px] font-medium uppercase tracking-[0.28em] mb-5 text-center"
             style={{ color: AMBER }}
@@ -188,8 +187,8 @@ export default function WhoWeArePage() {
             Why The Circle exists.
           </h2>
           <div
-            className="flex flex-col gap-6 text-lg leading-[1.6] text-center px-4 sm:px-8"
-            style={{ color: "var(--color-text-secondary)" }}
+            className="flex flex-col gap-6 text-lg leading-[1.65] text-center px-2 sm:px-4"
+            style={{ color: "var(--color-text-secondary)", maxWidth: "48rem", margin: "0 auto" }}
           >
             <p>
               Most of us didn&apos;t fully anticipate how solo private practice would
@@ -214,13 +213,13 @@ export default function WhoWeArePage() {
         </div>
       </section>
 
-      {/* Values ("What we believe") — feature-02 header + card-01 cards */}
-      <section style={{ background: PARCHMENT, padding: "clamp(2.5rem,5vw,4.5rem) 0" }}>
+      {/* Values — full-bleed image cards; text floats on blurred/softened image region (no hard divider). */}
+      <section style={{ background: PAGE_SAGE_SOFT, padding: "clamp(2.5rem,5vw,4.5rem) 0" }}>
         <div className="container-fluid">
           <div className="max-w-lg mx-auto text-center mb-10 flex flex-col items-center gap-4">
             <span
               className="text-sm px-3 py-1 rounded-full h-auto w-fit"
-              style={{ border: "1px solid rgba(194,150,58,0.4)", color: AMBER }}
+              style={{ border: "1px solid rgba(194,150,58,0.55)", color: AMBER }}
             >
               What we believe
             </span>
@@ -230,7 +229,7 @@ export default function WhoWeArePage() {
                 fontFamily: "var(--font-serif), Georgia, serif",
                 fontWeight: 400,
                 fontSize: "clamp(2rem, 4.2vw, 3rem)",
-                color: SAGE_800,
+                color: "#fff",
               }}
             >
               The values that shape The Circle.
@@ -238,33 +237,76 @@ export default function WhoWeArePage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value) => (
-              <Card key={value.title} className="p-0 w-full gap-0 border-0 overflow-hidden" style={{ background: "#fff" }}>
-                <Image src={value.img} alt={value.title} width={500} height={220} className="w-full object-cover" style={{ aspectRatio: "500 / 220" }} />
-                <CardContent className="p-6 pt-5">
-                  <h3 className="text-lg font-semibold leading-snug" style={{ color: SAGE_800 }}>{value.title}</h3>
-                  <p className="text-sm font-medium mt-2" style={{ color: "var(--color-text-secondary)" }}>{value.body}</p>
-                </CardContent>
-              </Card>
+              <article
+                key={value.title}
+                className="relative w-full overflow-hidden rounded-2xl"
+                style={{ minHeight: 420, aspectRatio: "3 / 4" }}
+              >
+                <Image
+                  src={value.img}
+                  alt={value.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+                {/* Softened lower region so text stays readable over the full image */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0"
+                  style={{
+                    height: "58%",
+                    background:
+                      "linear-gradient(to top, rgba(45,59,44,0.92) 0%, rgba(45,59,44,0.55) 55%, transparent 100%)",
+                    backdropFilter: "blur(6px)",
+                    WebkitBackdropFilter: "blur(6px)",
+                    maskImage: "linear-gradient(to top, black 40%, transparent 100%)",
+                  }}
+                />
+                <div className="absolute inset-x-0 bottom-0 p-6 pt-16 z-10">
+                  <h3 className="text-lg font-semibold leading-snug" style={{ color: "#fff" }}>
+                    {value.title}
+                  </h3>
+                  <p className="text-sm font-medium mt-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.88)" }}>
+                    {value.body}
+                  </p>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA — cta-07's centered heading + slide-reveal button */}
+      {/* Image-forward CTA — photo clearly visible (soft center scrim), unique asset /cta-3.jpg */}
       <section
-        className="text-center relative overflow-hidden"
-        style={{ background: SAGE_800, padding: "clamp(3rem,6vw,5.5rem) 1.5rem" }}
+        className="relative overflow-hidden flex items-center justify-center text-center"
+        style={{ minHeight: "clamp(24rem, 52vw, 32rem)" }}
       >
+        <Image
+          src="/cta-3.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          priority={false}
+        />
+        {/* Light overall dim + soft center vignette so faces stay visible (not solid green wash). */}
         <div
           aria-hidden="true"
+          className="absolute inset-0"
           style={{
-            position: "absolute",
-            inset: 0,
-            background: "radial-gradient(ellipse 55% 45% at 50% 50%, rgba(194,150,58,0.07) 0%, transparent 65%)",
-            pointerEvents: "none",
+            background:
+              "linear-gradient(to bottom, rgba(20,28,20,0.35) 0%, rgba(20,28,20,0.28) 40%, rgba(20,28,20,0.5) 100%)",
           }}
         />
-        <div className="relative max-w-2xl mx-auto">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 55% at 50% 48%, rgba(20,28,20,0.42) 0%, transparent 70%)",
+          }}
+        />
+        <div className="relative z-10 max-w-3xl mx-auto px-6" style={{ padding: "clamp(3rem,6vw,5.5rem) 1.5rem" }}>
           <h2
             className="mb-8 leading-tight"
             style={{
@@ -272,20 +314,21 @@ export default function WhoWeArePage() {
               fontWeight: 400,
               fontSize: "clamp(2rem, 4.5vw, 3.25rem)",
               color: "#fff",
+              textShadow: "0 2px 24px rgba(0,0,0,0.35)",
             }}
           >
             This is the community you&apos;ve been looking for.
           </h2>
           <Link
             href="/join"
-            className="relative text-sm font-medium rounded-full h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden inline-flex items-center mx-auto"
+            className="relative text-sm font-medium rounded-xl h-12 p-1 ps-6 pe-14 group transition-all duration-500 hover:ps-14 hover:pe-6 w-fit overflow-hidden inline-flex items-center mx-auto"
             style={{ background: AMBER, color: "#fff" }}
           >
             <span className="relative z-10 transition-all duration-500">
               Apply for membership
             </span>
             <span
-              className="absolute right-1 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-44px)] group-hover:rotate-45"
+              className="absolute right-1 w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:right-[calc(100%-44px)] group-hover:rotate-45"
               style={{ background: "#fff", color: AMBER }}
             >
               <ArrowUpRight size={16} />
